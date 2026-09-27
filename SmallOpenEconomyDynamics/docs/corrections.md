@@ -1,17 +1,47 @@
 # Corrections to the source
 
-Places where a claim in Chapter 2 of Obstfeld and Rogoff (1996) is
-false, imprecise, or relies on an unstated hypothesis. In each case the Lean
-statement proves the corrected version and cites the original. Entries are
-recorded when found, before the corresponding module is written, and are
-revised if formalisation shows the finding itself to be wrong.
+Places where a claim in Chapter 2 of Obstfeld and Rogoff (1996), or in its
+Supplements A–C, is false, imprecise, or relies on an unstated hypothesis. In
+each case the Lean statement proves the corrected version and cites the
+original. Entries marked *(phase 2b)* concern sections not yet formalised and
+record the finding from the initial survey.
+
+## Claims that are wrong or need a changed statement
 
 | Where | Book says | Finding |
 | --- | --- | --- |
-| (2.65), p. 107; repeated p. 124 | Forward solution for q with subscripts s + 1 inside Σ_{s=t+1} (1+r)^{−(s−t)}. | Index typo: iterating (2.64) gives subscripts s. Eq. (2.70) uses the correct indexing. |
-| Supplement A, p. 716 | Kuhn–Tucker conditions are necessary and sufficient for concave f and convex constraints. | Necessity needs a constraint qualification (counterexample: maximise z subject to z² ≤ 0). Harmless for the book's linear constraint; only that case is formalised. |
-| fn 13, p. 78 | Σ_{s>t} R_{t,s} r_s = 1. | Needs R_{t,s} → 0, stated as a hypothesis. |
-| Ex 3 (exercises pp. 124–127) | log C is a random walk with constant drift. | Needs constant conditional variance of log C. |
-| Ex 5 (exercises pp. 124–127) | The Campbell test holds “if and only if”. | The converse needs a no-bubble condition, lim (1+r)^{−T} E_t CA_{t+T} = 0. |
-| Supplement C.1.3 | Bubble solutions have the form b₀aᵗ. | In a stochastic setting they are all processes with E_t b_{t+1} = a b_t. |
-| Supplement C (C15), (C18) | Eigenvector and steady-state formulas. | Need a₂₁ ≠ 0 and 1 − tr A + det A ≠ 0 respectively; stated. |
+| (2.65), p. 107; repeated p. 124 | `q_t = Σ_{s=t+1}^∞ (1 + r)^{−(s−t)} [A_{s+1}F_K(K_{s+1}, L_{s+1}) + (χ/2)(I_{s+1}/K_{s+1})²]`. | Index typo: iterating (2.64) gives the same sum and discount with subscripts `s`. Under the model's own hypotheses the printed series sums to `q_{t+1}`, not `q_t` (`TobinQ.book_formula_sums_to_next_q`), and equals `q_t` only if `q_{t+1} = q_t`. The corrected formula is `TobinQ.q_forward_solution`; (2.70) on p. 112 already uses the correct indexing. |
+| Ex 1(b), p. 124 | The intertemporal budget constraint holds “for any `ξ > 0`”. | False for large `ξ`. The discounted trade balances form a geometric series with ratio `[1 + (1 − ξ)r]/(1 + r)`, which converges iff `0 < ξ < 2 + 2/r`. Proved for that range (`BudgetConstraint.ex1_ibc`); for `ξr ≥ 2(1 + r)` and `B₀ ≠ 0` the present value does not exist (`BudgetConstraint.ex1_not_summable`). The book's “small fraction” case is covered. |
+| p. 65 | Foreign debt cannot exceed the present value of output net of `G` and `I`. | The sharp bound is `−(1 + r)B_t ≤ PV(Y − G − I)` (`BudgetConstraint.debt_limit`). The form `−B_t ≤ PV(Y − G − I)` holds for a debtor (`debt_limit_debtor`) but can fail for a creditor when the present value is negative. Needs `C ≥ 0` and summable present values; `K ≥ 0` is not needed. |
+| p. 68 | `Y/(r − g)` is the market value of a claim to all future output. | It is `Σ_{v≥0} (1 + r)^{−(v+1)} Y_{s+v}`: output from date `s` on, valued at the start of date `s`, the same timing as `B_s`. Needs `−1 < g < r` (`BudgetConstraint.output_claim_value`). |
+| fn 13, p. 78 | `Σ_{s>t} R_{t,s} r_s = 1`. | Needs `R_{t,s} → 0`. It fails when all rates are zero (`PresentValue.rate_mul_varDisc_zero_rates`). Proved with the hypothesis and nonnegative rates (`PresentValue.hasSum_rate_mul_varDisc`). |
+| Supplement C, fn 13, p. 729 | The forward sum converges “when (and only when)” `|a| > 1`. | Convergence is a growth condition on the forcing term, not on `a` alone. Proved under `|m_t| ≤ M gᵗ` with `0 ≤ g < |a|` (`LinearDifferenceEquations.forward_summable`). |
+| Supplement C, p. 730 | `b₀ > 0` explodes and `b₀ < 0` implodes, “irrespective of `m`”. | For `a < −1` the bubble term oscillates, and “irrespective of `m`” needs `m` to grow more slowly than `|a|ᵗ`. Proved: `b₀ ≠ 0` makes the solution unbounded for bounded `m`, or violates transversality in the growth case (`LinearDifferenceEquations.forward_plus_bubble_unbounded`, `scalar_forward_unique_of_growth`). |
+| Supplement A, p. 716 | The Kuhn–Tucker conditions are necessary and sufficient for concave objectives and convex constraints. | Necessity needs a constraint qualification: maximise `z` subject to `z² ≤ 0` has optimum `z = 0` but no multiplier. Harmless for the book's linear budget constraint. Not formalised; the optimality results use the Euler equation directly (`ConsumptionOptimality`). |
+| Ex 3 *(phase 2b)* | `log C` is a random walk with constant drift. | Needs a constant conditional variance of `log C`. |
+| Ex 5 *(phase 2b)* | The Campbell test holds “if and only if”. | The converse needs a no-bubble condition `lim (1 + r)^{−T} E_t CA_{t+T} = 0`. |
+| Supplement C.1.3 *(phase 2b)* | Bubble solutions of the stochastic forward equation are `b₀aᵗ`. | They are all processes with `E_t b_{t+1} = a b_t`. |
+| fn 8, p. 71 | If `(1 + r)^{σ−1}β^σ > 1`, no optimum exists, and this needs `σ > 1`. | Both hold with `≥`: at equality consumption grows at exactly `1 + r` and its present value still diverges. Proved for `≥` (`ConsumptionFunctions.crra_no_optimum`, `one_lt_sigma_of_one_le_tilt`), the latter needing `0 < β < 1`, `r > 0`, `σ > 0`. |
+| Ex 2 | Survival probability `φ` turns the expected utility into `Σ (φβ)^s u(C_s)`. | Interchanging the two sums needs `Σ (φβ)^s |u(C_s)| < ∞`, `0 ≤ φ < 1` and `β ≥ 0`; stated explicitly (`ConsumptionFunctions.uncertain_lifetime_sum`). |
+| SA.2, pp. 718–721 | The CRRA value function is `J(W) = ΘW^{1−1/σ}/(1 − 1/σ)`. | What is shown there, and proved here, is that this `J` satisfies the Bellman equation with the stated policy as unique maximiser (`ConsumptionFunctions.crra_bellman_isGreatest`). That `J` is the value function needs a verification argument not given in the book; optimality of the policy itself is proved directly from the Euler equation (`crra_isOptimal`). |
+
+## Hypotheses the book leaves implicit
+
+| Where | Implicit hypothesis | How it is stated |
+| --- | --- | --- |
+| p. 66, throughout | Every discounted quantity grows at a net rate below `r`. | Explicit `Summable` hypotheses on each present value; `PresentValue.summable_of_growth` derives them from a growth bound. |
+| (2.4), p. 61 | A single horizon's budget identity does not imply the period constraints. | The equivalence is between (2.4) at every horizon and (2.2) at every date (`BudgetConstraint.flow_iff_finite_ibc`). |
+| p. 63 | An optimum exists. | Not assumed. Sufficiency (`ConsumptionOptimality.isOptimal_of_euler`) and necessity (`pv_eq_of_optimal`, `euler_of_optimal`) are proved separately; admissible paths are positive with summable present value and lifetime utility. |
+| pp. 62, 65 | The Euler equation with the budget constraint characterises the optimum. | Needs `u` concave (sufficiency) and strictly concave (uniqueness): `ConsumptionOptimality.lifetimeUtility_lt_of_euler`. |
+| (2.64)–(2.69) | Capital and `χ` are nonzero; `F_K` is strictly decreasing for a unique steady state. | Explicit hypotheses of the `TobinQ` theorems. |
+| SC p. 736 | The saddle configuration `0 < ω₂ < 1 < ω₁` is derived for Cobb–Douglas with `r > 0`. | Needs only `1 + r > 0` and `F_KK < 0` (`TobinQ.omega_saddle`); in general, `det A > 0` and `1 − tr A + det A < 0` (`LinearDifferenceEquations.saddle_roots_of_charpoly_one_neg`). |
+| p. 109; SC(19)–(21) | The saddle path is “the” path from a given capital stock. | Proved for the linear system among bounded solutions. Uniqueness needs only `|ω₁| > 1`, existence `|ω₂| < 1` (`LinearDifferenceEquations.saddle_path_unique`, `saddle_path_exists`, `TobinQ.saddle_path_unique`). |
+| SC(15), p. 733 | Eigenvector formulas. | Need `a₂₁ ≠ 0`; the second form also needs `ω_i ≠ a₁₁`, guaranteed when `a₁₂ ≠ 0` (`LinearDifferenceEquations.root_ne_a11`). |
+| SC(18), p. 734 | Steady-state formula. | Needs `1 − tr A + det A = (1 − ω₁)(1 − ω₂) ≠ 0`, automatic in the saddle case. |
+| (2.70), p. 112 | Marginal equals average `q`. | Needs `F` homogeneous of degree one (Euler's theorem is derived, `TobinQ.euler_of_homogeneous`), the labour first-order condition, and a no-bubble condition on `q_s K_{s+1}`. |
+
+## Not formalised in phase 2a
+
+* The global nonlinear phase diagrams for the `q` model (Figures 2.9–2.11). The linearised system is fully treated.
+* The intertemporal budget constraint (2.71), which needs the household side of §2.5.
+* The stochastic forward solution SC(11)–(12), C.2.5 and SC(23): phase 2b, with the rest of the stochastic material.

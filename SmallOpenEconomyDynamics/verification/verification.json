@@ -1,10 +1,17 @@
 {
-  "checked_at_utc": "2026-09-27T07:19:55.686974+00:00",
-  "theorems": 1,
+  "checked_at_utc": "2026-09-27T07:54:29.369361+00:00",
+  "theorems": 222,
   "module_theorems": {
-    "SmallOpenEconomyDynamics/Model.lean": 1
+    "SmallOpenEconomyDynamics/Model.lean": 1,
+    "SmallOpenEconomyDynamics/PresentValue.lean": 31,
+    "SmallOpenEconomyDynamics/BudgetConstraint.lean": 32,
+    "SmallOpenEconomyDynamics/ConsumptionOptimality.lean": 15,
+    "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean": 12,
+    "SmallOpenEconomyDynamics/ConsumptionFunctions.lean": 30,
+    "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean": 56,
+    "SmallOpenEconomyDynamics/TobinQ.lean": 45
   },
-  "audited_declarations": 14,
+  "audited_declarations": 270,
   "declarations": [
     {
       "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy",
@@ -75,6 +82,1286 @@
       "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.flow_iff",
       "kind": "theorem",
       "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.disc",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.disc_pos",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.disc_lt_one",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.one_add_mul_disc",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.discounted_telescope",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.tendsto_discounted",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.discounted_tendsto_zero_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.noPonzi_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.forward_telescope",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.forward_solution_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.tendsto_bubble",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.hasSum_disc_pow",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.sum_range_disc_pow",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.permanent",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_const",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_permanent",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_add",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_sub",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_smul",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.permanent_add",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.permanent_sub",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.permanent_const",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_eq_head_add",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.summable_of_growth",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_geometric",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_zero",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_succ",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_pos",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_sub_succ",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_telescope",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_tendsto_zero_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.hasSum_rate_mul_varDisc",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.rate_mul_varDisc_zero_rates",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/PresentValue.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.tradeBalance",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.shiftPaths",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.residual",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.flow_iff_recursion",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.flow_shiftPaths",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.finite_identity",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.finite_ibc",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.flow_iff_finite_ibc",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.tendsto_terminal",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.transversality_iff_ibc",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.noPonzi_iff_ibc_le",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.terminal_pos_iff_ibc_lt",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.debt_limit",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.debt_limit_debtor",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.pv_tradeBalance",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ibc_iff_trade_surplus",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.transversality_iff_trade_surplus",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.steady_ratio_trade_balance",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.output_claim_value",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.steady_ratio_burden",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.steady_ratio_transversality",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.naive_path",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.naive_tendsto_atTop",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.naive_tendsto_atBot",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.naive_limit_zero_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.naive_transversality_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_recursion",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_path",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_discounted_tb",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_ibc",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_transversality",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_not_summable",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_consumption",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_debt_unbounded",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_eventually_infeasible",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/BudgetConstraint.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.concave_le_tangent'",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.strictConcave_lt_tangent",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.lifetimeUtility",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.Admissible",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.IsOptimal",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.euler_iterate",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.discounted_marginal_utility",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.tsum_eq_add_of_eqOn_compl",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.isOptimal_of_euler",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.lifetimeUtility_lt_of_euler",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.pv_eq_of_optimal",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.euler_of_optimal",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.deriv_lt_of_strictConcave'",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.tilt_up",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.tilt_down",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.flat_of_beta_mul",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.continuation_optimal",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.strotz_mrs_differ",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionOptimality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.wealth",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.currentAccount",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.flat_consumption_level",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.annuity_wealth",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.fundamental_current_account",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.fundamental_current_account_of_flat",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.permanent_shock_no_ca",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.temporary_shock_ca",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.geometric_consumption_level",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.tilted_current_account",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.tilted_current_account_of_growth",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.tilt_term_neg_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.variable_rate_current_account",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.variable_rate_current_account_flat",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.finite_horizon_consumption",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.finite_horizon_tendsto",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.wealth_unchanged_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.annuity_wealth_constant",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraMU",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraGrowth",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraTilt",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_hasDerivAt",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_strictConcaveOn",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_euler_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_euler_path_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraGrowth_eq",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_consumption_function",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_isOptimal",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_no_optimum",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.one_lt_sigma_of_one_le_tilt",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_consumption_strictAnti_beta",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.log_isOptimal",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.beta_mul_crraGrowth_rpow",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraGrowth_rpow_neg_inv",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraTheta",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraValue",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_bellman_fixed_point",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_bellman_strict_max",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_bellman_isGreatest",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_policy_formula",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourUtility",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourMUC",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourMUL",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourUtility_eq",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourUtility_hasDerivAt_C",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourUtility_hasDerivAt_leisure",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labour_intratemporal_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labour_consumption_growth",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labour_tilt_up_of_wage_growth",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.hasSum_survival_weights",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.uncertain_lifetime_sum",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.expected_utility_uncertain_lifetime",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/ConsumptionFunctions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.ScalarSolves",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.SeqBounded",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_general_solution",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_homogeneous_solution",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_add_homogeneous",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_particular_solution",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_particular_solves",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.capital_accumulation_solution",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_stable_bounded",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.backwardSolution",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_backward_solution",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_backward_unique",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.bubble_coeff_eq_zero",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forwardSolution",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forward_term_bound",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forward_summable",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forward_growth_bound",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_forward_solution",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.transversality_of_growth",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_forward_general_solution",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_forward_unique_of_transversality",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_forward_unique_of_growth",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_forward_unique_of_bounded",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forward_bounded",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forward_plus_bubble_unbounded",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.asset_value_no_bubble",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.SystemSolves",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.charpoly_factor",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.trace_det_eq_roots",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.vieta_of_distinct_roots",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.exists_distinct_real_roots",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.discriminant_pos_of_charpoly_one_neg",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.one_sub_trace_add_det",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.saddle_roots_of_charpoly_one_neg",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.charpoly_root",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.eigvec_eq",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.eigvec_alt_form",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.root_ne_a11",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.eigvec_distinct",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.eigvec_matrix_inverse",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.eigvec_diagonalizes",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.steady_state",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.steady_state_unique",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.charpoly_one_ne_zero_of_saddle",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.decouple",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_const_mul",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.decoupled_system",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.decoupled_reconstruct",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.recouple",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.seqBounded_lin_comb",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.saddle_path_unique",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.saddle_path_exists",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.saddle_path_constant_solves",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.saddle_path_constant_unique",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.lag_polynomial_factor",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.seqBounded_shift",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.polynomial_factorization_row1",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.polynomial_factorization_row2",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.companion_of_second_order",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.second_order_of_companion",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.companion_lag_polynomial",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.forward_iterate",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.tail_of_hasSum",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasSum_of_tail",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.bubble_identity",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.bubble_overvalues",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.marginalEarnings",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_lagrangian_investment",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.investment_foc_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_lagrangian_capital",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.capital_foc_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.q_forward_solution",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.book_formula_sums_to_next_q",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.book_formula_eq_q_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.exact_dynamics",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.steady_state_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.steady_state_unique",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.capital_stationary_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_capital_dynamics_q",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_capital_dynamics_K",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_q_dynamics_q",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_q_dynamics_K",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_q_dynamics_quadratic",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.dq_locus",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.qMatrix",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.qMatrix_det_trace",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.qCharPoly",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.qDisc",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.omegaStable",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.omegaUnstable",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.qDisc_eq",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.omega_roots",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.omega_saddle",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.cobbDouglas_curvature",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.IsLinearQPath",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.saddle_path_solves",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.saddle_path_tendsto",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.saddle_q_above_one_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.saddle_monotone",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.saddle_path_unique",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.euler_of_homogeneous",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.dividend",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hayashi_step",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.marginal_q_eq_average_q",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.rate_of_return_form",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_hasDerivAt_investment",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_hasDerivAt_capital",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_system",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_steady_state_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.text_cost_homogeneous",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_cost_not_homogeneous",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9Dividend",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_step",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_average_q_gap",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_counterexample",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/TobinQ.lean"
     }
   ],
   "full_build": "passed",
@@ -153,20 +1440,1307 @@
       "propext",
       "Classical.choice",
       "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.disc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.disc_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.disc_lt_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.one_add_mul_disc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.discounted_telescope": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.tendsto_discounted": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.discounted_tendsto_zero_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.noPonzi_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.forward_telescope": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.forward_solution_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.tendsto_bubble": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.hasSum_disc_pow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.sum_range_disc_pow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.permanent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_const": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_permanent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_add": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_sub": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_smul": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.permanent_add": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.permanent_sub": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.permanent_const": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_eq_head_add": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.summable_of_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.pv_geometric": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_succ": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_sub_succ": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_telescope": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.varDisc_tendsto_zero_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.hasSum_rate_mul_varDisc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue.rate_mul_varDisc_zero_rates": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.tradeBalance": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.shiftPaths": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.residual": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.flow_iff_recursion": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.flow_shiftPaths": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.finite_identity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.finite_ibc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.flow_iff_finite_ibc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.tendsto_terminal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.transversality_iff_ibc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.noPonzi_iff_ibc_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.terminal_pos_iff_ibc_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.debt_limit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.debt_limit_debtor": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.pv_tradeBalance": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ibc_iff_trade_surplus": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.transversality_iff_trade_surplus": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.steady_ratio_trade_balance": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.output_claim_value": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.steady_ratio_burden": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.steady_ratio_transversality": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.naive_path": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.naive_tendsto_atTop": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.naive_tendsto_atBot": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.naive_limit_zero_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.naive_transversality_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_recursion": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_path": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_discounted_tb": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_ibc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_transversality": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_not_summable": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_debt_unbounded": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.BudgetConstraint.ex1_eventually_infeasible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.concave_le_tangent'": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.strictConcave_lt_tangent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.lifetimeUtility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.Admissible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.IsOptimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.euler_iterate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.discounted_marginal_utility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.tsum_eq_add_of_eqOn_compl": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.isOptimal_of_euler": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.lifetimeUtility_lt_of_euler": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.pv_eq_of_optimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.euler_of_optimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.deriv_lt_of_strictConcave'": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.tilt_up": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.tilt_down": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.flat_of_beta_mul": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.continuation_optimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionOptimality.strotz_mrs_differ": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.wealth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.currentAccount": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.flat_consumption_level": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.annuity_wealth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.fundamental_current_account": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.fundamental_current_account_of_flat": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.permanent_shock_no_ca": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.temporary_shock_ca": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.geometric_consumption_level": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.tilted_current_account": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.tilted_current_account_of_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.tilt_term_neg_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.variable_rate_current_account": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.FundamentalCurrentAccount.variable_rate_current_account_flat": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.finite_horizon_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.finite_horizon_tendsto": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.wealth_unchanged_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.annuity_wealth_constant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraMU": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraGrowth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraTilt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_strictConcaveOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_euler_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_euler_path_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraGrowth_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_consumption_function": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_isOptimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_no_optimum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.one_lt_sigma_of_one_le_tilt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_consumption_strictAnti_beta": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.log_isOptimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.beta_mul_crraGrowth_rpow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraGrowth_rpow_neg_inv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraTheta": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crraValue": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_bellman_fixed_point": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_bellman_strict_max": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_bellman_isGreatest": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.crra_policy_formula": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourUtility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourMUC": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourMUL": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourUtility_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourUtility_hasDerivAt_C": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labourUtility_hasDerivAt_leisure": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labour_intratemporal_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labour_consumption_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.labour_tilt_up_of_wage_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.hasSum_survival_weights": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.uncertain_lifetime_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.expected_utility_uncertain_lifetime": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.ScalarSolves": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.SeqBounded": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_general_solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_homogeneous_solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_add_homogeneous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_particular_solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_particular_solves": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.capital_accumulation_solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_stable_bounded": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.backwardSolution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_backward_solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_backward_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.bubble_coeff_eq_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forwardSolution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forward_term_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forward_summable": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forward_growth_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_forward_solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.transversality_of_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_forward_general_solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_forward_unique_of_transversality": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_forward_unique_of_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_forward_unique_of_bounded": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forward_bounded": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.forward_plus_bubble_unbounded": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.asset_value_no_bubble": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.SystemSolves": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.charpoly_factor": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.trace_det_eq_roots": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.vieta_of_distinct_roots": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.exists_distinct_real_roots": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.discriminant_pos_of_charpoly_one_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.one_sub_trace_add_det": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.saddle_roots_of_charpoly_one_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.charpoly_root": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.eigvec_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.eigvec_alt_form": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.root_ne_a11": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.eigvec_distinct": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.eigvec_matrix_inverse": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.eigvec_diagonalizes": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.steady_state": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.steady_state_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.charpoly_one_ne_zero_of_saddle": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.decouple": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_const_mul": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.decoupled_system": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.decoupled_reconstruct": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.recouple": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.seqBounded_lin_comb": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.saddle_path_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.saddle_path_exists": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.saddle_path_constant_solves": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.saddle_path_constant_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.lag_polynomial_factor": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.seqBounded_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.polynomial_factorization_row1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.polynomial_factorization_row2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.companion_of_second_order": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.second_order_of_companion": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.companion_lag_polynomial": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.forward_iterate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.tail_of_hasSum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasSum_of_tail": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.bubble_identity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.bubble_overvalues": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.marginalEarnings": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_lagrangian_investment": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.investment_foc_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_lagrangian_capital": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.capital_foc_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.q_forward_solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.book_formula_sums_to_next_q": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.book_formula_eq_q_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.exact_dynamics": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.steady_state_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.steady_state_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.capital_stationary_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_capital_dynamics_q": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_capital_dynamics_K": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_q_dynamics_q": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_q_dynamics_K": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hasDerivAt_q_dynamics_quadratic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.dq_locus": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.qMatrix": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.qMatrix_det_trace": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.qCharPoly": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.qDisc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.omegaStable": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.omegaUnstable": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.qDisc_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.omega_roots": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.omega_saddle": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.cobbDouglas_curvature": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.IsLinearQPath": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.saddle_path_solves": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.saddle_path_tendsto": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.saddle_q_above_one_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.saddle_monotone": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.saddle_path_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.euler_of_homogeneous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.dividend": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.hayashi_step": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.marginal_q_eq_average_q": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.rate_of_return_form": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_hasDerivAt_investment": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_hasDerivAt_capital": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_system": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_steady_state_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.text_cost_homogeneous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_cost_not_homogeneous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9Dividend": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_step": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_average_q_gap": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_counterexample": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
     ]
   },
   "source_sha256": {
     "SmallOpenEconomyDynamics/Model.lean": "d9c8691588a2874d7d2368aae22eb926ce5c390a04ea3d789c934422020bb17a",
-    "SmallOpenEconomyDynamics.lean": "5e19f092910b1d5396b0717fb5e4d0aae8fca9c432d0889cdcca26f54be8b239",
+    "SmallOpenEconomyDynamics/PresentValue.lean": "0351c0bdffd04be04b55c07b23ecb04139ea8a2e80bceaf083e20cde6cb8986b",
+    "SmallOpenEconomyDynamics/BudgetConstraint.lean": "35ada72134d85d1a766dc2d16bbe9ba108d9e5854391d0f47220d79bf6222eff",
+    "SmallOpenEconomyDynamics/ConsumptionOptimality.lean": "65fa2c8bad417b0b5ba7fd80bf86cd65a2306ecc0746c91b8888b2ca5f826d4a",
+    "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean": "8413d2cb93c5a61c4f0fc04a6d1027b4609b9d70931d6ee0e02c79452d93086d",
+    "SmallOpenEconomyDynamics/ConsumptionFunctions.lean": "93d6f06c0fbed7960760a0d50ab622d9589515d932412ee8400ece33e36b1581",
+    "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean": "5f1db7c244f0a1ff6fb6cb8e4e03175d5fae213027d4b595a304ef18483ce5c2",
+    "SmallOpenEconomyDynamics/TobinQ.lean": "4850e48d8408559d99b065543d4be8cc3bfcbb0d7d023c7acc020ca3e22bf8ae",
+    "SmallOpenEconomyDynamics.lean": "0815f95cec08f7eef3fefa9d5ec68d0f286d36877dd1b3f79a288220fae42d2f",
     "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
     "lakefile.toml": "d69da63c22028765b9c1b0c8afe0014f822a6fb4dd7f85677e3fb4c33fe2cb0e",
     "lake-manifest.json": "225eb85930596c04d2ea1da05e8c9d6f293784d023952699e871f2c9fe453d53",
-    "proof-manifest.json": "31b26ff9ca6f7fe5301e475ea363ba5a7ebb192735424eb3a48cdf2063409fb8",
+    "proof-manifest.json": "d1fac652bc354205ad55bb3c4d55a2e6de45cfa1093c1cf2ba5e9b5aee5faab3",
     "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
   },
-  "fresh_audit_sha256": "49b5878089e47e4dc8ad20ca7867bfdbc044c7571e271dad844e3ac2cd095b8d",
+  "fresh_audit_sha256": "452d7b4b1ec469eecf545b8b52e524cb079e40f44ac54d05d81f4b439ca7428a",
   "lean_toolchain": "leanprover/lean4:v4.34.0",
-  "scope": "Obstfeld and Rogoff (1996), Chapter 2 and its Supplements A-C: dynamics of small open economies. Phase 0 scaffold: the many-period small open economy, its current account, and the two forms of the period budget constraint.",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 2 and Supplements A-C: dynamics of small open economies. Phase 2a (deterministic core): present values and discounted telescoping; the period budget constraints plus transversality are equivalent to the intertemporal budget constraint, no-Ponzi, solvency and debt limits; sufficiency and necessity of the Euler equation, binding budget, tilt, dynamic consistency, Strotz; finite and infinite-horizon consumption functions, CRRA optimality and non-existence, the CRRA Bellman fixed point, endogenous labour; the fundamental current-account equation in flat, tilted and variable-rate forms; Tobin's q with the corrected forward solution, saddle-path theorem and marginal = average q; linear difference equations (Supplement C); Exercises 1, 2 and 9.",
   "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 2, pp. 59-128, and Supplements to Chapter 2, pp. 715-741."
 }

@@ -6,42 +6,62 @@ Run the commands below from this directory: `cd SmallOpenEconomyDynamics` from t
 root. [Return to the library index](../README.md).
 
 A checked formalisation of Obstfeld and Rogoff (1996), *Foundations of
-International Macroeconomics*, Chapter 2, “Dynamics of Small Open Economies” (pp. 59–128), and the Supplements to Chapter 2, A–C (pp. 715–741).
+International Macroeconomics*, Chapter 2, “Dynamics of Small Open Economies”
+(pp. 59–128), and the Supplements to Chapter 2, A–C (pp. 715–741).
 
-The infinite-horizon small open economy: the intertemporal budget
-constraint and transversality, consumption functions, the fundamental
-current-account equation, Hall's random walk and the present-value test of the
-current account, durables, firms and asset pricing, Tobin's q, trend growth,
-and the supporting methods of Supplements A–C (intertemporal optimisation,
-nonadditive preferences, linear difference equations).
+**Status: phase 2a, the deterministic core.** The library contains **222
+theorems** and audits **270 declarations**. The stochastic model, the
+present-value test of the current account, durables, firms and Appendices 2A–2B
+are phase 2b.
 
-**Status: phase 0 scaffold.** The library currently contains **1 theorem**,
-the model primitives the chapter builds on. The planned modules are listed
-below. See the [source map](docs/source-map.md) for the correspondence with the
-book, and [corrections](docs/corrections.md) for the places where a printed
-claim is false or imprecise and the Lean statement differs.
+Headline results, in the namespace `ObstfeldRogoff.SmallOpenEconomyDynamics`:
+* **The intertemporal budget constraint.** The period constraints plus the
+  transversality condition are equivalent to the intertemporal budget constraint,
+  O&R (2.13) ⇔ (2.14) (`BudgetConstraint.transversality_iff_ibc`). A single
+  discounted-telescoping lemma underlies this and the asset-pricing forward
+  solution (`PresentValue.discounted_tendsto_zero_iff`,
+  `PresentValue.forward_solution_iff`).
+* **Optimal consumption without assuming an optimum exists.** With concave
+  utility, the Euler equation plus a binding budget constraint is sufficient
+  (`ConsumptionOptimality.isOptimal_of_euler`); at an optimum both are necessary
+  (`pv_eq_of_optimal`, `euler_of_optimal`). The CRRA path is optimal exactly when
+  `(1 + r)^{σ−1}β^σ < 1` (`ConsumptionFunctions.crra_isOptimal`,
+  `crra_no_optimum`).
+* **The fundamental current-account equation**
+  `CA = (Y − Ỹ) − (I − Ĩ) − (G − G̃)`, O&R (2.18), with its tilted and
+  variable-rate forms (`FundamentalCurrentAccount.fundamental_current_account`).
+* **Tobin's q.** The saddle-path theorem: real roots `0 < ω₂ < 1 < ω₁`, and the
+  saddle path is the unique bounded solution (`TobinQ.omega_saddle`,
+  `TobinQ.saddle_path_unique`). Marginal q equals average q
+  (`TobinQ.marginal_q_eq_average_q`).
+
+See the [source map](docs/source-map.md) for the correspondence with the book.
+[Corrections](docs/corrections.md) records where the printed text is wrong. Most
+notably, the forward solution (2.65) for `q` has an index error: as printed it
+sums to `q_{t+1}`, not `q_t`. And Exercise 1(b)'s “for any `ξ > 0`” fails for
+`ξ ≥ 2 + 2/r`.
 
 ## Library map
 
 | Module | Theorems | Contents |
 | --- | ---: | --- |
-| [Model](SmallOpenEconomyDynamics/Model.lean) | 1 | Many-period economy, current account (2.2), period constraint forms (2.2) ⇔ (2.3) |
+| [Model](SmallOpenEconomyDynamics/Model.lean) | 1 | Many-period economy, current account (2.2), period-constraint forms (2.2) ⇔ (2.3) |
+| [PresentValue](SmallOpenEconomyDynamics/PresentValue.lean) | 31 | Discounted telescoping, transversality ⇔ IBC, no-Ponzi, forward solution and bubbles, permanent value (2.17), geometric sums, growth below `r`, variable rates and fn 13 |
+| [BudgetConstraint](SmallOpenEconomyDynamics/BudgetConstraint.lean) | 32 | (2.4), (2.13) ⇔ (2.14), no-Ponzi, debt limit, trade-surplus solvency, steady debt ratio, naive limit (2.12), Ex 1 |
+| [ConsumptionOptimality](SmallOpenEconomyDynamics/ConsumptionOptimality.lean) | 15 | Euler sufficiency and strict optimality, binding budget, Euler necessity, tilt, dynamic consistency, Strotz |
+| [FundamentalCurrentAccount](SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean) | 12 | (2.10), fundamental equation (2.18), permanent vs temporary shocks, tilted (2.20) and variable-rate (2.26) forms |
+| [ConsumptionFunctions](SmallOpenEconomyDynamics/ConsumptionFunctions.lean) | 30 | (2.9), fn 2, CRRA (2.15)–(2.16) optimality and non-existence, fn 8, CRRA Bellman fixed point (SA.2), endogenous labour, Ex 2 |
+| [LinearDifferenceEquations](SmallOpenEconomyDynamics/LinearDifferenceEquations.lean) | 56 | Supplement C: scalar backward/forward solutions and bubble-free uniqueness, 2×2 diagonalisation, steady state, saddle-path existence and uniqueness, companion form |
+| [TobinQ](SmallOpenEconomyDynamics/TobinQ.lean) | 45 | (2.62)–(2.70): FOCs, corrected forward solution, exact dynamics, linearisation, saddle-path theorem, marginal = average q, bubbles, Ex 9 |
 
-## Planned modules
+## Planned modules (phase 2b)
 
 | Module | Contents |
 | --- | --- |
-| PresentValue | Summable-guarded present values, permanent value (2.17), recursion + tail → 0 ⇒ PV identity, Σ R_{t,s} r_s = 1 |
-| BudgetConstraint | Finite IBC (2.4), (2.2) + (2.13) ⇔ (2.14), no-Ponzi inequality, solvency, naive limit (2.12), Ex 1 |
-| ConsumptionOptimality | Euler necessity, sufficiency under concavity, tilt, uniqueness, SA.1, dynamic consistency, Strotz, Ex 2 |
-| ConsumptionFunctions | (2.9), (2.10), CRRA (2.15)–(2.16), fn 8, SA.2 closed form, endogenous labour |
-| FundamentalCurrentAccount | (2.18), (2.20), variable rates (2.25)–(2.26) |
 | StochasticConsumption | Hall martingale (2.31), certainty equivalence (2.32), AR(1) (2.33)–(2.38), (2.40), precautionary saving, Ex 3, Ex 4 |
 | PresentValueTest | Campbell (2.43), Ex 5, Ex 6, VAR forecast (2.45) |
 | Durables | User cost (2.47), (2.48)–(2.51) |
 | FirmsAndWealth | Asset pricing (2.53)–(2.57), V = K (2.59), (2.60)–(2.61), Modigliani–Miller |
-| TobinQ | (2.63)–(2.67), corrected (2.65), saddle path, marginal q = average q (2.70), Ex 9 |
-| LinearDifferenceEquations | Supplement C: scalar and 2×2 systems, saddle solutions |
 | TrendGrowth | Appendix 2A (2.74)–(2.77), Appendix 2B (2.78), Supplement B steady state |
 
 ## Build and verify
