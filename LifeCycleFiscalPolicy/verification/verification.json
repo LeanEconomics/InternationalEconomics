@@ -1,10 +1,20 @@
 {
-  "checked_at_utc": "2026-09-27T07:19:59.834333+00:00",
-  "theorems": 2,
+  "checked_at_utc": "2026-09-27T09:22:34.669718+00:00",
+  "theorems": 288,
   "module_theorems": {
-    "LifeCycleFiscalPolicy/Model.lean": 2
+    "LifeCycleFiscalPolicy/Model.lean": 2,
+    "LifeCycleFiscalPolicy/RicardianEquivalence.lean": 41,
+    "LifeCycleFiscalPolicy/TwoPeriodOLG.lean": 12,
+    "LifeCycleFiscalPolicy/DeficitTransfer.lean": 20,
+    "LifeCycleFiscalPolicy/DemographicsSaving.lean": 16,
+    "LifeCycleFiscalPolicy/SmallOpenDiamond.lean": 33,
+    "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean": 29,
+    "LifeCycleFiscalPolicy/TwoCountryOLG.lean": 48,
+    "LifeCycleFiscalPolicy/PerpetualYouth.lean": 64,
+    "LifeCycleFiscalPolicy/DynamicInefficiency.lean": 14,
+    "LifeCycleFiscalPolicy/TaxSmoothing.lean": 9
   },
-  "audited_declarations": 10,
+  "audited_declarations": 365,
   "declarations": [
     {
       "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG",
@@ -55,6 +65,1781 @@
       "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.euler",
       "kind": "theorem",
       "module": "LifeCycleFiscalPolicy/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.IsOptimal",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan",
+      "kind": "structure",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan.mk",
+      "kind": "constructor",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan.C1",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan.I1",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan.C2",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan.I2",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.twoPeriodBudgetSet",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.two_period_merged_constraint",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.two_period_budgetSet_eq_of_pv_eq",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.two_period_budgetSet_eq_government",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.two_period_optimum_invariant",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.retiming_pv_eq",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.privateSaving",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.governmentSaving",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.retiming_saving_date_one",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.retiming_saving_date_two",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.ricDisc",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.one_add_mul_ricDisc",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.ric_discounted_telescope",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.ric_transversality_iff_ibc",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.private_ibc_of_flow",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.government_ibc_of_flow",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.merged_ibc",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.privatePVSet",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.privatePVSet_eq_of_government_ibc",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.private_optimum_invariant",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.dynasty_ibc",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.utility_iterate",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.tendsto_utility_remainder",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.utility_eq_tsum_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.gale_shift_solution",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.gale_solutions_differ",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.gale_shift_limit",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.gale_shift_ne_tsum",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.miserUtility",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.miser_recursion",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.miser_limit",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.miser_ne_tsum",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.bequestPath",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.bequestPath_flow",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.eq_bequestPath",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.transferTax",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.bequestPath_transfer_one",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.bequestPath_transfer_of_two_le",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.dynastyPVSet",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.dynastyFeasible",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.hasSum_transferTax",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.dynastyPVSet_transfer",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.dynastyFeasible_subset_pv",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.tendsto_bequest_transfer_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.feasible_transfer_of_small",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.transfer_to_old_feasible_subset",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.feasible_of_transfer_feasible",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.interior_bequest_neutrality",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.transferConsumption",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.bequestPath_transferConsumption",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.transfer_relaxes_binding_bequest",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.binding_bequest_feasible_ssubset",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/RicardianEquivalence.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.lifetimeWealth",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.aggregate_consumption_steady",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.aggregate_consumption_government",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.consumption_depends_on_youth_tax",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.consumption_increasing_in_government_assets",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.current_account_split",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.old_saving",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.private_saving",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.young_saving_flat",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.private_saving_flat",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.generational_account_invariant",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.generational_account_consumption",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.taxes_by_generation",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoPeriodOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.youngWealthChange",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.laterWealthChange",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.youngWealthChange_eq",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.laterWealthChange_eq",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.young0_consumption_change",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption0_change",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption0_change_lt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.old1_consumption_change",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.later_young_consumption_change",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.later_old_consumption_change",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption1_change",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption1_rises_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption1_sign_ambiguous",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption_later_falls",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption_later_change",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption_later_change_flat",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.share_of_flat",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.current_account1_change",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.current_account_later_zero",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.balanced_transfer_consumption",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.transitory_shock_current_account",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.log_share",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DeficitTransfer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.saving_rate_growth",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.savingRate",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.hasDerivAt_savingRate_e",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.savingRate_e_deriv_neg",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.hasDerivAt_savingRate_g",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.savingRate_g_deriv_pos_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.saving_rate_population",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.hasDerivAt_saving_rate_population",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.three_period_optimal",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_unconstrained_saving",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_constraint_binds_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_constrained_saving",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_saving_rate_unconstrained",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_saving_rate_constrained",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_unconstrained_rate_anti_e",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_constrained_rate_mono_e",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1d_saving",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DemographicsSaving.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.capLabour",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.wageOf",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.mpk_capLabour",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.capLabour_unique",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.mpl_capLabour",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.wage_hasDerivAt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.young_saving_per_capita",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.steady_foreign_assets",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.steady_current_account_sign",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.savingPerCapita",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.saving_per_capita_eq",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.savingPerCapita_hasDerivAt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.savingPerCapita_deriv_pos",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.investPerCapita",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.invest_per_capita_eq",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.investPerCapita_hasDerivAt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.investPerCapita_deriv_pos_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.capital",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.output",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.capital_output_ratio_of_mpk",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.output_eq_labour_mul",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.capital_output_ratio",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.output_closed_form",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.output_growth",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.investment_share",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.wage_bill_share",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.log_young_saving",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.log_old_saving",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.young_saving_closed_form",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.youngSaving",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.saving",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.foreignAssets",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.savingRate",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.assetRatio",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.youngSaving_share",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.saving_share",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.asset_share",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.current_account_share",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.savingRate_strictMono_n",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.savingRate_strictMono_g",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.investShare_strictMono",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.assetRatio_strictMono_beta",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.assetRatio_strictMono_r",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.assetRatio_neg_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/SmallOpenDiamond.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.lifetimeUtility",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility_frontier",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility_autarky",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.autarky_utility_slope_neg",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.old_income_hasDerivAt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.income_equivalent_autarky",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.pv_generation_losses",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.aggregate_first_order_zero",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.compensation_scheme",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility_open",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.income_equivalent_open",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.open_generation_gains_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.open_economywide_gain",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.dateT_young_predetermined_hasDerivAt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility_growth",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.growth_slope_pos_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.wageCD",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.capitalCD",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_wageCD",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.capitalCD_div_wageCD",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.wageCD_pos",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.autarkyRateCD",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.capitalCD_autarky",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.lifetimeUtility_wageCD",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility_CD",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.utilityMinRateCD",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.slope_CD_pos_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.lifetimeUtility_CD_strictMonoOn",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.lifetimeUtility_CD_strictAntiOn",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.everyone_worse_off_corrected",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.lifetimeUtility_CD_tendsto_atTop",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.exists_rate_below_autarky_young_gain",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.counterexample_everyone_worse_off",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry",
+      "kind": "structure",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.mk",
+      "kind": "constructor",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.\u03b1",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.\u03b2",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.n",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.x",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.\u03b1_pos",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.\u03b1_lt_one",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.\u03b2_pos",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.n_gt",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.x_pos",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.x_le_one",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.iterate_tendsto_of_below",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.iterate_tendsto_of_above",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.strictConcave_chord_lt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.coef",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.kbar",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rate",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.coef_pos",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.kbar_pos",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_zero",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_kbar",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_fixed_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_strictMonoOn",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.coef_kbar_div",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_between_below",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_between_above",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_continuous",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_global_convergence",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.zero_unstable",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rbarOf",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rate_kbar",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.tax_eq",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.law_of_motion_debt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_zero",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_eq",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.crowding_bracket_pos",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_hasDerivAt_debt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_strictAnti_debt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_lt_psi",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_hasDerivAt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_deriv_strictAnti",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_strictMonoOn",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_strictConcaveOn",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_gap_strictConcaveOn",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.steady_state_pattern",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.steady_state_at_most_two",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.upper_steady_state_attracts",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.IsUpperSteadyState",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.kbar_isUpper",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_le_add_kbar",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.exists_two_steady_states",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.no_steady_state_of_large_debt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.crowding_out",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.steady_state_lt_kbar",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rate_rises",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rbar_le_n_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.exists_alpha_rbar_le_n",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rbar_tendsto_zero",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.tax_nonpos_of_rate_le",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreignUtility",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreignUtility_hasDerivAt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreignUtility_deriv_pos_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreignUtility_deriv_neg_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreignUtility_strictMonoOn",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreign_welfare_falls_with_debt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TwoCountryOLG.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.perpetual_finite_budget",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.perpetual_ibc_of_flow",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.perpetual_consumption_of_euler",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_consumption_function",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.vintageSize",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.vintageAgg",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.sum_vintageSize",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.vintageAgg_const",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.vintageAgg_affine",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.vintageAgg_congr",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_aggregate_consumption_general",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_aggregate_consumption",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_aggregate_accumulation",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_law_of_motion",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_hasSum_const",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSlope",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilIntercept",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyB",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_law_of_motion_const",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_affine_iterate",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyB_fixed",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyB_unique",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_converges",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_not_converges",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_stable_of_impatient",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyB_pos_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_steady_consumption",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_eq_consumption_function",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_closed",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_hasDerivAt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_slope_pos_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_zero_growth",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_neg_of_unstable",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyB_falls",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_rises",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_hasSum_transitory",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_transitory_jump",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_transitory_return",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_hasSum_growth",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_growth_law",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_growth_ratio_law",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.growthSteadyRatio",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.growthSteadyRatio_fixed",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.growthSteadyRatio_pos_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.growthSteadyRatio_partial_fractions",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.growthSteadyRatio_strictAntiOn",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_unit_tilt_law",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_unit_tilt_steady",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_unit_tilt_zero_growth",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_transitory_consumption_jump",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_debt_tax",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_debt_consumption",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_debt_consumption_change",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_ricardian_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_debt_path_consumption",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_debt_path_consumption_book",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_population",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_annuity_zero_profit",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_budget",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_consumption_function",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_hasSum_const",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_aggregate_accumulation",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_aggregate_consumption",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_law_of_motion",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchardSteadyB",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_debt_tax",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchardSteadyB_private_fixed",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchardSteadyB_debt",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_debt_lowers",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_steady_consumption",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchardSteadyB_ricardian",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/PerpetualYouth.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.steadyConsumption",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.steady_state_iff",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.transitionConsumption",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.golden_rule_max",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.hasDerivAt_steadyConsumption",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.steadyConsumption_ge_of_lower",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.transition_gain",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.exists_lower_capital",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.pareto_improvement_of_dynamically_inefficient",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.transition_loss_of_more_capital",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.steadyConsumption_lt_of_lower_efficient",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.ponzi_ratio_tendsto_zero",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.ponzi_ratio_ge",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.bubble_affordable",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.bubble_unaffordable",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.efficiency_iff_profit_share",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/DynamicInefficiency.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.taxDisc",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/TaxSmoothing.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.hasSum_taxDisc_pow",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TaxSmoothing.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.consolidated_wealth",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TaxSmoothing.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.consumption_lower_of_distortion",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TaxSmoothing.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.pv_sq_ge_of_pv_eq",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TaxSmoothing.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.pv_sq_gt_of_pv_eq",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TaxSmoothing.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.constant_tax_optimal",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TaxSmoothing.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.constant_tax_level",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TaxSmoothing.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.deficit_eq_spending_gap",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TaxSmoothing.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.government_assets_constant",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/TaxSmoothing.lean"
     }
   ],
   "full_build": "passed",
@@ -113,20 +1898,1801 @@
       "propext",
       "Classical.choice",
       "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.IsOptimal": [],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan.C1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan.I1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan.C2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.TwoPeriodPlan.I2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.twoPeriodBudgetSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.two_period_merged_constraint": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.two_period_budgetSet_eq_of_pv_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.two_period_budgetSet_eq_government": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.two_period_optimum_invariant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.retiming_pv_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.privateSaving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.governmentSaving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.retiming_saving_date_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.retiming_saving_date_two": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.ricDisc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.one_add_mul_ricDisc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.ric_discounted_telescope": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.ric_transversality_iff_ibc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.private_ibc_of_flow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.government_ibc_of_flow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.merged_ibc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.privatePVSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.privatePVSet_eq_of_government_ibc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.private_optimum_invariant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.dynasty_ibc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.utility_iterate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.tendsto_utility_remainder": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.utility_eq_tsum_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.gale_shift_solution": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.gale_solutions_differ": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.gale_shift_limit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.gale_shift_ne_tsum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.miserUtility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.miser_recursion": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.miser_limit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.miser_ne_tsum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.bequestPath": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.bequestPath_flow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.eq_bequestPath": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.transferTax": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.bequestPath_transfer_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.bequestPath_transfer_of_two_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.dynastyPVSet": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.dynastyFeasible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.hasSum_transferTax": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.dynastyPVSet_transfer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.dynastyFeasible_subset_pv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.tendsto_bequest_transfer_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.feasible_transfer_of_small": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.transfer_to_old_feasible_subset": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.feasible_of_transfer_feasible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.interior_bequest_neutrality": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.transferConsumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.bequestPath_transferConsumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.transfer_relaxes_binding_bequest": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.RicardianEquivalence.binding_bequest_feasible_ssubset": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.lifetimeWealth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.aggregate_consumption_steady": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.aggregate_consumption_government": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.consumption_depends_on_youth_tax": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.consumption_increasing_in_government_assets": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.current_account_split": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.old_saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.private_saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.young_saving_flat": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.private_saving_flat": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.generational_account_invariant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.generational_account_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoPeriodOLG.taxes_by_generation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.youngWealthChange": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.laterWealthChange": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.youngWealthChange_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.laterWealthChange_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.young0_consumption_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption0_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption0_change_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.old1_consumption_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.later_young_consumption_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.later_old_consumption_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption1_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption1_rises_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption1_sign_ambiguous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption_later_falls": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption_later_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.consumption_later_change_flat": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.share_of_flat": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.current_account1_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.current_account_later_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.balanced_transfer_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.transitory_shock_current_account": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DeficitTransfer.log_share": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.saving_rate_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.savingRate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.hasDerivAt_savingRate_e": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.savingRate_e_deriv_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.hasDerivAt_savingRate_g": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.savingRate_g_deriv_pos_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.saving_rate_population": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.hasDerivAt_saving_rate_population": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.three_period_optimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_unconstrained_saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_constraint_binds_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_constrained_saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_saving_rate_unconstrained": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_saving_rate_constrained": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_unconstrained_rate_anti_e": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1_constrained_rate_mono_e": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DemographicsSaving.ex1d_saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.capLabour": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.wageOf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.mpk_capLabour": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.capLabour_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.mpl_capLabour": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.wage_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.young_saving_per_capita": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.steady_foreign_assets": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.steady_current_account_sign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.savingPerCapita": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.saving_per_capita_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.savingPerCapita_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.savingPerCapita_deriv_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.investPerCapita": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.invest_per_capita_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.investPerCapita_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.investPerCapita_deriv_pos_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.capital": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.output": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.capital_output_ratio_of_mpk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.output_eq_labour_mul": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.capital_output_ratio": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.output_closed_form": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.output_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.investment_share": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.wage_bill_share": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.log_young_saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.log_old_saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.young_saving_closed_form": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.youngSaving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.foreignAssets": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.savingRate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.assetRatio": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.youngSaving_share": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.saving_share": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.asset_share": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.current_account_share": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.savingRate_strictMono_n": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.savingRate_strictMono_g": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.investShare_strictMono": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.assetRatio_strictMono_beta": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.assetRatio_strictMono_r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.SmallOpenDiamond.Growth.assetRatio_neg_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.lifetimeUtility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility_frontier": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility_autarky": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.autarky_utility_slope_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.old_income_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.income_equivalent_autarky": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.pv_generation_losses": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.aggregate_first_order_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.compensation_scheme": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility_open": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.income_equivalent_open": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.open_generation_gains_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.open_economywide_gain": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.dateT_young_predetermined_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.growth_slope_pos_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.wageCD": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.capitalCD": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_wageCD": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.capitalCD_div_wageCD": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.wageCD_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.autarkyRateCD": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.capitalCD_autarky": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.lifetimeUtility_wageCD": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.hasDerivAt_lifetimeUtility_CD": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.utilityMinRateCD": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.slope_CD_pos_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.lifetimeUtility_CD_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.lifetimeUtility_CD_strictAntiOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.everyone_worse_off_corrected": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.lifetimeUtility_CD_tendsto_atTop": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.exists_rate_below_autarky_young_gain": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.OLGGainsFromTrade.counterexample_everyone_worse_off": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.\u03b1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.\u03b2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.n": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.x": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.\u03b1_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.\u03b1_lt_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.\u03b2_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.n_gt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.x_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.x_le_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.iterate_tendsto_of_below": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.iterate_tendsto_of_above": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.strictConcave_chord_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.coef": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.kbar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.coef_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.kbar_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_kbar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_fixed_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.coef_kbar_div": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_between_below": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_between_above": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_continuous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_global_convergence": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.zero_unstable": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rbarOf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rate_kbar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.tax_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.law_of_motion_debt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.crowding_bracket_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_hasDerivAt_debt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_strictAnti_debt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_lt_psi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_deriv_strictAnti": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_strictConcaveOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psiDebt_gap_strictConcaveOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.steady_state_pattern": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.steady_state_at_most_two": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.upper_steady_state_attracts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.IsUpperSteadyState": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.kbar_isUpper": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.psi_le_add_kbar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.exists_two_steady_states": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.no_steady_state_of_large_debt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.crowding_out": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.steady_state_lt_kbar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rate_rises": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rbar_le_n_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.exists_alpha_rbar_le_n": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.rbar_tendsto_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.tax_nonpos_of_rate_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreignUtility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreignUtility_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreignUtility_deriv_pos_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreignUtility_deriv_neg_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreignUtility_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TwoCountryOLG.TwoCountry.foreign_welfare_falls_with_debt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.perpetual_finite_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.perpetual_ibc_of_flow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.perpetual_consumption_of_euler": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_consumption_function": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.vintageSize": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.vintageAgg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.sum_vintageSize": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.vintageAgg_const": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.vintageAgg_affine": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.vintageAgg_congr": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_aggregate_consumption_general": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_aggregate_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_aggregate_accumulation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_law_of_motion": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_hasSum_const": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSlope": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilIntercept": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyB": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_law_of_motion_const": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_affine_iterate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyB_fixed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyB_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_converges": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_not_converges": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_stable_of_impatient": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyB_pos_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_steady_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_eq_consumption_function": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_closed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_slope_pos_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_zero_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_neg_of_unstable": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyB_falls": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weilSteadyC_rises": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_hasSum_transitory": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_transitory_jump": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_transitory_return": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_hasSum_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_growth_law": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_growth_ratio_law": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.growthSteadyRatio": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.growthSteadyRatio_fixed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.growthSteadyRatio_pos_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.growthSteadyRatio_partial_fractions": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.growthSteadyRatio_strictAntiOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_unit_tilt_law": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_unit_tilt_steady": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_unit_tilt_zero_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_transitory_consumption_jump": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_debt_tax": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_debt_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_debt_consumption_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_ricardian_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_debt_path_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.weil_debt_path_consumption_book": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_population": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_annuity_zero_profit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_consumption_function": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_hasSum_const": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_aggregate_accumulation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_aggregate_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_law_of_motion": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchardSteadyB": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_debt_tax": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchardSteadyB_private_fixed": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchardSteadyB_debt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_debt_lowers": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchard_steady_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.PerpetualYouth.blanchardSteadyB_ricardian": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.steadyConsumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.steady_state_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.transitionConsumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.golden_rule_max": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.hasDerivAt_steadyConsumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.steadyConsumption_ge_of_lower": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.transition_gain": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.exists_lower_capital": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.pareto_improvement_of_dynamically_inefficient": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.transition_loss_of_more_capital": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.steadyConsumption_lt_of_lower_efficient": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.ponzi_ratio_tendsto_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.ponzi_ratio_ge": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.bubble_affordable": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.bubble_unaffordable": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.DynamicInefficiency.efficiency_iff_profit_share": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.taxDisc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.hasSum_taxDisc_pow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.consolidated_wealth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.consumption_lower_of_distortion": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.pv_sq_ge_of_pv_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.pv_sq_gt_of_pv_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.constant_tax_optimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.constant_tax_level": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.deficit_eq_spending_gap": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.TaxSmoothing.government_assets_constant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
     ]
   },
   "source_sha256": {
     "LifeCycleFiscalPolicy/Model.lean": "8a466f413db85e62f938de89b890b55f1f055127816bda77a029406cfdc4c6cc",
-    "LifeCycleFiscalPolicy.lean": "5785657ddc507596a1b7e097d74e6a498a00847711a572812becb9e30ded8334",
+    "LifeCycleFiscalPolicy/RicardianEquivalence.lean": "c821707216e972396c3f141c99dcb559dc4ef72f2de2005fdde3a5c93c820319",
+    "LifeCycleFiscalPolicy/TwoPeriodOLG.lean": "cb7146c61e5dcdac4d27971236f59a5b90a2e50dca3126a785ac1ccb77ec5e16",
+    "LifeCycleFiscalPolicy/DeficitTransfer.lean": "a8188a5a7051c61aad8b0b8e509a2d3f0e75c685cdc383a3faa5a7325eb53646",
+    "LifeCycleFiscalPolicy/DemographicsSaving.lean": "cdc22f77e7db3076eea46758b3ff0866a92f0bb6b2d737f059c282bb014ce46a",
+    "LifeCycleFiscalPolicy/SmallOpenDiamond.lean": "e8462dfd6f88aebc18d2ff6f4c4b593df67d148f4cd6ce3d469df898b0d41d81",
+    "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean": "1ad14b9c0a8323f7b4501919fe9de21e6fc55c4aeaae5151ef8396d26c081961",
+    "LifeCycleFiscalPolicy/TwoCountryOLG.lean": "eb6a206e3777eb2673fabd936eb829b18d8bb068acea533c29424a33e5af4d29",
+    "LifeCycleFiscalPolicy/PerpetualYouth.lean": "db1b891c69d92685a99eba434e41a747ce6ad5ef638fb31097bd36756e2a311e",
+    "LifeCycleFiscalPolicy/DynamicInefficiency.lean": "425d0d4f7c8403202b7d973705182c5b8883ff1bac074555d93e86e5771154d9",
+    "LifeCycleFiscalPolicy/TaxSmoothing.lean": "0b7a5a7ca7054a3215a37b278f95539aa178199c0e60c97209c58a611583ca5b",
+    "LifeCycleFiscalPolicy.lean": "09a0552ba8f5e5bc861af555aab2e54d7a7d7e7da4792a8c5dff5707c953ea47",
     "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
     "lakefile.toml": "d3d5153df01461dd3016ad81505a6f33831abd1e7e9b3b6c917b36664ebab1ed",
     "lake-manifest.json": "79fe6e8024b23ebea6c91618735d42735913dc21938187839c3709297b634ddc",
-    "proof-manifest.json": "1a07476990f2d44429cd6a35b796bdc69d24b1acfe63747bb281e7508e2bdb68",
+    "proof-manifest.json": "7bdd096b0e3c62bc28143defd6bbf43cc991b2d5dc1ff6da21c7feabd632c6a6",
     "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
   },
-  "fresh_audit_sha256": "b499524770a45ea261509e43ba4485821fc735ac2ad5f4a116484afb1edd459d",
+  "fresh_audit_sha256": "ffe3d4fe98381e4e7efdb1da3946a40ea202c3bbb4fe20cb3f66812c6c32d0a1",
   "lean_toolchain": "leanprover/lean4:v4.34.0",
-  "scope": "Obstfeld and Rogoff (1996), Chapter 3: the life cycle, tax policy, and the current account. Phase 0 scaffold: the two-period log-utility OLG household, its consumption demands, budget exhaustion and Euler equation.",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 3: the life cycle, tax policy, and the current account. Ricardian equivalence (two-period and infinite-horizon) and Barro altruism with Gale's non-uniqueness; its failure in the two-period OLG economy, saving accounting and generational accounting; the debt-financed transfer (3.24)-(3.32); growth, demographics and saving; the small open Diamond economy; gains from trade across generations with the corrected Exercise 2(b); global stability of the two-country OLG model and public debt with the omitted debt threshold; Weil's perpetual youth and Blanchard's model; dynamic inefficiency, Ponzi games and bubbles; Barro tax smoothing. Exercises 1-6.",
   "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 3, pp. 129-197."
 }

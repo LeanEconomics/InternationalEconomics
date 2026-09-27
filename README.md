@@ -9,7 +9,7 @@ source map to the book's equations and pages, and reproducible proof checks.
 | --- | --- | --- | --- |
 | [IntertemporalTrade](IntertemporalTrade/README.md) | 1. Intertemporal Trade and the Current Account Balance | 272 theorems: gains from trade and the trade pattern by revealed preference, world equilibrium existence and efficiency, Fisher separation, the optimal tax on borrowing, labour mobility, Marshall–Lerner | [Chapter overview](IntertemporalTrade/README.md) |
 | [SmallOpenEconomyDynamics](SmallOpenEconomyDynamics/README.md) | 2. Dynamics of Small Open Economies, with Supplements A–C | 379 theorems: transversality ⇔ intertemporal budget constraint, Euler sufficiency and necessity, the fundamental current-account equation, Hall's martingale, Campbell's present-value test, Tobin's q saddle path, firm value = capital, trend growth and the debt–output ratio | [Chapter overview](SmallOpenEconomyDynamics/README.md) |
-| [LifeCycleFiscalPolicy](LifeCycleFiscalPolicy/README.md) | 3. The Life Cycle, Tax Policy, and the Current Account | 2 theorems: log-utility OLG demands exhaust wealth and satisfy the Euler equation (scaffold) | [Source map](LifeCycleFiscalPolicy/docs/source-map.md) |
+| [LifeCycleFiscalPolicy](LifeCycleFiscalPolicy/README.md) | 3. The Life Cycle, Tax Policy, and the Current Account | 288 theorems: Ricardian equivalence and its failure, Barro altruism, the debt-financed transfer, the small open Diamond economy, global stability of the two-country OLG model, Weil's perpetual youth, dynamic inefficiency, tax smoothing | [Chapter overview](LifeCycleFiscalPolicy/README.md) |
 
 ## Scope
 
@@ -19,7 +19,7 @@ and world equilibrium, the infinite-horizon small open economy (intertemporal
 budget constraint, permanent-income current account, Hall's random walk, Tobin's
 q), and overlapping-generations fiscal policy (Ricardian equivalence and its
 failure, the Diamond model, Weil's perpetual youth, dynamic inefficiency).
-Provable end-of-chapter exercises are included.
+Provable end-of-chapter exercises are included. The three projects together check 939 theorems.
 
 Where the book argues from a diagram, the Lean statement is a theorem with
 explicit hypotheses. Where the book leaves a hypothesis implicit (interiority,
