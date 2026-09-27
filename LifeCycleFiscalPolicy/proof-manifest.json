@@ -1,0 +1,31 @@
+{
+  "library": "LifeCycleFiscalPolicy",
+  "modules": [
+    "LifeCycleFiscalPolicy/Model.lean",
+    "LifeCycleFiscalPolicy/RicardianEquivalence.lean",
+    "LifeCycleFiscalPolicy/TwoPeriodOLG.lean",
+    "LifeCycleFiscalPolicy/DeficitTransfer.lean",
+    "LifeCycleFiscalPolicy/DemographicsSaving.lean",
+    "LifeCycleFiscalPolicy/SmallOpenDiamond.lean",
+    "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean",
+    "LifeCycleFiscalPolicy/TwoCountryOLG.lean",
+    "LifeCycleFiscalPolicy/PerpetualYouth.lean",
+    "LifeCycleFiscalPolicy/DynamicInefficiency.lean",
+    "LifeCycleFiscalPolicy/TaxSmoothing.lean"
+  ],
+  "theorem_counts": {
+    "LifeCycleFiscalPolicy/Model.lean": 2,
+    "LifeCycleFiscalPolicy/RicardianEquivalence.lean": 41,
+    "LifeCycleFiscalPolicy/TwoPeriodOLG.lean": 12,
+    "LifeCycleFiscalPolicy/DeficitTransfer.lean": 20,
+    "LifeCycleFiscalPolicy/DemographicsSaving.lean": 16,
+    "LifeCycleFiscalPolicy/SmallOpenDiamond.lean": 33,
+    "LifeCycleFiscalPolicy/OLGGainsFromTrade.lean": 29,
+    "LifeCycleFiscalPolicy/TwoCountryOLG.lean": 48,
+    "LifeCycleFiscalPolicy/PerpetualYouth.lean": 64,
+    "LifeCycleFiscalPolicy/DynamicInefficiency.lean": 14,
+    "LifeCycleFiscalPolicy/TaxSmoothing.lean": 9
+  },
+  "scope": "Obstfeld and Rogoff (1996), Chapter 3: the life cycle, tax policy, and the current account. Ricardian equivalence (two-period and infinite-horizon) and Barro altruism with Gale's non-uniqueness; its failure in the two-period OLG economy, saving accounting and generational accounting; the debt-financed transfer (3.24)-(3.32); growth, demographics and saving; the small open Diamond economy; gains from trade across generations with the corrected Exercise 2(b); global stability of the two-country OLG model and public debt with the omitted debt threshold; Weil's perpetual youth and Blanchard's model; dynamic inefficiency, Ponzi games and bubbles; Barro tax smoothing. Exercises 1-6.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 3, pp. 129-197."
+}
