@@ -23,6 +23,13 @@ pays `1 + r`. We prove:
 * the budget constraints (2)+(3) are equivalent to the intertemporal constraint (4)/(18);
 * from the first-order conditions (5): the bond Euler equation (8), (6) and (9), and
   sufficiency of (5) for a concave utility;
+* necessity of (5)–(6) at any optimum interior to an open consumption domain `D` (e.g.
+  `(0, ∞)`) at which `u` is differentiable, with no concavity: for the book's problem in the
+  AD holdings `B₂` and for plans under both the equality and the `≤` form of the budget (4),
+  by a one-dimensional perturbation along the budget line; (6), (8) and (9) follow as
+  corollaries of optimality; under the `≤` form the budget binds when `u′(C₁) ≠ 0`; and, for
+  concave differentiable `u`, iff characterisations of the optimum by (5) (plus a binding
+  budget in the `≤` form with `u′ > 0`);
 * full insurance iff prices are actuarially fair, `p = π` (O&R (10));
 * the exact CRRA form of (11) and the Arrow–Pratt coefficient (12);
 * log-utility closed forms (15)–(17), footnotes 9 and 10;
@@ -243,6 +250,336 @@ theorem foc_sufficient (Ω : StateSpace S) {D : Set ℝ} {u du : ℝ → ℝ}
   simp only [lifetimeUtility]
   rw [e] at hsum
   linarith
+
+/-! ## Necessity of the first-order conditions (§5.1.4, pp. 275–277)
+
+A consumption plan is a pair `(C₁, C₂(·))`. Consumption is restricted to an open set `D`
+(for instance `D = (0, ∞)`, the domain of CRRA or log utility), so the optimum is interior and
+corner solutions are excluded by hypothesis rather than by assumption on `u`. -/
+
+/-- Expected lifetime utility of a consumption plan, O&R (1), p. 273:
+`u(C₁) + Σ π(s)βu(C₂(s))`. -/
+noncomputable def planUtility (Ω : StateSpace S) (u : ℝ → ℝ) (β C1 : ℝ) (C2 : S → ℝ) : ℝ :=
+  u C1 + ∑ s, Ω.prob s * β * u (C2 s)
+
+/-- The date-1 present value of a consumption plan at AD prices, the left-hand side of O&R (4),
+p. 275: `C₁ + Σ p(s)C₂(s)/(1+r)`. The budget constraint (4) is
+`planValue p r C₁ C₂ = planValue p r Y₁ Y₂`. -/
+noncomputable def planValue (p : S → ℝ) (r C1 : ℝ) (C2 : S → ℝ) : ℝ :=
+  C1 + ∑ s, p s / (1 + r) * C2 s
+
+/-- Optimality of a plan along its budget line, O&R §5.1.4, p. 276: `(C₁, C₂)` (with
+consumption in `D`) does at least as well as every plan with consumption in `D` and the same
+present value (4). Both forms of the budget constraint (equality and `≤`) and the book's
+unconstrained problem in `B₂` imply it (see `isPlanOptimum_of_budget_eq`,
+`isPlanOptimum_of_budget_le`, `isPlanOptimum_of_lifetime`). -/
+def IsPlanOptimum (Ω : StateSpace S) (D : Set ℝ) (u : ℝ → ℝ) (p : S → ℝ) (r β C1 : ℝ)
+    (C2 : S → ℝ) : Prop :=
+  ∀ (C1' : ℝ) (C2' : S → ℝ), C1' ∈ D → (∀ s, C2' s ∈ D) →
+    planValue p r C1' C2' = planValue p r C1 C2 →
+      planUtility Ω u β C1' C2' ≤ planUtility Ω u β C1 C2
+
+/-- The book's objective in terms of asset holdings is the plan objective, O&R p. 276:
+`U₁(B₂) = u(C₁) + Σ π(s)βu(C₂(s))` with `C₁ = Y₁ − Σ p(s)B₂(s)/(1+r)`, `C₂ = Y₂ + B₂`. -/
+theorem lifetimeUtility_eq_planUtility (Ω : StateSpace S) (u : ℝ → ℝ) (p : S → ℝ)
+    (r β Y1 : ℝ) (Y2 B : S → ℝ) :
+    lifetimeUtility Ω u p r β Y1 Y2 B =
+      planUtility Ω u β (Y1 - ∑ s, p s / (1 + r) * B s) (fun s => Y2 s + B s) := rfl
+
+/-- The plan financed by AD holdings `B₂` satisfies the budget constraint (4), O&R p. 275:
+its present value equals that of the endowment. -/
+theorem planValue_of_holdings (p : S → ℝ) (r Y1 : ℝ) (Y2 B : S → ℝ) :
+    planValue p r (Y1 - ∑ s, p s / (1 + r) * B s) (fun s => Y2 s + B s) =
+      planValue p r Y1 Y2 := by
+  simp only [planValue, mul_add, Finset.sum_add_distrib]
+  ring
+
+/-- The equality form of the budget constraint (4)/(18), O&R p. 275: if `(C₁, C₂)` satisfies
+(4) and maximises expected utility over all plans in `D` satisfying (4), it is a plan
+optimum. -/
+theorem isPlanOptimum_of_budget_eq (Ω : StateSpace S) {D : Set ℝ} {u : ℝ → ℝ} (p : S → ℝ)
+    (r β Y1 C1 : ℝ) (Y2 C2 : S → ℝ) (hbud : planValue p r C1 C2 = planValue p r Y1 Y2)
+    (hmax : ∀ (C1' : ℝ) (C2' : S → ℝ), C1' ∈ D → (∀ s, C2' s ∈ D) →
+      planValue p r C1' C2' = planValue p r Y1 Y2 →
+        planUtility Ω u β C1' C2' ≤ planUtility Ω u β C1 C2) :
+    IsPlanOptimum Ω D u p r β C1 C2 :=
+  fun C1' C2' h1 h2 hv => hmax C1' C2' h1 h2 (hv.trans hbud)
+
+/-- The `≤` form of the budget constraint (4), O&R p. 275: if `(C₁, C₂)` satisfies
+`planValue ≤ planValue(Y₁, Y₂)` and maximises expected utility over all plans in `D` doing
+so, it is a plan optimum (whether or not its budget binds). -/
+theorem isPlanOptimum_of_budget_le (Ω : StateSpace S) {D : Set ℝ} {u : ℝ → ℝ} (p : S → ℝ)
+    (r β Y1 C1 : ℝ) (Y2 C2 : S → ℝ) (hbud : planValue p r C1 C2 ≤ planValue p r Y1 Y2)
+    (hmax : ∀ (C1' : ℝ) (C2' : S → ℝ), C1' ∈ D → (∀ s, C2' s ∈ D) →
+      planValue p r C1' C2' ≤ planValue p r Y1 Y2 →
+        planUtility Ω u β C1' C2' ≤ planUtility Ω u β C1 C2) :
+    IsPlanOptimum Ω D u p r β C1 C2 :=
+  fun C1' C2' h1 h2 hv => hmax C1' C2' h1 h2 (hv.trans_le hbud)
+
+/-- The book's unconstrained problem in the AD holdings, O&R p. 276: if `B₂` maximises
+`U₁(B₂) = u(Y₁ − Σ p(s)B₂(s)/(1+r)) + Σ π(s)βu(Y₂(s) + B₂(s))` over all holdings whose
+consumption stays in `D`, the plan it finances is a plan optimum. -/
+theorem isPlanOptimum_of_lifetime (Ω : StateSpace S) {D : Set ℝ} {u : ℝ → ℝ} (p : S → ℝ)
+    (r β Y1 : ℝ) (Y2 B : S → ℝ)
+    (hmax : ∀ B' : S → ℝ, Y1 - ∑ s, p s / (1 + r) * B' s ∈ D → (∀ s, Y2 s + B' s ∈ D) →
+      lifetimeUtility Ω u p r β Y1 Y2 B' ≤ lifetimeUtility Ω u p r β Y1 Y2 B) :
+    IsPlanOptimum Ω D u p r β (Y1 - ∑ s, p s / (1 + r) * B s) (fun s => Y2 s + B s) := by
+  intro C1' C2' h1 h2 hv
+  rw [planValue_of_holdings] at hv
+  have hC1' : Y1 - ∑ s, p s / (1 + r) * (C2' s - Y2 s) = C1' := by
+    simp only [planValue, mul_sub, Finset.sum_sub_distrib] at hv ⊢
+    linarith
+  have hC2' : (fun s => Y2 s + (C2' s - Y2 s)) = C2' := funext fun s => by ring
+  have h := hmax (fun s => C2' s - Y2 s) (by rw [hC1']; exact h1)
+    (fun s => by simpa using h2 s)
+  rw [lifetimeUtility_eq_planUtility, lifetimeUtility_eq_planUtility, hC1', hC2'] at h
+  exact h
+
+/-- Necessity of the first-order conditions (5)–(6), O&R pp. 276–277: if `(C₁, C₂)` is a plan
+optimum with consumption in an open set `D`, and `u` has derivative `du x` at `C₁` and at every
+`C₂(s)`, then for every state `s`, `p(s)u′(C₁)/(1+r) = π(s)βu′(C₂(s))`. No concavity is used.
+Proof: the one-dimensional perturbation `C₁ − p(s)t/(1+r)`, `C₂(s) + t` stays on the budget
+line and in `D` for small `t`, so `t = 0` is a local maximum of expected utility along it and
+its derivative `−p(s)u′(C₁)/(1+r) + π(s)βu′(C₂(s))` vanishes. -/
+theorem foc_of_isPlanOptimum (Ω : StateSpace S) {D : Set ℝ} (hD : IsOpen D) {u du : ℝ → ℝ}
+    (p : S → ℝ) {r β C1 : ℝ} {C2 : S → ℝ} (hC1 : C1 ∈ D) (hC2 : ∀ s, C2 s ∈ D)
+    (hu1 : HasDerivAt u (du C1) C1) (hu2 : ∀ s, HasDerivAt u (du (C2 s)) (C2 s))
+    (hopt : IsPlanOptimum Ω D u p r β C1 C2) (s : S) :
+    p s / (1 + r) * du C1 = Ω.prob s * β * du (C2 s) := by
+  classical
+  set q := p s / (1 + r) with hq
+  set e : S → ℝ := fun s' => if s' = s then 1 else 0 with he
+  set g : ℝ → ℝ := fun t => planUtility Ω u β (C1 - q * t) (fun s' => C2 s' + t * e s')
+    with hg
+  have hloc : IsLocalMax g 0 := by
+    have h1 : ∀ᶠ t in nhds (0 : ℝ), C1 - q * t ∈ D := by
+      have hc : Continuous (fun t : ℝ => C1 - q * t) := by fun_prop
+      exact hc.continuousAt.preimage_mem_nhds (by simpa using hD.mem_nhds hC1)
+    have h2 : ∀ᶠ t in nhds (0 : ℝ), C2 s + t ∈ D := by
+      have hc : Continuous (fun t : ℝ => C2 s + t) := by fun_prop
+      exact hc.continuousAt.preimage_mem_nhds (by simpa using hD.mem_nhds (hC2 s))
+    filter_upwards [h1, h2] with t ht1 ht2
+    have hg0 : g 0 = planUtility Ω u β C1 C2 := by simp [hg]
+    rw [hg0]
+    refine hopt _ _ ht1 (fun s' => ?_) ?_
+    · by_cases hs : s' = s
+      · subst hs; simpa [he] using ht2
+      · simpa [he, hs] using hC2 s'
+    · simp only [planValue, mul_add, Finset.sum_add_distrib, he, mul_ite, mul_one, mul_zero,
+        Finset.sum_ite_eq', Finset.mem_univ, ite_true]
+      ring
+  have hderiv : HasDerivAt g
+      (du C1 * (-q) + ∑ s', Ω.prob s' * β * (du (C2 s') * e s')) 0 := by
+    have hin : HasDerivAt (fun t : ℝ => C1 - q * t) (-q) 0 := by
+      simpa using ((hasDerivAt_id (0 : ℝ)).const_mul q).const_sub C1
+    have hu1' : HasDerivAt u (du C1) (C1 - q * 0) := by simpa using hu1
+    have hA : HasDerivAt (fun t => u (C1 - q * t)) (du C1 * (-q)) 0 := hu1'.comp 0 hin
+    have hB : ∀ s' ∈ Finset.univ, HasDerivAt (fun t => Ω.prob s' * β * u (C2 s' + t * e s'))
+        (Ω.prob s' * β * (du (C2 s') * e s')) 0 := by
+      intro s' _
+      have hin' : HasDerivAt (fun t : ℝ => C2 s' + t * e s') (e s') 0 := by
+        simpa using ((hasDerivAt_id (0 : ℝ)).mul_const (e s')).const_add (C2 s')
+      have hu2' : HasDerivAt u (du (C2 s')) (C2 s' + 0 * e s') := by simpa using hu2 s'
+      exact (hu2'.comp 0 hin').const_mul _
+    exact hA.add (HasDerivAt.fun_sum hB)
+  have h0 := hloc.hasDerivAt_eq_zero hderiv
+  simp only [he, mul_ite, mul_one, mul_zero, Finset.sum_ite_eq', Finset.mem_univ,
+    ite_true] at h0
+  linarith
+
+/-- Necessity of the first-order conditions (5), O&R p. 276, in the book's own form (the FOC
+in `B₂(s)`): if the AD holdings `B₂` maximise `U₁(B₂)` over all holdings with consumption in
+the open set `D`, and `u` is differentiable at `C₁` and every `C₂(s)`, then (5) holds in every
+state. -/
+theorem foc_necessary (Ω : StateSpace S) {D : Set ℝ} (hD : IsOpen D) {u du : ℝ → ℝ}
+    (p : S → ℝ) (r β Y1 : ℝ) (Y2 B : S → ℝ)
+    (hC1 : Y1 - ∑ s, p s / (1 + r) * B s ∈ D) (hC2 : ∀ s, Y2 s + B s ∈ D)
+    (hu1 : HasDerivAt u (du (Y1 - ∑ s, p s / (1 + r) * B s))
+      (Y1 - ∑ s, p s / (1 + r) * B s))
+    (hu2 : ∀ s, HasDerivAt u (du (Y2 s + B s)) (Y2 s + B s))
+    (hmax : ∀ B' : S → ℝ, Y1 - ∑ s, p s / (1 + r) * B' s ∈ D → (∀ s, Y2 s + B' s ∈ D) →
+      lifetimeUtility Ω u p r β Y1 Y2 B' ≤ lifetimeUtility Ω u p r β Y1 Y2 B) (s : S) :
+    p s / (1 + r) * du (Y1 - ∑ s, p s / (1 + r) * B s) = Ω.prob s * β * du (Y2 s + B s) :=
+  foc_of_isPlanOptimum Ω hD p (C2 := fun s => Y2 s + B s) hC1 hC2 hu1 hu2
+    (isPlanOptimum_of_lifetime Ω p r β Y1 Y2 B hmax) s
+
+/-- Necessity of (5) on the positive orthant, O&R pp. 275–277: with consumption restricted to
+`(0, ∞)` (the domain of CRRA and log utility) and the equality budget (4), an optimum with
+`C₁ > 0`, `C₂ > 0` at which `u` is differentiable satisfies (5) in every state. -/
+theorem foc_necessary_pos (Ω : StateSpace S) {u du : ℝ → ℝ} (p : S → ℝ) (r β Y1 C1 : ℝ)
+    (Y2 C2 : S → ℝ) (hC1 : 0 < C1) (hC2 : ∀ s, 0 < C2 s)
+    (hu1 : HasDerivAt u (du C1) C1) (hu2 : ∀ s, HasDerivAt u (du (C2 s)) (C2 s))
+    (hbud : planValue p r C1 C2 = planValue p r Y1 Y2)
+    (hmax : ∀ (C1' : ℝ) (C2' : S → ℝ), 0 < C1' → (∀ s, 0 < C2' s) →
+      planValue p r C1' C2' = planValue p r Y1 Y2 →
+        planUtility Ω u β C1' C2' ≤ planUtility Ω u β C1 C2) (s : S) :
+    p s / (1 + r) * du C1 = Ω.prob s * β * du (C2 s) :=
+  foc_of_isPlanOptimum Ω isOpen_Ioi p hC1 hC2 hu1 hu2
+    (isPlanOptimum_of_budget_eq Ω (D := Set.Ioi 0) p r β Y1 C1 Y2 C2 hbud
+      fun C1' C2' h1 h2 hv => hmax C1' C2' h1 h2 hv) s
+
+/-- O&R (6), p. 276, as a consequence of optimality: at a plan optimum in an open `D` with
+`u` differentiable at the plan and `u′(C₁) ≠ 0`, the marginal rate of substitution equals the
+relative price, `π(s)βu′(C₂(s))/u′(C₁) = p(s)/(1+r)`. -/
+theorem mrs_eq_price_of_optimum (Ω : StateSpace S) {D : Set ℝ} (hD : IsOpen D)
+    {u du : ℝ → ℝ} (p : S → ℝ) {r β C1 : ℝ} {C2 : S → ℝ} (hC1 : C1 ∈ D)
+    (hC2 : ∀ s, C2 s ∈ D) (hu1 : HasDerivAt u (du C1) C1)
+    (hu2 : ∀ s, HasDerivAt u (du (C2 s)) (C2 s)) (hopt : IsPlanOptimum Ω D u p r β C1 C2)
+    (hd : du C1 ≠ 0) (s : S) :
+    Ω.prob s * β * du (C2 s) / du C1 = p s / (1 + r) :=
+  mrs_eq_price Ω p r β du C1 C2 hd (foc_of_isPlanOptimum Ω hD p hC1 hC2 hu1 hu2 hopt) s
+
+/-- The stochastic Euler equation for bonds (8), O&R p. 277, as a consequence of optimality:
+at a plan optimum in an open `D` with `u` differentiable at the plan, `Σ p(s) = 1` (O&R (7))
+and `1 + r ≠ 0`, `u′(C₁) = (1+r)βE[u′(C₂)]`. -/
+theorem bond_euler_of_optimum (Ω : StateSpace S) {D : Set ℝ} (hD : IsOpen D)
+    {u du : ℝ → ℝ} (p : S → ℝ) {r β C1 : ℝ} {C2 : S → ℝ} (hr : 1 + r ≠ 0)
+    (hsum : ∑ s, p s = 1) (hC1 : C1 ∈ D) (hC2 : ∀ s, C2 s ∈ D)
+    (hu1 : HasDerivAt u (du C1) C1) (hu2 : ∀ s, HasDerivAt u (du (C2 s)) (C2 s))
+    (hopt : IsPlanOptimum Ω D u p r β C1 C2) :
+    du C1 = (1 + r) * β * Ω.expect (fun s => du (C2 s)) :=
+  bond_euler Ω p hr hsum β du C1 C2 (foc_of_isPlanOptimum Ω hD p hC1 hC2 hu1 hu2 hopt)
+
+/-- The across-state condition (9), O&R p. 277, as a consequence of optimality: at a plan
+optimum in an open `D` with `u` differentiable at the plan, `1 + r ≠ 0`, `β ≠ 0` and
+`u′(C₁) ≠ 0`, `π(s)u′(C₂(s))/[π(t)u′(C₂(t))] = p(s)/p(t)`. -/
+theorem mrs_ratio_of_optimum (Ω : StateSpace S) {D : Set ℝ} (hD : IsOpen D)
+    {u du : ℝ → ℝ} (p : S → ℝ) {r β C1 : ℝ} {C2 : S → ℝ} (hr : 1 + r ≠ 0) (hβ : β ≠ 0)
+    (hC1 : C1 ∈ D) (hC2 : ∀ s, C2 s ∈ D) (hu1 : HasDerivAt u (du C1) C1)
+    (hu2 : ∀ s, HasDerivAt u (du (C2 s)) (C2 s)) (hopt : IsPlanOptimum Ω D u p r β C1 C2)
+    (hd : du C1 ≠ 0) (s t : S) :
+    Ω.prob s * du (C2 s) / (Ω.prob t * du (C2 t)) = p s / p t :=
+  mrs_ratio_eq_price_ratio Ω p hr hβ du C1 C2 hd
+    (foc_of_isPlanOptimum Ω hD p hC1 hC2 hu1 hu2 hopt) s t
+
+/-- The budget binds at an optimum when date-1 marginal utility is nonzero, O&R p. 275
+(implicit): under the `≤` form of (4), if `(C₁, C₂)` is optimal among plans in the open set
+`D`, `u` is differentiable at `C₁` and `u′(C₁) ≠ 0`, then (4) holds with equality. Proof: with
+slack, `C₁ + t` is feasible for small `t` of either sign, forcing `u′(C₁) = 0`. -/
+theorem budget_binds_of_optimum (Ω : StateSpace S) {D : Set ℝ} (hD : IsOpen D)
+    {u du : ℝ → ℝ} (p : S → ℝ) (r β Y1 C1 : ℝ) (Y2 C2 : S → ℝ) (hC1 : C1 ∈ D)
+    (hC2 : ∀ s, C2 s ∈ D) (hu1 : HasDerivAt u (du C1) C1)
+    (hbud : planValue p r C1 C2 ≤ planValue p r Y1 Y2)
+    (hmax : ∀ (C1' : ℝ) (C2' : S → ℝ), C1' ∈ D → (∀ s, C2' s ∈ D) →
+      planValue p r C1' C2' ≤ planValue p r Y1 Y2 →
+        planUtility Ω u β C1' C2' ≤ planUtility Ω u β C1 C2)
+    (hd : du C1 ≠ 0) :
+    planValue p r C1 C2 = planValue p r Y1 Y2 := by
+  by_contra hne
+  have hlt : planValue p r C1 C2 < planValue p r Y1 Y2 := lt_of_le_of_ne hbud hne
+  set g : ℝ → ℝ := fun t => planUtility Ω u β (C1 + t) C2 with hg
+  have hloc : IsLocalMax g 0 := by
+    have h1 : ∀ᶠ t in nhds (0 : ℝ), C1 + t ∈ D := by
+      have hc : Continuous (fun t : ℝ => C1 + t) := by fun_prop
+      exact hc.continuousAt.preimage_mem_nhds (by simpa using hD.mem_nhds hC1)
+    filter_upwards [h1, eventually_lt_nhds (sub_pos.mpr hlt)] with t ht1 ht2
+    have hg0 : g 0 = planUtility Ω u β C1 C2 := by simp [hg]
+    rw [hg0]
+    refine hmax _ _ ht1 hC2 ?_
+    simp only [planValue] at ht2 ⊢
+    linarith
+  have hderiv : HasDerivAt g (du C1) 0 := by
+    have hin : HasDerivAt (fun t : ℝ => C1 + t) 1 0 := by
+      simpa using (hasDerivAt_id (0 : ℝ)).const_add C1
+    have hu1' : HasDerivAt u (du C1) (C1 + 0) := by simpa using hu1
+    have hA := (hu1'.comp 0 hin).add_const (∑ s, Ω.prob s * β * u (C2 s))
+    rw [mul_one] at hA
+    exact hA
+  exact hd (hloc.hasDerivAt_eq_zero hderiv)
+
+/-- The concave-tangent bound for plans (used for sufficiency of (5), O&R p. 276): if `u` is
+concave on `D` with derivative `du x` at every `x ∈ D`, `β ≥ 0`, every `π(s) ≥ 0`, and
+`(C₁, C₂)` in `D` satisfies (5), then for every plan `(C₁′, C₂′)` in `D`,
+`U(C₁′, C₂′) ≤ U(C₁, C₂) + u′(C₁)·[PV(C₁′, C₂′) − PV(C₁, C₂)]`. -/
+theorem planUtility_le_of_foc (Ω : StateSpace S) {D : Set ℝ} {u du : ℝ → ℝ}
+    (hconc : ConcaveOn ℝ D u) (hu : ∀ x ∈ D, HasDerivAt u (du x) x) (p : S → ℝ)
+    {r β : ℝ} (hβ : 0 ≤ β) {C1 C1' : ℝ} {C2 C2' : S → ℝ} (hC1 : C1 ∈ D)
+    (hC2 : ∀ s, C2 s ∈ D) (hC1' : C1' ∈ D) (hC2' : ∀ s, C2' s ∈ D)
+    (hfoc : ∀ s, p s / (1 + r) * du C1 = Ω.prob s * β * du (C2 s)) :
+    planUtility Ω u β C1' C2' ≤
+      planUtility Ω u β C1 C2 + du C1 * (planValue p r C1' C2' - planValue p r C1 C2) := by
+  have h1 := supergradient_of_concaveOn hconc hC1 hC1' (hu C1 hC1)
+  have h2 : ∀ s, Ω.prob s * β * u (C2' s) ≤
+      Ω.prob s * β * u (C2 s) + p s / (1 + r) * du C1 * (C2' s - C2 s) := fun s => by
+    have := supergradient_of_concaveOn hconc (hC2 s) (hC2' s) (hu _ (hC2 s))
+    rw [hfoc s]
+    have hk := mul_le_mul_of_nonneg_left this (mul_nonneg (Ω.prob_nonneg s) hβ)
+    linarith
+  have hsum := Finset.sum_le_sum fun s (_ : s ∈ Finset.univ) => h2 s
+  rw [Finset.sum_add_distrib] at hsum
+  have e : ∑ s, p s / (1 + r) * du C1 * (C2' s - C2 s) =
+      du C1 * (∑ s, p s / (1 + r) * C2' s - ∑ s, p s / (1 + r) * C2 s) := by
+    rw [mul_sub, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl fun s _ => by ring
+  simp only [planUtility, planValue]
+  rw [e] at hsum
+  nlinarith
+
+/-- Characterisation of the optimum under the equality budget (4)/(18), O&R pp. 275–277: for
+`u` concave on an open set `D` and differentiable there, `β ≥ 0`, and a
+plan `(C₁, C₂)` in `D` satisfying (4), the plan maximises expected utility over all plans in
+`D` satisfying (4) iff the first-order conditions (5) hold in every state. -/
+theorem optimum_iff_foc_budget_eq (Ω : StateSpace S) {D : Set ℝ} (hD : IsOpen D)
+    {u du : ℝ → ℝ} (hconc : ConcaveOn ℝ D u) (hu : ∀ x ∈ D, HasDerivAt u (du x) x)
+    (p : S → ℝ) {r β : ℝ} (hβ : 0 ≤ β) (Y1 C1 : ℝ) (Y2 C2 : S → ℝ) (hC1 : C1 ∈ D)
+    (hC2 : ∀ s, C2 s ∈ D) (hbud : planValue p r C1 C2 = planValue p r Y1 Y2) :
+    (∀ (C1' : ℝ) (C2' : S → ℝ), C1' ∈ D → (∀ s, C2' s ∈ D) →
+      planValue p r C1' C2' = planValue p r Y1 Y2 →
+        planUtility Ω u β C1' C2' ≤ planUtility Ω u β C1 C2) ↔
+      ∀ s, p s / (1 + r) * du C1 = Ω.prob s * β * du (C2 s) := by
+  constructor
+  · intro hmax
+    exact foc_of_isPlanOptimum Ω hD p hC1 hC2 (hu C1 hC1) (fun s => hu _ (hC2 s))
+      (isPlanOptimum_of_budget_eq Ω p r β Y1 C1 Y2 C2 hbud hmax)
+  · intro hfoc C1' C2' h1 h2 hv
+    have := planUtility_le_of_foc Ω hconc hu p hβ hC1 hC2 h1 h2 hfoc
+    rw [hv, hbud, sub_self, mul_zero, add_zero] at this
+    exact this
+
+/-- Characterisation of the optimum under the `≤` budget, O&R pp. 275–277: for `u` concave and
+differentiable on an open set `D` with `u′ > 0` on `D` (more is preferred), `β ≥ 0`, and a
+plan `(C₁, C₂)` in `D` with `PV ≤ PV(Y₁, Y₂)`, the plan maximises expected utility over all
+plans in `D` with `PV ≤ PV(Y₁, Y₂)` iff the budget (4) binds and (5) holds in every state. -/
+theorem optimum_iff_foc_budget_le (Ω : StateSpace S) {D : Set ℝ} (hD : IsOpen D)
+    {u du : ℝ → ℝ} (hconc : ConcaveOn ℝ D u) (hu : ∀ x ∈ D, HasDerivAt u (du x) x)
+    (hdpos : ∀ x ∈ D, 0 < du x) (p : S → ℝ) {r β : ℝ} (hβ : 0 ≤ β) (Y1 C1 : ℝ)
+    (Y2 C2 : S → ℝ) (hC1 : C1 ∈ D) (hC2 : ∀ s, C2 s ∈ D)
+    (hbud : planValue p r C1 C2 ≤ planValue p r Y1 Y2) :
+    (∀ (C1' : ℝ) (C2' : S → ℝ), C1' ∈ D → (∀ s, C2' s ∈ D) →
+      planValue p r C1' C2' ≤ planValue p r Y1 Y2 →
+        planUtility Ω u β C1' C2' ≤ planUtility Ω u β C1 C2) ↔
+      planValue p r C1 C2 = planValue p r Y1 Y2 ∧
+        ∀ s, p s / (1 + r) * du C1 = Ω.prob s * β * du (C2 s) := by
+  constructor
+  · intro hmax
+    exact ⟨budget_binds_of_optimum Ω hD p r β Y1 C1 Y2 C2 hC1 hC2 (hu C1 hC1) hbud hmax
+        (hdpos C1 hC1).ne',
+      foc_of_isPlanOptimum Ω hD p hC1 hC2 (hu C1 hC1) (fun s => hu _ (hC2 s))
+        (isPlanOptimum_of_budget_le Ω p r β Y1 C1 Y2 C2 hbud hmax)⟩
+  · rintro ⟨heq, hfoc⟩ C1' C2' h1 h2 hv
+    have := planUtility_le_of_foc Ω hconc hu p hβ hC1 hC2 h1 h2 hfoc
+    have hneg : du C1 * (planValue p r C1' C2' - planValue p r C1 C2) ≤ 0 :=
+      mul_nonpos_of_nonneg_of_nonpos (hdpos C1 hC1).le (by rw [heq]; linarith)
+    linarith
+
+/-- Characterisation of the optimum in the book's problem in `B₂`, O&R p. 276: for `u` concave
+and differentiable on an open set `D`, `β ≥ 0`, and holdings `B₂` with consumption in `D`, the
+holdings maximise `U₁` over all holdings with consumption in `D` iff the first-order
+conditions (5) hold in every state (necessity: `foc_necessary`; sufficiency:
+`foc_sufficient`). -/
+theorem foc_iff (Ω : StateSpace S) {D : Set ℝ} (hD : IsOpen D) {u du : ℝ → ℝ}
+    (hconc : ConcaveOn ℝ D u) (hu : ∀ x ∈ D, HasDerivAt u (du x) x) (p : S → ℝ)
+    {r β : ℝ} (hβ : 0 ≤ β) (Y1 : ℝ) (Y2 B : S → ℝ)
+    (hC1 : Y1 - ∑ s, p s / (1 + r) * B s ∈ D) (hC2 : ∀ s, Y2 s + B s ∈ D) :
+    (∀ B' : S → ℝ, Y1 - ∑ s, p s / (1 + r) * B' s ∈ D → (∀ s, Y2 s + B' s ∈ D) →
+      lifetimeUtility Ω u p r β Y1 Y2 B' ≤ lifetimeUtility Ω u p r β Y1 Y2 B) ↔
+      ∀ s, p s / (1 + r) * du (Y1 - ∑ s, p s / (1 + r) * B s) =
+        Ω.prob s * β * du (Y2 s + B s) := by
+  constructor
+  · intro hmax
+    exact foc_necessary Ω hD p r β Y1 Y2 B hC1 hC2 (hu _ hC1) (fun s => hu _ (hC2 s)) hmax
+  · intro hfoc B' h1 h2
+    exact foc_sufficient Ω hconc hu p hβ Y1 Y2 B B' hC1 hC2 h1 h2 hfoc
 
 /-! ## Full insurance and actuarially fair prices (§5.1.4, pp. 277–278) -/
 

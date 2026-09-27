@@ -15,4 +15,6 @@ import InternationalFinancialMarkets.Spanning
 import InternationalFinancialMarkets.AssetPricing
 import InternationalFinancialMarkets.Nontradables
 import InternationalFinancialMarkets.EventTree
+import InternationalFinancialMarkets.ConsumptionPortfolio
+import InternationalFinancialMarkets.InfiniteHorizonPricing
 import InternationalFinancialMarkets.OLGRiskSharing

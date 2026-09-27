@@ -10,7 +10,7 @@ International Macroeconomics*, Chapter 5, “Uncertainty and International
 Financial Markets” (pp. 269–348), with its appendices, the Supplement to
 Chapter 5 (pp. 742–744) and the provable exercises. Uncertainty is a finite set
 of states, so expectations are finite sums. The library contains
-**268 theorems** and audits **388 declarations**.
+**503 theorems** and audits **715 declarations**.
 
 Headline results, in the namespace `ObstfeldRogoff.InternationalFinancialMarkets`:
 * **Complete markets for a small country.** Full insurance iff prices are
@@ -26,8 +26,16 @@ Headline results, in the namespace `ObstfeldRogoff.InternationalFinancialMarkets
 * **Asset pricing.** The consumption CAPM, the Hansen–Jagannathan bound, and
   Lucas's welfare cost of consumption variability, which simplifies exactly to
   `exp(ρV/2) − 1` (`AssetPricing.lucas_tau_simplifies`).
-* **Event trees.** Bayes rule on a tree of histories, constant CRRA shares, and
-  dynamic consistency of the date-1 plan (`EventTree.dynamic_consistency`).
+* **Infinite-horizon asset pricing on an event tree.** The price is the present-value
+  series iff there is no bubble; bounded prices are unique
+  (`InfiniteHorizonPricing.price_eq_fundamental_iff`, `unique_bounded_price`).
+* **Event trees.** Arrow–Debreu equilibrium over an infinite horizon, constant CRRA
+  shares, and dynamic consistency (`EventTree.crra_equilibrium_infinite`,
+  `dynamic_consistency_infinite`).
+* **Consumption and portfolio choice** (the Supplement). The Bellman equation is
+  solved exactly, an optimal portfolio exists under no arbitrage, and `C = μW` is
+  optimal over the infinite horizon, also with history-dependent returns
+  (`ConsumptionPortfolio.verification_crra_of_noArbitrage`, `verification_varying_returns`).
 
 See the [source map](docs/source-map.md) for the correspondence with the book and
 [corrections](docs/corrections.md) for where the printed text is wrong or
@@ -39,16 +47,18 @@ imprecise.
 | --- | ---: | --- |
 | [Model](InternationalFinancialMarkets/Model.lean) | 2 | Finite state space, expectations |
 | [Probability](InternationalFinancialMarkets/Probability.lean) | 16 | Covariance, variance, correlation, Cauchy–Schwarz |
-| [SmallCountry](InternationalFinancialMarkets/SmallCountry.lean) | 38 | §5.1: AD securities, no arbitrage, full insurance, CRRA and log demands; Appendix 5B; Ex 1, 3 |
+| [SmallCountry](InternationalFinancialMarkets/SmallCountry.lean) | 54 | §5.1: AD securities, no arbitrage, first-order conditions necessary and sufficient, full insurance, CRRA and log demands; Appendix 5B; Ex 1, 3 |
 | [ComparativeAdvantage](InternationalFinancialMarkets/ComparativeAdvantage.lean) | 6 | §5.1.7: Walras's law, revealed preference, comparative advantage |
-| [TwoStageBudgeting](InternationalFinancialMarkets/TwoStageBudgeting.lean) | 19 | §5.1.8: CES risk index, `P ≤ 1`, consumption and the current account |
+| [TwoStageBudgeting](InternationalFinancialMarkets/TwoStageBudgeting.lean) | 46 | §5.1.8: CES risk index, `P ≤ 1`, stage-1 and stage-2 optimality, Epstein–Zin (26), the current account |
 | [GlobalEquilibrium](InternationalFinancialMarkets/GlobalEquilibrium.lean) | 41 | §5.2: world prices, risk sharing, planner, investment; Ex 2 |
 | [Aggregation](InternationalFinancialMarkets/Aggregation.lean) | 6 | §5.2.3: HARA and geometric aggregation |
 | [PortfolioDiversification](InternationalFinancialMarkets/PortfolioDiversification.lean) | 33 | §5.3: bonds and shares replicate complete markets; Ex 4, 5 |
 | [Spanning](InternationalFinancialMarkets/Spanning.lean) | 13 | Appendix 5A: spanning and rank |
 | [AssetPricing](InternationalFinancialMarkets/AssetPricing.lean) | 29 | §5.4: CCAPM, Hansen–Jagannathan, equity premium; Lucas's welfare cost |
 | [Nontradables](InternationalFinancialMarkets/Nontradables.lean) | 22 | §5.5: efficiency in tradables, CES–CRRA, home bias |
-| [EventTree](InternationalFinancialMarkets/EventTree.lean) | 30 | Appendices 5C–5D, Supplement |
+| [EventTree](InternationalFinancialMarkets/EventTree.lean) | 57 | Appendices 5C–5D over an infinite horizon: optimality, CRRA and log equilibria, dynamic consistency |
+| [ConsumptionPortfolio](InternationalFinancialMarkets/ConsumptionPortfolio.lean) | 95 | Supplement: portfolio condition, existence, Bellman equation, verification (i.i.d. and history-dependent returns) |
+| [InfiniteHorizonPricing](InternationalFinancialMarkets/InfiniteHorizonPricing.lean) | 70 | §5.4.3 stochastic (59)–(61), bubbles; Ex 3(a), Ex 6 over an infinite horizon |
 | [OLGRiskSharing](InternationalFinancialMarkets/OLGRiskSharing.lean) | 13 | §5.6; Ex 6 |
 
 ## Build and verify

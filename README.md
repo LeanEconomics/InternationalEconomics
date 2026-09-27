@@ -11,7 +11,7 @@ source map to the book's equations and pages, and reproducible proof checks.
 | [SmallOpenEconomyDynamics](SmallOpenEconomyDynamics/README.md) | 2. Dynamics of Small Open Economies, with Supplements A–C | 379 theorems: transversality ⇔ intertemporal budget constraint, Euler sufficiency and necessity, the fundamental current-account equation, Hall's martingale, Campbell's present-value test, Tobin's q saddle path, firm value = capital, trend growth and the debt–output ratio | [Chapter overview](SmallOpenEconomyDynamics/README.md) |
 | [LifeCycleFiscalPolicy](LifeCycleFiscalPolicy/README.md) | 3. The Life Cycle, Tax Policy, and the Current Account | 288 theorems: Ricardian equivalence and its failure, Barro altruism, the debt-financed transfer, the small open Diamond economy, global stability of the two-country OLG model, Weil's perpetual youth, dynamic inefficiency, tax smoothing | [Chapter overview](LifeCycleFiscalPolicy/README.md) |
 | [RealExchangeRate](RealExchangeRate/README.md) | 4. The Real Exchange Rate and the Terms of Trade | 281 theorems: Balassa–Samuelson with exact log-derivatives and corrected signs, the CES price index and duality, consumption dynamics, the Dornbusch–Fischer–Samuelson model with transport costs, costly capital and a saddle-point theorem | [Chapter overview](RealExchangeRate/README.md) |
-| [InternationalFinancialMarkets](InternationalFinancialMarkets/README.md) | 5. Uncertainty and International Financial Markets | 268 theorems: full insurance iff fair prices, comparative advantage for arbitrary preferences, global risk sharing and the planner, spanning iff full rank (correcting the book's `S ≤ N+1`), the consumption CAPM and Hansen–Jagannathan, Lucas's welfare cost in exact form, event trees and dynamic consistency | [Chapter overview](InternationalFinancialMarkets/README.md) |
+| [InternationalFinancialMarkets](InternationalFinancialMarkets/README.md) | 5. Uncertainty and International Financial Markets | 503 theorems: full insurance iff fair prices, first-order conditions necessary and sufficient, Epstein–Zin, comparative advantage for arbitrary preferences, global risk sharing and the planner, spanning iff full rank (correcting the book's `S ≤ N+1`), the consumption CAPM and Hansen–Jagannathan, Lucas's welfare cost in exact form, stochastic infinite-horizon pricing and bubbles, infinite event trees, the consumption–portfolio problem with a verification theorem | [Chapter overview](InternationalFinancialMarkets/README.md) |
 
 ## Scope
 
@@ -25,7 +25,7 @@ inefficiency), the real exchange rate with traded and nontraded goods
 international financial markets under uncertainty (complete markets, risk
 sharing, portfolio diversification, asset pricing), with uncertainty as a
 finite set of states. Provable end-of-chapter exercises are included. The five
-projects together check 1488 theorems.
+projects together check 1723 theorems.
 
 Where the book argues from a diagram, the Lean statement is a theorem with
 explicit hypotheses. Where the book leaves a hypothesis implicit (interiority,
