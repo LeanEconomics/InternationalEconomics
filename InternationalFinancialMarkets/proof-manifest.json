@@ -1,11 +1,35 @@
 {
   "library": "InternationalFinancialMarkets",
   "modules": [
-    "InternationalFinancialMarkets/Model.lean"
+    "InternationalFinancialMarkets/Model.lean",
+    "InternationalFinancialMarkets/Probability.lean",
+    "InternationalFinancialMarkets/SmallCountry.lean",
+    "InternationalFinancialMarkets/ComparativeAdvantage.lean",
+    "InternationalFinancialMarkets/TwoStageBudgeting.lean",
+    "InternationalFinancialMarkets/GlobalEquilibrium.lean",
+    "InternationalFinancialMarkets/Aggregation.lean",
+    "InternationalFinancialMarkets/PortfolioDiversification.lean",
+    "InternationalFinancialMarkets/Spanning.lean",
+    "InternationalFinancialMarkets/AssetPricing.lean",
+    "InternationalFinancialMarkets/Nontradables.lean",
+    "InternationalFinancialMarkets/EventTree.lean",
+    "InternationalFinancialMarkets/OLGRiskSharing.lean"
   ],
   "theorem_counts": {
-    "InternationalFinancialMarkets/Model.lean": 2
+    "InternationalFinancialMarkets/Model.lean": 2,
+    "InternationalFinancialMarkets/Probability.lean": 16,
+    "InternationalFinancialMarkets/SmallCountry.lean": 38,
+    "InternationalFinancialMarkets/ComparativeAdvantage.lean": 6,
+    "InternationalFinancialMarkets/TwoStageBudgeting.lean": 19,
+    "InternationalFinancialMarkets/GlobalEquilibrium.lean": 41,
+    "InternationalFinancialMarkets/Aggregation.lean": 6,
+    "InternationalFinancialMarkets/PortfolioDiversification.lean": 33,
+    "InternationalFinancialMarkets/Spanning.lean": 13,
+    "InternationalFinancialMarkets/AssetPricing.lean": 29,
+    "InternationalFinancialMarkets/Nontradables.lean": 22,
+    "InternationalFinancialMarkets/EventTree.lean": 30,
+    "InternationalFinancialMarkets/OLGRiskSharing.lean": 13
   },
-  "scope": "Obstfeld and Rogoff (1996), Chapter 5: uncertainty and international financial markets. Scaffold: a finite state space with probabilities and expectations.",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 5: uncertainty and international financial markets. Complete markets for a small country, global equilibrium and risk sharing, aggregation, portfolio diversification and spanning, the consumption CAPM and the equity premium, nontradables, Lucas's cost of consumption variability, overlapping generations, the event-tree appendices and the Supplement, with the provable exercises.",
   "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 5, pp. 269-348, and the Supplement to Chapter 5, pp. 742-744."
 }

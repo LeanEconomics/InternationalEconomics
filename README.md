@@ -11,17 +11,21 @@ source map to the book's equations and pages, and reproducible proof checks.
 | [SmallOpenEconomyDynamics](SmallOpenEconomyDynamics/README.md) | 2. Dynamics of Small Open Economies, with Supplements A–C | 379 theorems: transversality ⇔ intertemporal budget constraint, Euler sufficiency and necessity, the fundamental current-account equation, Hall's martingale, Campbell's present-value test, Tobin's q saddle path, firm value = capital, trend growth and the debt–output ratio | [Chapter overview](SmallOpenEconomyDynamics/README.md) |
 | [LifeCycleFiscalPolicy](LifeCycleFiscalPolicy/README.md) | 3. The Life Cycle, Tax Policy, and the Current Account | 288 theorems: Ricardian equivalence and its failure, Barro altruism, the debt-financed transfer, the small open Diamond economy, global stability of the two-country OLG model, Weil's perpetual youth, dynamic inefficiency, tax smoothing | [Chapter overview](LifeCycleFiscalPolicy/README.md) |
 | [RealExchangeRate](RealExchangeRate/README.md) | 4. The Real Exchange Rate and the Terms of Trade | 281 theorems: Balassa–Samuelson with exact log-derivatives and corrected signs, the CES price index and duality, consumption dynamics, the Dornbusch–Fischer–Samuelson model with transport costs, costly capital and a saddle-point theorem | [Chapter overview](RealExchangeRate/README.md) |
-| [InternationalFinancialMarkets](InternationalFinancialMarkets/README.md) | 5. Uncertainty and International Financial Markets | in progress | [Chapter overview](InternationalFinancialMarkets/README.md) |
+| [InternationalFinancialMarkets](InternationalFinancialMarkets/README.md) | 5. Uncertainty and International Financial Markets | 268 theorems: full insurance iff fair prices, comparative advantage for arbitrary preferences, global risk sharing and the planner, spanning iff full rank (correcting the book's `S ≤ N+1`), the consumption CAPM and Hansen–Jagannathan, Lucas's welfare cost in exact form, event trees and dynamic consistency | [Chapter overview](InternationalFinancialMarkets/README.md) |
 
 ## Scope
 
-The three projects formalise the book's first three chapters. These are its
-"real", one-good, discrete-time chapters: the two-period Fisher economy
-and world equilibrium, the infinite-horizon small open economy (intertemporal
-budget constraint, permanent-income current account, Hall's random walk, Tobin's
-q), and overlapping-generations fiscal policy (Ricardian equivalence and its
-failure, the Diamond model, Weil's perpetual youth, dynamic inefficiency).
-Provable end-of-chapter exercises are included. The three projects together check 939 theorems.
+The five projects formalise the book's first five chapters: the two-period
+Fisher economy and world equilibrium, the infinite-horizon small open economy
+(intertemporal budget constraint, permanent-income current account, Hall's
+random walk, Tobin's q), overlapping-generations fiscal policy (Ricardian
+equivalence and its failure, the Diamond model, Weil's perpetual youth, dynamic
+inefficiency), the real exchange rate with traded and nontraded goods
+(Balassa–Samuelson, the Dornbusch–Fischer–Samuelson continuum), and
+international financial markets under uncertainty (complete markets, risk
+sharing, portfolio diversification, asset pricing), with uncertainty as a
+finite set of states. Provable end-of-chapter exercises are included. The five
+projects together check 1488 theorems.
 
 Where the book argues from a diagram, the Lean statement is a theorem with
 explicit hypotheses. Where the book leaves a hypothesis implicit (interiority,
@@ -41,14 +45,15 @@ lake exe cache get
 python scripts/verify.py
 ```
 
-and the same in `SmallOpenEconomyDynamics/` and `LifeCycleFiscalPolicy/`.
+and the same in `SmallOpenEconomyDynamics/`, `LifeCycleFiscalPolicy/`,
+`RealExchangeRate/` and `InternationalFinancialMarkets/`.
 
 The verifier builds the complete project, freshly recompiles every contributed
 proof without importing its compiled project module, and audits each named
 declaration's transitive axioms. Only `propext`, `Classical.choice`, and
 `Quot.sound` are allowed. Warnings, failed proofs, or placeholder axioms fail
 the check. Every file carries the Apache 2.0 header that Mathlib's header linter
-checks. GitHub Actions runs all three projects independently on pushes and pull
+checks. GitHub Actions runs all five projects independently on pushes and pull
 requests. The generated `verification/verification.json` records source hashes
 and axiom lists. Proof checking happens in Lean's kernel; the JSON is a record
 of a run.
