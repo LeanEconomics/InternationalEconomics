@@ -54,6 +54,7 @@ end LogOLG
 
 end ObstfeldRogoff.LifeCycleFiscalPolicy
 
+set_option linter.style.longLine false
 #print axioms ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG
 #print axioms ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.mk
 #print axioms ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.β

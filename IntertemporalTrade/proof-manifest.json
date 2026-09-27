@@ -1,11 +1,31 @@
 {
   "library": "IntertemporalTrade",
   "modules": [
-    "IntertemporalTrade/Model.lean"
+    "IntertemporalTrade/Model.lean",
+    "IntertemporalTrade/Consumer.lean",
+    "IntertemporalTrade/AutarkyGains.lean",
+    "IntertemporalTrade/CurrentAccount.lean",
+    "IntertemporalTrade/Investment.lean",
+    "IntertemporalTrade/Isoelastic.lean",
+    "IntertemporalTrade/WorldEquilibrium.lean",
+    "IntertemporalTrade/Duality.lean",
+    "IntertemporalTrade/OptimalTax.lean",
+    "IntertemporalTrade/LabourMobility.lean",
+    "IntertemporalTrade/Stability.lean"
   ],
   "theorem_counts": {
-    "IntertemporalTrade/Model.lean": 2
+    "IntertemporalTrade/Model.lean": 2,
+    "IntertemporalTrade/Consumer.lean": 19,
+    "IntertemporalTrade/AutarkyGains.lean": 19,
+    "IntertemporalTrade/CurrentAccount.lean": 12,
+    "IntertemporalTrade/Investment.lean": 34,
+    "IntertemporalTrade/Isoelastic.lean": 29,
+    "IntertemporalTrade/WorldEquilibrium.lean": 24,
+    "IntertemporalTrade/Duality.lean": 36,
+    "IntertemporalTrade/OptimalTax.lean": 47,
+    "IntertemporalTrade/LabourMobility.lean": 44,
+    "IntertemporalTrade/Stability.lean": 6
   },
-  "scope": "Obstfeld and Rogoff (1996), Chapter 1: intertemporal trade and the current account balance. Phase 0 scaffold: the two-period small open endowment economy, its budget constraint, and the two-period current-account identity.",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 1: intertemporal trade and the current account balance. Two-period consumer (existence, uniqueness, Euler necessity and sufficiency, flat and tilted consumption), autarky rates, gains from trade and the saving-sign lemma by revealed preference, current-account dynamics with government spending, investment and Fisher separation with a strictly concave PPF, isoelastic and CARA closed forms and limits, two-country world equilibrium (existence, rate between autarky rates, first welfare theorem, log closed forms), duality (Shephard, Slutsky), the optimal tax on foreign borrowing, international labour mobility and the factor-price frontier, Walrasian stability and Marshall-Lerner, and the provable end-of-chapter exercises (1-5, 7, 8).",
   "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 1, pp. 1-58."
 }

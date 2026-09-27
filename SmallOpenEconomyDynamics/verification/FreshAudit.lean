@@ -58,6 +58,7 @@ end Economy
 
 end ObstfeldRogoff.SmallOpenEconomyDynamics
 
+set_option linter.style.longLine false
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Economy
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.mk
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.r

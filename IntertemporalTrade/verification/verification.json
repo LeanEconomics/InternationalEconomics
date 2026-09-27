@@ -1,10 +1,20 @@
 {
-  "checked_at_utc": "2026-09-27T06:39:58.443240+00:00",
-  "theorems": 2,
+  "checked_at_utc": "2026-09-27T07:19:38.536059+00:00",
+  "theorems": 272,
   "module_theorems": {
-    "IntertemporalTrade/Model.lean": 2
+    "IntertemporalTrade/Model.lean": 2,
+    "IntertemporalTrade/Consumer.lean": 19,
+    "IntertemporalTrade/AutarkyGains.lean": 19,
+    "IntertemporalTrade/CurrentAccount.lean": 12,
+    "IntertemporalTrade/Investment.lean": 34,
+    "IntertemporalTrade/Isoelastic.lean": 29,
+    "IntertemporalTrade/WorldEquilibrium.lean": 24,
+    "IntertemporalTrade/Duality.lean": 36,
+    "IntertemporalTrade/OptimalTax.lean": 47,
+    "IntertemporalTrade/LabourMobility.lean": 44,
+    "IntertemporalTrade/Stability.lean": 6
   },
-  "audited_declarations": 11,
+  "audited_declarations": 381,
   "declarations": [
     {
       "name": "ObstfeldRogoff.IntertemporalTrade.Economy",
@@ -60,6 +70,1856 @@
       "name": "ObstfeldRogoff.IntertemporalTrade.Economy.ca1_add_ca2",
       "kind": "theorem",
       "module": "IntertemporalTrade/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.concave_le_tangent",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.deriv_lt_of_strictConcave",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household",
+      "kind": "structure",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.mk",
+      "kind": "constructor",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.u",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.\u03b2",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.Y1",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.Y2",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.\u03b2_pos",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.Y1_pos",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.Y2_pos",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.mono",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.concave",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility",
+      "kind": "def",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.Feasible",
+      "kind": "def",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.IsOptimal",
+      "kind": "def",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.feasible_iff_budget",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.endowment_feasible",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_lt_utility_of_lt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.optimal_binds",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.optimal_unique",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.hasDerivAt_budgetLine",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.euler_of_optimal",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.optimal_of_euler",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.isOptimal_iff_euler",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.flat_of_beta_mul_eq_one",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.flat_level",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.tilt_up",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.tilt_down",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.exists_optimal",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.euler_general",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.envelope_general",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.welfare_equivalent_wealth",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Consumer.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.IsAutarkyRate",
+      "kind": "def",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_endowment_le",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_endowment_lt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.isOptimal_of_utility_eq",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.saving_nonneg_of_autarky_lt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.saving_nonpos_of_lt_autarky",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.optimal_at_autarky",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_mono_of_autarky_le",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_anti_of_le_autarky",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_lt_of_lends",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_lt_of_borrows",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.isAutarkyRate_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.autarkyRate_unique",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.saving_pos_of_autarky_lt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.saving_neg_of_lt_autarky",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_strictMono_of_autarky_le",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_strictAnti_of_le_autarky",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.autarkyGross",
+      "kind": "def",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.autarkyGross_anti_Y1",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.autarkyGross_mono_Y2",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Consumer.autarkyGross_anti_beta",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/AutarkyGains.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.gnp_sub_gdp",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.ca2_eq_neg_ca1",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.caG1",
+      "kind": "def",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.caG2",
+      "kind": "def",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.budgetG_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.caG1_add_caG2",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.caG1_of_flat",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.flat_level_G",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.flatCA1",
+      "kind": "def",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.flatCA1_permanent",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.flatCA1_strictMono_Y1",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.flatCA1_strictAnti_Y2",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.ca1_of_optimal",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.temporary_government_deficit",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.permanent_government_balanced",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/CurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.currentAccount",
+      "kind": "def",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.saving",
+      "kind": "def",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.currentAccount_eq_saving_sub_investment",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.nfa_change_iff_wealth_change",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.intertemporal_budget_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.consumption2",
+      "kind": "def",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.utility",
+      "kind": "def",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.budget_iff_consumption2",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.IsOptimal",
+      "kind": "def",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.pvNetOutput",
+      "kind": "def",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.pvNetOutput_eq",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.consumption2_eq_pv",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.fisher_separation",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.fisher_separation_pv",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.profit_maximizer_unique",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.fisher_separation_independent",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.no_crowding_out",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.capital_foc",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.profit_max_of_deriv_eq",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.optimal_capital_eq_of_deriv",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.consumption_foc",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ppf",
+      "kind": "def",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_no_government",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.consumption2_autarky",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.autarky_market_clearing",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_horizontal_intercept",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_vertical_intercept",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_shift",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_hasDerivAt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_slope_hasDerivAt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_strictConcaveOn",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.autarky_tangency",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.gains_from_trade",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.wealth",
+      "kind": "def",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.consumption2_budget",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.optimum_solves_wealth_problem",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ca1",
+      "kind": "def",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ca1_eq_currentAccount",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.consumption_smoothing",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ca1_strictAnti_G1",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.temporary_G1_deficit",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.ca1_strictMono_G2",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Investment.future_G2_surplus",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Investment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.eis",
+      "kind": "def",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.isoU",
+      "kind": "def",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.hasDerivAt_isoU",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.deriv_isoU_eventuallyEq",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.deriv_deriv_isoU",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.eis_isoU",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.tendsto_normalised_isoU_log",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.eq_affine_isoU_of_eis_const",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.euler_iff_growth",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.consC1",
+      "kind": "def",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.consC2",
+      "kind": "def",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.euler_budget_iff_closed_form",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.log_growth_isoelastic",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.log_euler_budget_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.consC1_log",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.consC2_log_share",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.hasDerivAt_consC1",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.deriv_consC1_neg_of_borrower",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.dC1_dr_general",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.general_formula_eq_isoelastic",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex3_capital_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex3_consumption",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4_growth_tendsto_one",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4_consC1_tendsto",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4_flat",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4_hasDerivAt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4d_euler_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4d_ratio_tendsto",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex7_euler_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.caraC1",
+      "kind": "def",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex7_euler_budget_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex7_hasDerivAt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex7_eis",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex7_hasDerivAt_eis",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Isoelastic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.IsEquilibrium",
+      "kind": "def",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.walras_law",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.rate_between_autarky",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.trade_pattern",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.continuousAt_optimal_c1",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.exists_autarkyRate",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.exists_optimal_selection",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.exists_equilibrium_of_le",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.exists_equilibrium",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.cost_ge_of_utility_ge",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.cost_gt_of_utility_gt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.first_welfare_theorem",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logC1",
+      "kind": "def",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.log_saving",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.log_equilibrium_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.mediant_between",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.log_rate_between",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logWelfare",
+      "kind": "def",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.hasDerivAt_logWelfare",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate",
+      "kind": "def",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate_anti_Y1",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate_mono_Y2",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate_comm",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate_anti_Y1s",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate_mono_Y2s",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.hasDerivAt_capital_productivity",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.capital_increasing_in_productivity",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.blanchard_summers",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/WorldEquilibrium.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem",
+      "kind": "structure",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.mk",
+      "kind": "constructor",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.V",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.Uset",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.E",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.C1H",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.C2H",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.le_cost",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.C1H_pos",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.C2H_pos",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.attains",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.cost_eq",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.hasDerivAt_along_path",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.E_le_hicksian_cost",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.shephard",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.C1H_eq_E_sub",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.hasDerivAt_E_of_hicksian",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.hicksian_tangency",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.welfare_effect",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.welfare_rises_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.slutsky",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.total_effect",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.u",
+      "kind": "def",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.D",
+      "kind": "def",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1H",
+      "kind": "def",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C2H",
+      "kind": "def",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.E",
+      "kind": "def",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1M",
+      "kind": "def",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C2M",
+      "kind": "def",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.D_pos",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.mul_rpow_neg",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.rpow_div_le_tangent",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.u_le_tangent",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1H_pos",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C2H_pos",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1H_rpow",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.utility_hicksian",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.euler_hicksian",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.cost_hicksian",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.le_cost",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.system",
+      "kind": "def",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_D",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1H",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.shephard_iso",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1H_eq_E_sub_iso",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.duality_identity_iso",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.marshallian_budget",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1M_eq_eq26",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1M_R",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1M_W",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.slutsky_iso",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1_total",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1_total_euler",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1_r_eq24",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasFDerivAt_C1M",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.total_effect_iso",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Duality.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign",
+      "kind": "structure",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.mk",
+      "kind": "constructor",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.\u03b2",
+      "kind": "projection",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.Y1",
+      "kind": "projection",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.Y2",
+      "kind": "projection",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.\u03b2_pos",
+      "kind": "projection",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.Y1_pos",
+      "kind": "projection",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.Y2_pos",
+      "kind": "projection",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.saving",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.autarkyGross",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.household",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.household_optimal",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.saving_pos_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.denom",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.rate",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.market_clearing_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.denom_pos_of_clearing",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_eq_budget",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_endowment",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.rate_endowment",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.hasDerivAt_offer",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_slope_endowment",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_eq_alt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.convex_denom_pos",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_strictConcaveOn",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_strictAntiOn",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.rate_strictMonoOn",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.IsLaissezFaire",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.laissezFaire_on_offer",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.deriv_anti",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.laissezFaire_borrows",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.laissezFaire_rate_gt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.offer_above_laissezFaire_line",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.PlannerFeasible",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.IsPlannerOptimal",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.offerMRS",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.hasDerivAt_utility_offer",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.planner_tangency",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.plannerOptimal_of_tangency",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.planner_between",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.rate_ordering",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.optimalTax",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.optimalTax_eq",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.optimalTax_pos",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.ResidentOptimal",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.tax_decentralises",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.home_gains",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.utility_lt_of_lender",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.foreign_loses",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.eventually_gt_of_hasDerivAt_pos",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.exists_pareto_improvement",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.foreign_mrs",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.tax_equilibrium_pareto_inefficient",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.small_country_zero_tax",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.scale",
+      "kind": "def",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.autarkyGross_scale",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.tendsto_denom_scale",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.tendsto_rate_scale",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.tendsto_optimalTax_scale",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.saving_neg_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.laissezFaire_lends",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.planner_between_lend",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.optimalTax_neg",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.elasticity_sub_one",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.ex8_optimal_tax",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.ex8_elasticity_gt_one",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.OptimalTax.ex8_elasticity_gt_one_of_supply",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/OptimalTax.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.euler_of_homogeneous",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.prod",
+      "kind": "def",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.prod_homogeneous",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.hasDerivAt_prod_capital",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.hasDerivAt_prod_labour",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.prod_eq_euler",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.consumption2",
+      "kind": "def",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.lifetimeUtility",
+      "kind": "def",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.hasDerivAt_lifetimeUtility_capital",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.hasDerivAt_lifetimeUtility_labour",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.euler_equation",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.wage_eq_marginal_product",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology",
+      "kind": "structure",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.mk",
+      "kind": "constructor",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f",
+      "kind": "projection",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f'",
+      "kind": "projection",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f''",
+      "kind": "projection",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.continuousOn_f",
+      "kind": "projection",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_f",
+      "kind": "projection",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_f'",
+      "kind": "projection",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f''_neg",
+      "kind": "projection",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f'_strictAntiOn",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f_lt_tangent",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f_le_tangent",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.wage",
+      "kind": "def",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_wage",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.wage_strictMonoOn",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.wageRange",
+      "kind": "def",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.kOf",
+      "kind": "def",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.rOf",
+      "kind": "def",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.kOf_pos",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.wage_kOf",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.kOf_wage",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.kOf_strictMonoOn",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.rOf_strictAntiOn",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.continuousAt_kOf",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_kOf",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.kOf_slope_pos",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_rOf",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.prod_eq_factor_payments",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.prod_le_factor_payments",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.prod_lt_factor_payments",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.profit_nonpos",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.profit_eq_zero_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.consumption2_le_gnp",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.consumption2_eq_gnp_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.ppf",
+      "kind": "def",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gnpLine",
+      "kind": "def",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gdpLine",
+      "kind": "def",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.ppf_le_gnpLine",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.ppf_eq_gnpLine_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_ppf",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.ppf_tangent_at_B",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gdpLine_eq",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gdpLine_sub_gnpLine",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gnpLine_lt_gdpLine_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.autarkyWage",
+      "kind": "def",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gross_return_pos_of_euler",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.labour_imports_of_autarkyWage_gt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.labour_exports_of_autarkyWage_lt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.autarkyWage_lt_of_saving_lt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.autarkyWage_anti_labour",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.autarkyWage_lt_of_more_saving",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.netLabourExports_lt_of_labour_lt",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/LabourMobility.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Stability.zeta",
+      "kind": "def",
+      "module": "IntertemporalTrade/Stability.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Stability.zetaStar",
+      "kind": "def",
+      "module": "IntertemporalTrade/Stability.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Stability.hasDerivAt_netImports",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Stability.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Stability.worldExcessSaving_eq",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Stability.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Stability.marshall_lerner",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Stability.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Stability.stable_iff_marshall_lerner",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Stability.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Stability.dC1_neg_of_zero_ca",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Stability.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Stability.stable_of_saving_increasing",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Stability.lean"
     }
   ],
   "full_build": "passed",
@@ -123,20 +1983,1880 @@
       "propext",
       "Classical.choice",
       "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.concave_le_tangent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.deriv_lt_of_strictConcave": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.u": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.\u03b2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.Y1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.Y2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.\u03b2_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.Y1_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.Y2_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.mono": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.concave": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.Feasible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.IsOptimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.feasible_iff_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.endowment_feasible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_lt_utility_of_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.optimal_binds": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.optimal_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.hasDerivAt_budgetLine": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.euler_of_optimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.optimal_of_euler": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.isOptimal_iff_euler": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.flat_of_beta_mul_eq_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.flat_level": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.tilt_up": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.tilt_down": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.exists_optimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.euler_general": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.envelope_general": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.welfare_equivalent_wealth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.IsAutarkyRate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_endowment_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_endowment_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.isOptimal_of_utility_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.saving_nonneg_of_autarky_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.saving_nonpos_of_lt_autarky": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.optimal_at_autarky": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_mono_of_autarky_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_anti_of_le_autarky": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_lt_of_lends": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_lt_of_borrows": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.isAutarkyRate_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.autarkyRate_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.saving_pos_of_autarky_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.saving_neg_of_lt_autarky": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_strictMono_of_autarky_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.Household.utility_strictAnti_of_le_autarky": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.autarkyGross": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.autarkyGross_anti_Y1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.autarkyGross_mono_Y2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Consumer.autarkyGross_anti_beta": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.gnp_sub_gdp": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.ca2_eq_neg_ca1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.caG1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.caG2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.budgetG_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.caG1_add_caG2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.caG1_of_flat": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.flat_level_G": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.flatCA1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.flatCA1_permanent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.flatCA1_strictMono_Y1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.flatCA1_strictAnti_Y2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.ca1_of_optimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.temporary_government_deficit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.CurrentAccount.permanent_government_balanced": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.currentAccount": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.currentAccount_eq_saving_sub_investment": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.nfa_change_iff_wealth_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.intertemporal_budget_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.consumption2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.utility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.budget_iff_consumption2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.IsOptimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.pvNetOutput": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.pvNetOutput_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.consumption2_eq_pv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.fisher_separation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.fisher_separation_pv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.profit_maximizer_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.fisher_separation_independent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.no_crowding_out": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.capital_foc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.profit_max_of_deriv_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.optimal_capital_eq_of_deriv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.consumption_foc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ppf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_no_government": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.consumption2_autarky": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.autarky_market_clearing": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_horizontal_intercept": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_vertical_intercept": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_shift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_slope_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ppf_strictConcaveOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.autarky_tangency": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.gains_from_trade": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.wealth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.consumption2_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.optimum_solves_wealth_problem": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ca1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ca1_eq_currentAccount": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.consumption_smoothing": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ca1_strictAnti_G1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.temporary_G1_deficit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.ca1_strictMono_G2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Investment.future_G2_surplus": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.eis": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.isoU": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.hasDerivAt_isoU": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.deriv_isoU_eventuallyEq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.deriv_deriv_isoU": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.eis_isoU": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.tendsto_normalised_isoU_log": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.eq_affine_isoU_of_eis_const": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.euler_iff_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.consC1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.consC2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.euler_budget_iff_closed_form": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.log_growth_isoelastic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.log_euler_budget_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.consC1_log": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.consC2_log_share": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.hasDerivAt_consC1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.deriv_consC1_neg_of_borrower": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.dC1_dr_general": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.general_formula_eq_isoelastic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex3_capital_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex3_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4_growth_tendsto_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4_consC1_tendsto": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4_flat": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4d_euler_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex4d_ratio_tendsto": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex7_euler_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.caraC1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex7_euler_budget_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex7_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex7_eis": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Isoelastic.ex7_hasDerivAt_eis": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.IsEquilibrium": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.walras_law": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.rate_between_autarky": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.trade_pattern": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.continuousAt_optimal_c1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.exists_autarkyRate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.exists_optimal_selection": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.exists_equilibrium_of_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.exists_equilibrium": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.cost_ge_of_utility_ge": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.cost_gt_of_utility_gt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.first_welfare_theorem": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logC1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.log_saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.log_equilibrium_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.mediant_between": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.log_rate_between": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logWelfare": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.hasDerivAt_logWelfare": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate_anti_Y1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate_mono_Y2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate_comm": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate_anti_Y1s": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.logGrossRate_mono_Y2s": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.hasDerivAt_capital_productivity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.capital_increasing_in_productivity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.WorldEquilibrium.blanchard_summers": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.V": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.Uset": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.E": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.C1H": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.C2H": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.le_cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.C1H_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.C2H_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.attains": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.cost_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.hasDerivAt_along_path": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.E_le_hicksian_cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.shephard": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.C1H_eq_E_sub": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.hasDerivAt_E_of_hicksian": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.hicksian_tangency": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.welfare_effect": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.welfare_rises_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.slutsky": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.ExpenditureSystem.total_effect": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.u": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.D": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1H": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C2H": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.E": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1M": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C2M": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.D_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.mul_rpow_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.rpow_div_le_tangent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.u_le_tangent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1H_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C2H_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1H_rpow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.utility_hicksian": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.euler_hicksian": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.cost_hicksian": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.le_cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.system": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_D": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1H": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.shephard_iso": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1H_eq_E_sub_iso": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.duality_identity_iso": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.marshallian_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.C1M_eq_eq26": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1M_R": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1M_W": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.slutsky_iso": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1_total": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1_total_euler": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasDerivAt_C1_r_eq24": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.hasFDerivAt_C1M": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Duality.Iso.total_effect_iso": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.\u03b2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.Y1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.Y2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.\u03b2_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.Y1_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.Y2_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.autarkyGross": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.household": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.household_optimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.saving_pos_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.denom": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.rate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.market_clearing_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.denom_pos_of_clearing": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_eq_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_endowment": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.rate_endowment": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.hasDerivAt_offer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_slope_endowment": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_eq_alt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.convex_denom_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_strictConcaveOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.offer_strictAntiOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.rate_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.IsLaissezFaire": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.laissezFaire_on_offer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.deriv_anti": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.laissezFaire_borrows": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.laissezFaire_rate_gt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.offer_above_laissezFaire_line": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.PlannerFeasible": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.IsPlannerOptimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.offerMRS": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.hasDerivAt_utility_offer": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.planner_tangency": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.plannerOptimal_of_tangency": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.planner_between": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.rate_ordering": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.optimalTax": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.optimalTax_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.optimalTax_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.ResidentOptimal": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.tax_decentralises": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.home_gains": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.utility_lt_of_lender": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.foreign_loses": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.eventually_gt_of_hasDerivAt_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.exists_pareto_improvement": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.foreign_mrs": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.tax_equilibrium_pareto_inefficient": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.small_country_zero_tax": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.scale": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.autarkyGross_scale": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.tendsto_denom_scale": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.tendsto_rate_scale": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.tendsto_optimalTax_scale": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.Foreign.saving_neg_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.laissezFaire_lends": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.planner_between_lend": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.optimalTax_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.elasticity_sub_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.ex8_optimal_tax": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.ex8_elasticity_gt_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.OptimalTax.ex8_elasticity_gt_one_of_supply": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.euler_of_homogeneous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.prod": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.prod_homogeneous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.hasDerivAt_prod_capital": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.hasDerivAt_prod_labour": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.prod_eq_euler": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.consumption2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.lifetimeUtility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.hasDerivAt_lifetimeUtility_capital": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.hasDerivAt_lifetimeUtility_labour": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.euler_equation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.wage_eq_marginal_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f'": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f''": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.continuousOn_f": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_f": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_f'": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f''_neg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f'_strictAntiOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f_lt_tangent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.f_le_tangent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.wage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_wage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.wage_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.wageRange": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.kOf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.rOf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.kOf_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.wage_kOf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.kOf_wage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.kOf_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.rOf_strictAntiOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.continuousAt_kOf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_kOf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.kOf_slope_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_rOf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.prod_eq_factor_payments": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.prod_le_factor_payments": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.prod_lt_factor_payments": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.profit_nonpos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.profit_eq_zero_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.consumption2_le_gnp": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.consumption2_eq_gnp_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.ppf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gnpLine": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gdpLine": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.ppf_le_gnpLine": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.ppf_eq_gnpLine_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.hasDerivAt_ppf": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.ppf_tangent_at_B": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gdpLine_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gdpLine_sub_gnpLine": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gnpLine_lt_gdpLine_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.autarkyWage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.gross_return_pos_of_euler": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.labour_imports_of_autarkyWage_gt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.labour_exports_of_autarkyWage_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.autarkyWage_lt_of_saving_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.autarkyWage_anti_labour": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.autarkyWage_lt_of_more_saving": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.LabourMobility.Technology.netLabourExports_lt_of_labour_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Stability.zeta": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Stability.zetaStar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Stability.hasDerivAt_netImports": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Stability.worldExcessSaving_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Stability.marshall_lerner": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Stability.stable_iff_marshall_lerner": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Stability.dC1_neg_of_zero_ca": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Stability.stable_of_saving_increasing": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
     ]
   },
   "source_sha256": {
     "IntertemporalTrade/Model.lean": "16b4e897c6b517a264f76b569029bcef299be373f68fa721b90d6a376997366b",
-    "IntertemporalTrade.lean": "5f6b0be1692638649bc67250cb5f675da0812f8d370705e7a9c6fa3de274d198",
+    "IntertemporalTrade/Consumer.lean": "14f7c24baf7ea1647625548d6620a5a5cb766bd19446a14abf1542b37a2d1668",
+    "IntertemporalTrade/AutarkyGains.lean": "d982af24e070b48b3d564cb02394ae05f9932a972314494087269bc839c104d3",
+    "IntertemporalTrade/CurrentAccount.lean": "ad54bbcfa8df336ad3f2e55d0e5beaf42f5d7cb2c928ef9b37cb8dbf8337b4ee",
+    "IntertemporalTrade/Investment.lean": "073cde06d949e43a338239a6930e1709abca56abdc369609be931c7a77390090",
+    "IntertemporalTrade/Isoelastic.lean": "acf7f51320316c8832665fb765e7f24d5969ed018e35b115242be4bf94f3cf83",
+    "IntertemporalTrade/WorldEquilibrium.lean": "bd828f2403bbcef904001b519e6f4084c92fe9818b875ee8508bf742b3ebfc84",
+    "IntertemporalTrade/Duality.lean": "2c49970f1b8e19ddbc498ea6c8ea1bd69fdc04aad4f573b21d572f6d63c83701",
+    "IntertemporalTrade/OptimalTax.lean": "650489ba41f426f85b624c14538205ccedd394ddfb8a48afad52e305dbf9f24e",
+    "IntertemporalTrade/LabourMobility.lean": "8d121af2b857f0c2a3d2e085ddf992350d8235917e94982aa3aa01152c1da149",
+    "IntertemporalTrade/Stability.lean": "51c54667b27cb46f17f8111002e14a6dc0d24b0d827f783e2526934a4189c991",
+    "IntertemporalTrade.lean": "52bf1d4f5f0fba28a60fcac8b6cc4f0439acd2e9543b0a3b2b9467c2a969a263",
     "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
     "lakefile.toml": "bd0f845eaa77095d765cefc395f7e083f51caf9cefc5cdeb7d95e576cb65ef1f",
     "lake-manifest.json": "f05f09426146790c0fb5d98293cd45bae68f0d25ca0342d98de866f28b179e14",
-    "proof-manifest.json": "80c8114205f16bfe795e65d7db5fe53acb58b7ea34f1ff2669487c3188164147",
-    "scripts/verify.py": "f652c465ee7e08a89b7367246e0954f242d2b4b9d873ad704df05e0d36db6353",
+    "proof-manifest.json": "c53df2c98cf508d3410b96c795c618ac431cd5c0cfda36cbc7600a501a857692",
+    "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
   },
-  "fresh_audit_sha256": "23b7a1a31ce0bc34bd6caa38de82e42ef77498ab25451d83b281ca770cf12e62",
+  "fresh_audit_sha256": "cbb4c899c4f1052d518722f1f9b6f5474ac6860677ed29cd99f71bd1095454c2",
   "lean_toolchain": "leanprover/lean4:v4.34.0",
-  "scope": "Obstfeld and Rogoff (1996), Chapter 1: intertemporal trade and the current account balance. Phase 0 scaffold: the two-period small open endowment economy, its budget constraint, and the two-period current-account identity.",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 1: intertemporal trade and the current account balance. Two-period consumer (existence, uniqueness, Euler necessity and sufficiency, flat and tilted consumption), autarky rates, gains from trade and the saving-sign lemma by revealed preference, current-account dynamics with government spending, investment and Fisher separation with a strictly concave PPF, isoelastic and CARA closed forms and limits, two-country world equilibrium (existence, rate between autarky rates, first welfare theorem, log closed forms), duality (Shephard, Slutsky), the optimal tax on foreign borrowing, international labour mobility and the factor-price frontier, Walrasian stability and Marshall-Lerner, and the provable end-of-chapter exercises (1-5, 7, 8).",
   "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 1, pp. 1-58."
 }

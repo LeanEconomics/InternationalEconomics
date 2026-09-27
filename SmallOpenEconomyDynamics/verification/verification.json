@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-09-27T06:40:01.833561+00:00",
+  "checked_at_utc": "2026-09-27T07:19:55.686974+00:00",
   "theorems": 1,
   "module_theorems": {
     "SmallOpenEconomyDynamics/Model.lean": 1
@@ -162,10 +162,10 @@
     "lakefile.toml": "d69da63c22028765b9c1b0c8afe0014f822a6fb4dd7f85677e3fb4c33fe2cb0e",
     "lake-manifest.json": "225eb85930596c04d2ea1da05e8c9d6f293784d023952699e871f2c9fe453d53",
     "proof-manifest.json": "31b26ff9ca6f7fe5301e475ea363ba5a7ebb192735424eb3a48cdf2063409fb8",
-    "scripts/verify.py": "f652c465ee7e08a89b7367246e0954f242d2b4b9d873ad704df05e0d36db6353",
+    "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
   },
-  "fresh_audit_sha256": "e2239ed074ae17440f2cac838027c176572142c2d08227d2d23c8cee38463ad6",
+  "fresh_audit_sha256": "49b5878089e47e4dc8ad20ca7867bfdbc044c7571e271dad844e3ac2cd095b8d",
   "lean_toolchain": "leanprover/lean4:v4.34.0",
   "scope": "Obstfeld and Rogoff (1996), Chapter 2 and its Supplements A-C: dynamics of small open economies. Phase 0 scaffold: the many-period small open economy, its current account, and the two forms of the period budget constraint.",
   "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 2, pp. 59-128, and Supplements to Chapter 2, pp. 715-741."
