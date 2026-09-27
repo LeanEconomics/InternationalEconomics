@@ -8,7 +8,7 @@ source map to the book's equations and pages, and reproducible proof checks.
 | Project | Chapter | Checked results | Start here |
 | --- | --- | --- | --- |
 | [IntertemporalTrade](IntertemporalTrade/README.md) | 1. Intertemporal Trade and the Current Account Balance | 272 theorems: gains from trade and the trade pattern by revealed preference, world equilibrium existence and efficiency, Fisher separation, the optimal tax on borrowing, labour mobility, Marshall–Lerner | [Chapter overview](IntertemporalTrade/README.md) |
-| [SmallOpenEconomyDynamics](SmallOpenEconomyDynamics/README.md) | 2. Dynamics of Small Open Economies, with Supplements A–C | 222 theorems (phase 2a): transversality ⇔ intertemporal budget constraint, Euler sufficiency and necessity, CRRA optimality, the fundamental current-account equation, Tobin's q saddle path, linear difference equations | [Chapter overview](SmallOpenEconomyDynamics/README.md) |
+| [SmallOpenEconomyDynamics](SmallOpenEconomyDynamics/README.md) | 2. Dynamics of Small Open Economies, with Supplements A–C | 379 theorems: transversality ⇔ intertemporal budget constraint, Euler sufficiency and necessity, the fundamental current-account equation, Hall's martingale, Campbell's present-value test, Tobin's q saddle path, firm value = capital, trend growth and the debt–output ratio | [Chapter overview](SmallOpenEconomyDynamics/README.md) |
 | [LifeCycleFiscalPolicy](LifeCycleFiscalPolicy/README.md) | 3. The Life Cycle, Tax Policy, and the Current Account | 2 theorems: log-utility OLG demands exhaust wealth and satisfy the Euler equation (scaffold) | [Source map](LifeCycleFiscalPolicy/docs/source-map.md) |
 
 ## Scope

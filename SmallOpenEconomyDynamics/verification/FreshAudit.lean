@@ -13,15 +13,28 @@ import Mathlib.Analysis.Calculus.LocalExtr.Basic
 import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.Convex.SpecificFunctions.Basic
+import Mathlib.Probability.Martingale.Basic
+import Mathlib.MeasureTheory.Function.ConditionalExpectation.PullOut
+import Mathlib.MeasureTheory.Function.ConditionalExpectation.CondJensen
+import Mathlib.MeasureTheory.Function.ConditionalExpectation.Real
+import Mathlib.MeasureTheory.Function.LpSpace.InfiniteSum
+import Mathlib.Probability.Process.Filtration
+import Mathlib.Analysis.Matrix.Normed
+import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
+import Mathlib.Topology.Instances.Matrix
+import Mathlib.Topology.Algebra.Module.FiniteDimension
+import Mathlib.Analysis.SpecialFunctions.Log.Deriv
+import Mathlib.Analysis.Calculus.Deriv.Add
+import Mathlib.Analysis.Calculus.Deriv.Mul
+import Mathlib.Analysis.Calculus.Deriv.Comp
+import Mathlib.Analysis.Calculus.Deriv.Prod
 import Mathlib.Analysis.Real.Sqrt
 import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
 import Mathlib.LinearAlgebra.Matrix.Trace
-import Mathlib.Analysis.Calculus.Deriv.Add
-import Mathlib.Analysis.Calculus.Deriv.Mul
 import Mathlib.Analysis.Calculus.Deriv.Inv
-import Mathlib.Analysis.Calculus.Deriv.Comp
 import Mathlib.Analysis.Calculus.FDeriv.Prod
 import Mathlib.Analysis.SpecialFunctions.Sqrt
+import Mathlib.Analysis.SpecialFunctions.Pow.Real
 set_option autoImplicit false
 
 /-
@@ -2346,6 +2359,2505 @@ Authors: Robert Kirkby
 -/
 
 /-!
+# A stochastic current account model
+
+Obstfeld and Rogoff (1996), *Foundations of International Macroeconomics*, §2.3,
+pp. 79–96, Exercises 3 and 4 (pp. 125–126), and Supplement A.3 (p. 722).
+
+Uncertainty uses Mathlib's measure-theoretic conditional expectation. The book's `E_t X` is
+`μ[X | ℱ t]` for a filtration `ℱ` on a probability space. Random variables are equal almost
+surely (`=ᵐ[μ]`). The stochastic Euler equation (2.28)–(2.29) is a hypothesis throughout, in
+conditional-expectation form. Its variational derivation needs differentiation under the
+integral and is not formalised. Supplement A.3's dynamic-programming route to it, from the
+first-order and envelope conditions, is `euler_of_bellman`.
+
+Contents:
+* Hall's random walk (2.31) and the martingale property of consumption (footnote 18):
+  `hall_random_walk`, `hall_martingale`, `hall_condExp_future`.
+* Certainty equivalence (2.32): `certainty_equivalence`. The book exchanges `E_t` with an
+  infinite sum. Here the finite-horizon expected budget identity is exact, and the limit rests
+  on explicit expected-transversality and summability hypotheses.
+* AR(1) output (2.33)–(2.37): forecasts `output_forecast`, the consumption function
+  `consumption_ar1`, the current account `current_account_ar1`, and Deaton's numbers (p. 85).
+* Nonstationary output (2.38) and Exercise 4: forecasts, forecast revisions (4b), consumption
+  change as revised permanent income (4a), the consumption innovation `(1 + r)/(1 + r − ρ) ε`
+  (4c) and the current-account response `−ρ/(1 + r − ρ)` (4d).
+* Risky capital (2.40), stated with a conditional covariance (footnote 23).
+* Precautionary saving (§2.3.6): `u''' ≥ 0` makes `u'` convex, conditional Jensen, a
+  mean-preserving spread raises expected marginal utility, and a two-period comparative static
+  (more income risk, lower consumption). Isoelastic `u'''` > 0 (footnote 32).
+* Exercise 3: under conditional lognormality, `E_t log C_{t+1} − log C_t = v_t/(2σ)`. The drift
+  is constant only when the conditional variance `v_t` is.
+-/
+
+namespace ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption
+
+open MeasureTheory Filter Topology Finset
+open ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue (disc)
+
+variable {Ω : Type*} {m0 : MeasurableSpace Ω} {μ : Measure Ω}
+
+/-- Quadratic period utility, O&R (2.30), p. 81: `u(C) = C − (a₀/2) C²`. -/
+noncomputable def quadU (a0 C : ℝ) : ℝ := C - a0 / 2 * C ^ 2
+
+/-- Marginal utility of the quadratic utility (2.30), p. 81: `u'(C) = 1 − a₀ C`. -/
+def quadMU (a0 C : ℝ) : ℝ := 1 - a0 * C
+
+/-- O&R p. 81: the marginal utility of (2.30) is `1 − a₀ C`, linear in `C`. -/
+theorem hasDerivAt_quadU (a0 c : ℝ) : HasDerivAt (quadU a0) (quadMU a0 c) c := by
+  have h := ((hasDerivAt_id c).sub ((hasDerivAt_pow 2 c).const_mul (a0 / 2)))
+  have e : quadU a0 = (id - fun y => a0 / 2 * y ^ 2) := by funext y; simp [quadU]
+  rw [e]
+  convert h using 1
+  simp only [quadMU]; norm_num; ring
+
+/-- **Hall's random walk**, O&R (2.31), p. 81. With quadratic utility (2.30), `a₀ ≠ 0` and
+`(1 + r) β = 1`, the stochastic Euler equation (2.29) `u'(C_t) = (1 + r) β E_t u'(C_{t+1})`
+(taken as a hypothesis in conditional-expectation form; its variational derivation is not
+formalised) implies `E_t C_{t+1} = C_t` almost surely. -/
+theorem hall_random_walk [IsProbabilityMeasure μ]
+    (ℱ : Filtration ℕ m0) {C : ℕ → Ω → ℝ} {a0 r β : ℝ} (ha0 : a0 ≠ 0)
+    (hrβ : (1 + r) * β = 1) (t : ℕ) (hC : StronglyMeasurable[ℱ t] (C t))
+    (hCi : Integrable (C t) μ) (hCi' : Integrable (C (t + 1)) μ)
+    (heuler : μ[fun ω => quadMU a0 (C (t + 1) ω) | ℱ t] =ᵐ[μ]
+      fun ω => quadMU a0 (C t ω) / ((1 + r) * β)) :
+    μ[C (t + 1) | ℱ t] =ᵐ[μ] C t := by
+  have hlin : μ[fun ω => quadMU a0 (C (t + 1) ω) | ℱ t] =ᵐ[μ]
+      fun ω => 1 - a0 * μ[C (t + 1) | ℱ t] ω := by
+    have h1 : (fun ω => quadMU a0 (C (t + 1) ω)) = (fun _ => (1 : ℝ)) - a0 • C (t + 1) := by
+      funext ω; simp [quadMU]
+    rw [h1]
+    filter_upwards [condExp_sub (integrable_const (1 : ℝ)) (hCi'.smul a0) (ℱ t),
+      condExp_smul (μ := μ) a0 (C (t + 1)) (ℱ t)] with ω h2 h3
+    rw [h2, Pi.sub_apply, h3, condExp_const (ℱ.le t)]
+    simp
+  have hCt : μ[C t | ℱ t] = C t := condExp_of_stronglyMeasurable (ℱ.le t) hC hCi
+  filter_upwards [hlin, heuler] with ω h1 h2
+  rw [h1, hrβ, div_one] at h2
+  simp only [quadMU] at h2
+  have : a0 * μ[C (t + 1) | ℱ t] ω = a0 * C t ω := by linarith
+  exact mul_left_cancel₀ ha0 this
+
+/-- **Consumption is a martingale**, O&R (2.31) and footnote 18, p. 81: under the hypotheses of
+`hall_random_walk` at every date, and with consumption known at each date, `C` is a martingale
+with respect to the information filtration `ℱ`. -/
+theorem hall_martingale [IsProbabilityMeasure μ]
+    (ℱ : Filtration ℕ m0) {C : ℕ → Ω → ℝ} {a0 r β : ℝ} (ha0 : a0 ≠ 0)
+    (hrβ : (1 + r) * β = 1) (hC : StronglyAdapted ℱ C) (hCi : ∀ t, Integrable (C t) μ)
+    (heuler : ∀ t, μ[fun ω => quadMU a0 (C (t + 1) ω) | ℱ t] =ᵐ[μ]
+      fun ω => quadMU a0 (C t ω) / ((1 + r) * β)) :
+    Martingale C ℱ μ :=
+  martingale_nat hC hCi fun t =>
+    (hall_random_walk ℱ ha0 hrβ t (hC t) (hCi t) (hCi (t + 1)) (heuler t)).symm
+
+/-- O&R p. 81: for any `s > t`, `E_t C_s = E_t C_{s−1} = ⋯ = C_t` (law of iterated
+expectations applied to Hall's random walk). -/
+theorem hall_condExp_future [IsProbabilityMeasure μ]
+    (ℱ : Filtration ℕ m0) {C : ℕ → Ω → ℝ} {a0 r β : ℝ} (ha0 : a0 ≠ 0)
+    (hrβ : (1 + r) * β = 1) (hC : StronglyAdapted ℱ C) (hCi : ∀ t, Integrable (C t) μ)
+    (heuler : ∀ t, μ[fun ω => quadMU a0 (C (t + 1) ω) | ℱ t] =ᵐ[μ]
+      fun ω => quadMU a0 (C t ω) / ((1 + r) * β)) {t s : ℕ} (hts : t ≤ s) :
+    μ[C s | ℱ t] =ᵐ[μ] C t :=
+  (hall_martingale ℱ ha0 hrβ hC hCi heuler).2 t s hts
+
+/-- Expected-value budget recursion, O&R p. 81. If net foreign assets obey the current account
+identity `B_{s+1} = (1 + r) B_s + Z_s − C_s` in every state (`Z = Y − G − I`) and consumption is a
+martingale, then the date-`t` forecasts `b_n = E_t B_{t+n}` satisfy almost surely, for all `n`,
+`b_{n+1} = (1 + r) b_n + (E_t Z_{t+n} − C_t)`. -/
+theorem condExp_budget_step (ℱ : Filtration ℕ m0) {B Z C : ℕ → Ω → ℝ} {r : ℝ} (t : ℕ)
+    (hbud : ∀ s ω, B (s + 1) ω = (1 + r) * B s ω + Z s ω - C s ω)
+    (hBi : ∀ s, Integrable (B s) μ) (hZi : ∀ s, Integrable (Z s) μ)
+    (hCi : ∀ s, Integrable (C s) μ) (hmart : Martingale C ℱ μ) :
+    ∀ᵐ ω ∂μ, ∀ n, μ[B (t + (n + 1)) | ℱ t] ω =
+      (1 + r) * μ[B (t + n) | ℱ t] ω + (μ[Z (t + n) | ℱ t] ω - C t ω) := by
+  rw [ae_all_iff]
+  intro n
+  have hf : B (t + (n + 1)) = (1 + r) • B (t + n) + Z (t + n) - C (t + n) := by
+    funext ω; simp [← hbud]; rfl
+  rw [hf]
+  filter_upwards [condExp_sub (((hBi (t + n)).smul (1 + r)).add (hZi (t + n)))
+      (hCi (t + n)) (ℱ t),
+    condExp_add ((hBi (t + n)).smul (1 + r)) (hZi (t + n)) (ℱ t),
+    condExp_smul (μ := μ) (1 + r) (B (t + n)) (ℱ t),
+    hmart.2 t (t + n) (Nat.le_add_right t n)] with ω h1 h2 h3 h4
+  rw [h1, Pi.sub_apply, h2, Pi.add_apply, h3, h4]
+  simp only [Pi.smul_apply, smul_eq_mul]
+  ring
+
+/-- **Certainty equivalence**, O&R (2.32), p. 81:
+`C_t = (r/(1 + r)) [(1 + r) B_t + Σ_{s ≥ t} (1 + r)^{−(s−t)} E_t (Y − G − I)_s]`.
+Derived from the martingale property of consumption and the state-by-state current account
+identity. The book passes from the almost-sure intertemporal budget constraint to its
+expectation by exchanging `E_t` with an infinite sum; here the finite-horizon expectation is
+exact and the limit is handled by two explicit hypotheses: the expected discounted terminal
+assets vanish (`htvc`, the expected transversality condition) and the discounted net-output
+forecasts are summable (`hsum`). Requires `r > 0` (p. 66). -/
+theorem certainty_equivalence [IsProbabilityMeasure μ]
+    (ℱ : Filtration ℕ m0) {B Z C : ℕ → Ω → ℝ} {r : ℝ} (hr : 0 < r)
+    (t : ℕ) (hbud : ∀ s ω, B (s + 1) ω = (1 + r) * B s ω + Z s ω - C s ω)
+    (hBi : ∀ s, Integrable (B s) μ) (hZi : ∀ s, Integrable (Z s) μ)
+    (hCi : ∀ s, Integrable (C s) μ) (hmart : Martingale C ℱ μ)
+    (hBt : StronglyMeasurable[ℱ t] (B t))
+    (hsum : ∀ᵐ ω ∂μ, Summable fun k => disc r ^ k * μ[Z (t + k) | ℱ t] ω)
+    (htvc : ∀ᵐ ω ∂μ, Tendsto (fun n => disc r ^ n * μ[B (t + n) | ℱ t] ω) atTop (𝓝 0)) :
+    ∀ᵐ ω ∂μ, C t ω =
+      r / (1 + r) * ((1 + r) * B t ω + ∑' k, disc r ^ k * μ[Z (t + k) | ℱ t] ω) := by
+  have hr1 : 0 < 1 + r := by linarith
+  have hB0 : μ[B (t + 0) | ℱ t] = B t := condExp_of_stronglyMeasurable (ℱ.le t) hBt (hBi t)
+  filter_upwards [condExp_budget_step ℱ t hbud hBi hZi hCi hmart, hsum, htvc]
+    with ω hstep hs htv
+  set d := disc r with hd
+  set S := ∑' k, d ^ k * μ[Z (t + k) | ℱ t] ω with hS
+  have hd1 : (1 + r) * d = 1 := PresentValue.one_add_mul_disc hr1
+  have hgeo : HasSum (fun s => d ^ s) ((1 + r) / r) := PresentValue.hasSum_disc_pow hr
+  have hN : HasSum (fun s => d ^ (s + 1) * (μ[Z (t + s) | ℱ t] ω - C t ω))
+      (d * S - C t ω * d * ((1 + r) / r)) := by
+    have := (hs.hasSum.mul_left d).sub (hgeo.mul_left (C t ω * d))
+    convert this using 1
+    funext s; ring
+  have key := (PresentValue.discounted_tendsto_zero_iff hr1 hstep hN.summable).1 htv
+  rw [hN.tsum_eq, hB0] at key
+  have hdr : d * ((1 + r) / r) = 1 / r := by
+    field_simp; linarith
+  have : C t ω * (1 / r) = B t ω + d * S := by
+    rw [← hdr]; linarith
+  field_simp at this
+  rw [this, hd, PresentValue.disc]
+  field_simp
+
+/-- **Certainty equivalence from the Euler equation**, O&R (2.30)–(2.32), p. 81: combining
+`hall_martingale` with `certainty_equivalence`. Quadratic utility, `(1 + r) β = 1`, the Euler
+equation (2.29) at every date, the current account identity in every state, and the expected
+transversality and summability hypotheses give the consumption function (2.32) almost surely. -/
+theorem certainty_equivalence_quadratic [IsProbabilityMeasure μ]
+    (ℱ : Filtration ℕ m0) {B Z C : ℕ → Ω → ℝ} {a0 r β : ℝ} (hr : 0 < r) (ha0 : a0 ≠ 0)
+    (hrβ : (1 + r) * β = 1) (hC : StronglyAdapted ℱ C)
+    (heuler : ∀ t, μ[fun ω => quadMU a0 (C (t + 1) ω) | ℱ t] =ᵐ[μ]
+      fun ω => quadMU a0 (C t ω) / ((1 + r) * β))
+    (t : ℕ) (hbud : ∀ s ω, B (s + 1) ω = (1 + r) * B s ω + Z s ω - C s ω)
+    (hBi : ∀ s, Integrable (B s) μ) (hZi : ∀ s, Integrable (Z s) μ)
+    (hCi : ∀ s, Integrable (C s) μ) (hBt : StronglyMeasurable[ℱ t] (B t))
+    (hsum : ∀ᵐ ω ∂μ, Summable fun k => disc r ^ k * μ[Z (t + k) | ℱ t] ω)
+    (htvc : ∀ᵐ ω ∂μ, Tendsto (fun n => disc r ^ n * μ[B (t + n) | ℱ t] ω) atTop (𝓝 0)) :
+    ∀ᵐ ω ∂μ, C t ω =
+      r / (1 + r) * ((1 + r) * B t ω + ∑' k, disc r ^ k * μ[Z (t + k) | ℱ t] ω) :=
+  certainty_equivalence ℱ hr t hbud hBi hZi hCi (hall_martingale ℱ ha0 hrβ hC hCi heuler) hBt
+    hsum htvc
+
+/-- One-step forecast of an AR(1) deviation, O&R (2.33), p. 82: if
+`y_{s+1} = ρ y_s + ε_{s+1}` with `E_s ε_{s+1} = 0` and `y_s` known at `s`, then
+`E_s y_{s+1} = ρ y_s`. -/
+theorem ar1_condExp_step [IsProbabilityMeasure μ] (ℱ : Filtration ℕ m0) {y ε : ℕ → Ω → ℝ}
+    {ρ : ℝ} (s : ℕ) (hy : ∀ ω, y (s + 1) ω = ρ * y s ω + ε (s + 1) ω)
+    (hys : StronglyMeasurable[ℱ s] (y s)) (hyi : Integrable (y s) μ)
+    (hεi : Integrable (ε (s + 1)) μ) (hε : μ[ε (s + 1) | ℱ s] =ᵐ[μ] 0) :
+    μ[y (s + 1) | ℱ s] =ᵐ[μ] fun ω => ρ * y s ω := by
+  have hf : y (s + 1) = ρ • y s + ε (s + 1) := by funext ω; simp [hy]
+  rw [hf]
+  filter_upwards [condExp_add (hyi.smul ρ) hεi (ℱ s), condExp_smul (μ := μ) ρ (y s) (ℱ s), hε]
+    with ω h1 h2 h3
+  rw [h1, Pi.add_apply, h2, h3, condExp_of_stronglyMeasurable (ℱ.le s) hys hyi]
+  simp
+
+/-- **AR(1) forecasts**, O&R (2.34), p. 82: if `y_{s+1} = ρ y_s + ε_{s+1}` with
+`E_s ε_{s+1} = 0` at every date, then `E_t y_{t+k} = ρ^k y_t` (iterated forward substitution
+plus the law of iterated expectations, footnote 20). -/
+theorem ar1_forecast [IsProbabilityMeasure μ] (ℱ : Filtration ℕ m0) {y ε : ℕ → Ω → ℝ} {ρ : ℝ}
+    (hy : ∀ s ω, y (s + 1) ω = ρ * y s ω + ε (s + 1) ω) (hya : StronglyAdapted ℱ y)
+    (hyi : ∀ s, Integrable (y s) μ) (hεi : ∀ s, Integrable (ε s) μ)
+    (hε : ∀ s, μ[ε (s + 1) | ℱ s] =ᵐ[μ] 0) (t k : ℕ) :
+    μ[y (t + k) | ℱ t] =ᵐ[μ] fun ω => ρ ^ k * y t ω := by
+  induction k with
+  | zero =>
+    refine ae_of_all _ fun ω => ?_
+    simp [condExp_of_stronglyMeasurable (ℱ.le t) (hya t) (hyi t)]
+  | succ k ih =>
+    have hstep := ar1_condExp_step ℱ (t + k) (hy (t + k)) (hya (t + k)) (hyi (t + k))
+      (hεi (t + k + 1)) (hε (t + k))
+    have htow := ℱ.condExp_condExp (μ := μ) (y (t + k + 1)) (Nat.le_add_right t k)
+    have hc := condExp_congr_ae (m := ℱ t) hstep
+    have hsm : (fun ω => ρ * y (t + k) ω) = ρ • y (t + k) := rfl
+    rw [hsm] at hc
+    filter_upwards [htow, hc, condExp_smul (μ := μ) ρ (y (t + k)) (ℱ t), ih]
+      with ω h1 h2 h3 h4
+    change μ[y (t + k + 1) | ℱ t] ω = _
+    rw [← h1, h2, h3, Pi.smul_apply, h4, smul_eq_mul, pow_succ]
+    ring
+
+/-- **Stationary output forecasts**, O&R (2.33)–(2.34), p. 82: if
+`Y_{s+1} − Ȳ = ρ (Y_s − Ȳ) + ε_{s+1}` with `E_s ε_{s+1} = 0`, then
+`E_t Y_{t+k} = Ȳ + ρ^k (Y_t − Ȳ)` almost surely. -/
+theorem output_forecast [IsProbabilityMeasure μ] (ℱ : Filtration ℕ m0) {Y ε : ℕ → Ω → ℝ}
+    {ρ Ybar : ℝ} (hY : ∀ s ω, Y (s + 1) ω - Ybar = ρ * (Y s ω - Ybar) + ε (s + 1) ω)
+    (hYa : StronglyAdapted ℱ Y) (hYi : ∀ s, Integrable (Y s) μ)
+    (hεi : ∀ s, Integrable (ε s) μ) (hε : ∀ s, μ[ε (s + 1) | ℱ s] =ᵐ[μ] 0) (t k : ℕ) :
+    μ[Y (t + k) | ℱ t] =ᵐ[μ] fun ω => Ybar + ρ ^ k * (Y t ω - Ybar) := by
+  have hya : StronglyAdapted ℱ (fun s => Y s - fun _ => Ybar) :=
+    fun s => (hYa s).sub stronglyMeasurable_const
+  have hyi : ∀ s, Integrable ((fun s => Y s - fun _ => Ybar) s) μ :=
+    fun s => (hYi s).sub (integrable_const Ybar)
+  have h := ar1_forecast ℱ (y := fun s => Y s - fun _ => Ybar) (fun s ω => hY s ω) hya hyi hεi
+    hε t k
+  filter_upwards [h, condExp_sub (hYi (t + k)) (integrable_const Ybar) (ℱ t)] with ω h1 h2
+  rw [h2, Pi.sub_apply, condExp_const (ℱ.le t)] at h1
+  simp only [Pi.sub_apply] at h1
+  linarith
+
+/-- Moving-average form of an AR(1), finite-horizon version of O&R (2.36), p. 83:
+`y_{s+n} = ρ^n y_s + Σ_{k<n} ρ^{n−1−k} ε_{s+k+1}` (a pathwise identity). -/
+theorem ar1_moving_average {y ε : ℕ → Ω → ℝ} {ρ : ℝ}
+    (hy : ∀ s ω, y (s + 1) ω = ρ * y s ω + ε (s + 1) ω) (s n : ℕ) (ω : Ω) :
+    y (s + n) ω = ρ ^ n * y s ω + ∑ k ∈ range n, ρ ^ (n - 1 - k) * ε (s + k + 1) ω := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+    rw [← add_assoc, hy, ih, sum_range_succ, mul_add, mul_sum, pow_succ]
+    have : ∑ k ∈ range n, ρ * (ρ ^ (n - 1 - k) * ε (s + k + 1) ω) =
+        ∑ k ∈ range n, ρ ^ (n + 1 - 1 - k) * ε (s + k + 1) ω := by
+      refine sum_congr rfl fun k hk => ?_
+      have hk' : k < n := mem_range.1 hk
+      rw [← mul_assoc, ← pow_succ']
+      congr 2
+      omega
+    rw [this]
+    simp only [Nat.add_sub_cancel, Nat.sub_self, pow_zero, one_mul]
+    ring
+
+/-- Present value of AR(1) forecasts, used in O&R (2.35), p. 83:
+`Σ_{k ≥ 0} (1 + r)^{−k} ρ^k = (1 + r)/(1 + r − ρ)` whenever `|ρ| < 1 + r`. -/
+theorem hasSum_disc_mul_pow {r ρ : ℝ} (hρ : |ρ| < 1 + r) :
+    HasSum (fun k => disc r ^ k * ρ ^ k) ((1 + r) / (1 + r - ρ)) := by
+  have hr1 : 0 < 1 + r := lt_of_le_of_lt (abs_nonneg ρ) hρ
+  have habs : |disc r * ρ| < 1 := by
+    rw [abs_mul, abs_of_pos (PresentValue.disc_pos hr1), PresentValue.disc,
+      inv_mul_lt_iff₀ hr1, mul_one]
+    exact hρ
+  have h := hasSum_geometric_of_abs_lt_one habs
+  have hne : 1 + r - ρ ≠ 0 := by
+    have := neg_abs_le ρ; have := le_abs_self ρ; intro h; linarith
+  convert h using 1
+  · funext k; rw [mul_pow]
+  · rw [PresentValue.disc]; field_simp
+
+/-- The denominator of O&R (2.35), p. 83, is nonzero: `1 + r − ρ ≠ 0` whenever `|ρ| < 1 + r`. -/
+theorem one_add_sub_ne_zero {r ρ : ℝ} (hρ : |ρ| < 1 + r) : 1 + r - ρ ≠ 0 := by
+  have := le_abs_self ρ; intro h; linarith
+
+/-- **Consumption with AR(1) output**, O&R (2.35), p. 83: with `G = I = 0`, output following
+(2.33), and consumption given by the certainty-equivalence rule (2.32) (hypothesis `hCE`,
+supplied by `certainty_equivalence`), `C_t = r B_t + Ȳ + r (Y_t − Ȳ)/(1 + r − ρ)` almost surely.
+The book's `0 ≤ ρ ≤ 1` is replaced by the weaker `|ρ| < 1 + r`, which is what the present value
+needs. -/
+theorem consumption_ar1 [IsProbabilityMeasure μ] (ℱ : Filtration ℕ m0) {B Y ε C : ℕ → Ω → ℝ}
+    {r ρ Ybar : ℝ} (hr : 0 < r) (hρ : |ρ| < 1 + r)
+    (hY : ∀ s ω, Y (s + 1) ω - Ybar = ρ * (Y s ω - Ybar) + ε (s + 1) ω)
+    (hYa : StronglyAdapted ℱ Y) (hYi : ∀ s, Integrable (Y s) μ)
+    (hεi : ∀ s, Integrable (ε s) μ) (hε : ∀ s, μ[ε (s + 1) | ℱ s] =ᵐ[μ] 0) (t : ℕ)
+    (hCE : ∀ᵐ ω ∂μ, C t ω =
+      r / (1 + r) * ((1 + r) * B t ω + ∑' k, disc r ^ k * μ[Y (t + k) | ℱ t] ω)) :
+    ∀ᵐ ω ∂μ, C t ω = r * B t ω + Ybar + r * (Y t ω - Ybar) / (1 + r - ρ) := by
+  have hf : ∀ᵐ ω ∂μ, ∀ k, μ[Y (t + k) | ℱ t] ω = Ybar + ρ ^ k * (Y t ω - Ybar) :=
+    ae_all_iff.2 fun k => output_forecast ℱ hY hYa hYi hεi hε t k
+  filter_upwards [hCE, hf] with ω h1 h2
+  have hsum : HasSum (fun k => disc r ^ k * μ[Y (t + k) | ℱ t] ω)
+      (Ybar * ((1 + r) / r) + (Y t ω - Ybar) * ((1 + r) / (1 + r - ρ))) := by
+    have := ((PresentValue.hasSum_disc_pow hr).mul_left Ybar).add
+      ((hasSum_disc_mul_pow hρ).mul_left (Y t ω - Ybar))
+    convert this using 1
+    funext k; rw [h2]; ring
+  have hne := one_add_sub_ne_zero hρ
+  have hr1 : 1 + r ≠ 0 := by linarith
+  rw [h1, hsum.tsum_eq]
+  field_simp
+  ring
+
+/-- Consumption in terms of the innovation, O&R p. 83: substituting
+`Y_t − Ȳ = ρ (Y_{t−1} − Ȳ) + ε_t` into (2.35) gives
+`C_t = r B_t + Ȳ + (rρ/(1 + r − ρ)) (Y_{t−1} − Ȳ) + (r/(1 + r − ρ)) ε_t`. -/
+theorem consumption_innovation_form {r ρ B Ybar Yt Yprev e C : ℝ} (hne : 1 + r - ρ ≠ 0)
+    (hC : C = r * B + Ybar + r * (Yt - Ybar) / (1 + r - ρ))
+    (hY : Yt - Ybar = ρ * (Yprev - Ybar) + e) :
+    C = r * B + Ybar + r * ρ / (1 + r - ρ) * (Yprev - Ybar) + r / (1 + r - ρ) * e := by
+  rw [hC, hY]
+  field_simp
+  ring
+
+/-- **The current account with AR(1) output**, O&R (2.37), p. 83: from (2.35) and the current
+account identity `CA_t = r B_t + Y_t − C_t`,
+`CA_t = ρ ((1 − ρ)/(1 + r − ρ)) (Y_{t−1} − Ȳ) + ((1 − ρ)/(1 + r − ρ)) ε_t`. -/
+theorem current_account_ar1 {r ρ B Ybar Yt Yprev e C : ℝ} (hne : 1 + r - ρ ≠ 0)
+    (hC : C = r * B + Ybar + r * (Yt - Ybar) / (1 + r - ρ))
+    (hY : Yt - Ybar = ρ * (Yprev - Ybar) + e) :
+    r * B + Yt - C =
+      ρ * ((1 - ρ) / (1 + r - ρ)) * (Yprev - Ybar) + (1 - ρ) / (1 + r - ρ) * e := by
+  have hYt : Yt = Ybar + (ρ * (Yprev - Ybar) + e) := by linarith
+  rw [hC, hYt]
+  field_simp
+  ring
+
+/-- Almost-sure form of O&R (2.37), p. 83: under the hypotheses of `consumption_ar1` at date
+`t + 1`, `CA_{t+1} = r B_{t+1} + Y_{t+1} − C_{t+1}` equals
+`ρ ((1 − ρ)/(1 + r − ρ)) (Y_t − Ȳ) + ((1 − ρ)/(1 + r − ρ)) ε_{t+1}` almost surely. -/
+theorem current_account_ar1_ae [IsProbabilityMeasure μ] (ℱ : Filtration ℕ m0)
+    {B Y ε C : ℕ → Ω → ℝ} {r ρ Ybar : ℝ} (hr : 0 < r) (hρ : |ρ| < 1 + r)
+    (hY : ∀ s ω, Y (s + 1) ω - Ybar = ρ * (Y s ω - Ybar) + ε (s + 1) ω)
+    (hYa : StronglyAdapted ℱ Y) (hYi : ∀ s, Integrable (Y s) μ)
+    (hεi : ∀ s, Integrable (ε s) μ) (hε : ∀ s, μ[ε (s + 1) | ℱ s] =ᵐ[μ] 0) (t : ℕ)
+    (hCE : ∀ᵐ ω ∂μ, C (t + 1) ω = r / (1 + r) *
+      ((1 + r) * B (t + 1) ω + ∑' k, disc r ^ k * μ[Y (t + 1 + k) | ℱ (t + 1)] ω)) :
+    ∀ᵐ ω ∂μ, r * B (t + 1) ω + Y (t + 1) ω - C (t + 1) ω =
+      ρ * ((1 - ρ) / (1 + r - ρ)) * (Y t ω - Ybar) + (1 - ρ) / (1 + r - ρ) * ε (t + 1) ω := by
+  filter_upwards [consumption_ar1 ℱ hr hρ hY hYa hYi hεi hε (t + 1) hCE] with ω h
+  exact current_account_ar1 (one_add_sub_ne_zero hρ) h (hY t ω)
+
+/-- O&R p. 83: a temporary shock (`0 ≤ ρ < 1`, `r > 0`) raises the current account,
+`(1 − ρ)/(1 + r − ρ) > 0`, and raises consumption less than one for one,
+`r/(1 + r − ρ) < 1`. -/
+theorem temporary_shock_effects {r ρ : ℝ} (hr : 0 < r) (hρ1 : ρ < 1) :
+    0 < (1 - ρ) / (1 + r - ρ) ∧ r / (1 + r - ρ) < 1 := by
+  have h : 0 < 1 + r - ρ := by linarith
+  refine ⟨div_pos (by linarith) h, ?_⟩
+  rw [div_lt_one h]
+  linarith
+
+/-- O&R p. 83: a permanent shock (`ρ = 1`) has no current account effect, and consumption moves
+one for one with output (`r > 0`). -/
+theorem permanent_shock_effects {r : ℝ} (hr : 0 < r) :
+    (1 : ℝ) * ((1 - 1) / (1 + r - 1)) = 0 ∧ (1 - 1 : ℝ) / (1 + r - 1) = 0 ∧
+      r / (1 + r - 1) = 1 := by
+  refine ⟨by simp, by simp, ?_⟩
+  rw [add_sub_cancel_left]
+  exact div_self hr.ne'
+
+/-- The predictable part of the current account, O&R p. 84: with
+`E_{t−1} Y_{t+k} = Ȳ + ρ^{k+1} (Y_{t−1} − Ȳ)`,
+`E_{t−1} Y_t − (r/(1 + r)) Σ_{k ≥ 0} (1 + r)^{−k} E_{t−1} Y_{t+k}
+  = ρ ((1 − ρ)/(1 + r − ρ)) (Y_{t−1} − Ȳ)`. -/
+theorem expected_current_account {r ρ Ybar y : ℝ} (hr : 0 < r) (hρ : |ρ| < 1 + r) :
+    (Ybar + ρ * y) - r / (1 + r) * ∑' k, disc r ^ k * (Ybar + ρ ^ (k + 1) * y) =
+      ρ * ((1 - ρ) / (1 + r - ρ)) * y := by
+  have hsum : HasSum (fun k => disc r ^ k * (Ybar + ρ ^ (k + 1) * y))
+      (Ybar * ((1 + r) / r) + ρ * y * ((1 + r) / (1 + r - ρ))) := by
+    have := ((PresentValue.hasSum_disc_pow hr).mul_left Ybar).add
+      ((hasSum_disc_mul_pow hρ).mul_left (ρ * y))
+    convert this using 1
+    funext k; ring
+  have hne := one_add_sub_ne_zero hρ
+  have hr1 : 1 + r ≠ 0 := by linarith
+  rw [hsum.tsum_eq]
+  field_simp
+  ring
+
+/-- **Deaton's paradox numerics**, O&R p. 85: at `ρ = 0.96` and `r = 0.04` the consumption
+response `r/(1 + r − ρ)` to an output shock is one half. -/
+theorem deaton_consumption_response : (0.04 : ℝ) / (1 + 0.04 - 0.96) = 0.5 := by norm_num
+
+/-- **Nonstationary output forecasts**, O&R (2.38), p. 84: if output growth
+`D_{s+1} = Y_{s+1} − Y_s` follows `D_{s+1} = ρ D_s + ε_{s+1}` with `E_s ε_{s+1} = 0`, then
+`E_t Y_{t+k} = Y_t + (ρ + ρ² + ⋯ + ρ^k) D_t`. -/
+theorem nonstationary_forecast [IsProbabilityMeasure μ] (ℱ : Filtration ℕ m0)
+    {Y D ε : ℕ → Ω → ℝ} {ρ : ℝ} (hY : ∀ s ω, Y (s + 1) ω = Y s ω + D (s + 1) ω)
+    (hD : ∀ s ω, D (s + 1) ω = ρ * D s ω + ε (s + 1) ω) (hYa : StronglyAdapted ℱ Y)
+    (hDa : StronglyAdapted ℱ D) (hYi : ∀ s, Integrable (Y s) μ)
+    (hDi : ∀ s, Integrable (D s) μ) (hεi : ∀ s, Integrable (ε s) μ)
+    (hε : ∀ s, μ[ε (s + 1) | ℱ s] =ᵐ[μ] 0) (t k : ℕ) :
+    μ[Y (t + k) | ℱ t] =ᵐ[μ] fun ω => Y t ω + (∑ j ∈ range k, ρ ^ (j + 1)) * D t ω := by
+  induction k with
+  | zero =>
+    refine ae_of_all _ fun ω => ?_
+    simp [condExp_of_stronglyMeasurable (ℱ.le t) (hYa t) (hYi t)]
+  | succ k ih =>
+    have hf : Y (t + (k + 1)) = Y (t + k) + D (t + (k + 1)) := by
+      funext ω; exact hY (t + k) ω
+    rw [hf]
+    filter_upwards [condExp_add (hYi (t + k)) (hDi (t + (k + 1))) (ℱ t), ih,
+      ar1_forecast ℱ hD hDa hDi hεi hε t (k + 1)] with ω h1 h2 h3
+    rw [h1, Pi.add_apply, h2, h3, sum_range_succ]
+    ring
+
+/-- **Forecast revisions**, O&R Exercise 4(b), p. 126: under (2.38), for `s = t + 1 + k > t`,
+`(E_{t+1} − E_t) Y_s = (1 + ρ + ⋯ + ρ^{s−(t+1)}) ε_{t+1}`. This is also the claim of p. 84
+that an output surprise raises `Y_{t+k}` by `(1 + ρ + ⋯ + ρ^k) ε`. -/
+theorem nonstationary_revision [IsProbabilityMeasure μ] (ℱ : Filtration ℕ m0)
+    {Y D ε : ℕ → Ω → ℝ} {ρ : ℝ} (hY : ∀ s ω, Y (s + 1) ω = Y s ω + D (s + 1) ω)
+    (hD : ∀ s ω, D (s + 1) ω = ρ * D s ω + ε (s + 1) ω) (hYa : StronglyAdapted ℱ Y)
+    (hDa : StronglyAdapted ℱ D) (hYi : ∀ s, Integrable (Y s) μ)
+    (hDi : ∀ s, Integrable (D s) μ) (hεi : ∀ s, Integrable (ε s) μ)
+    (hε : ∀ s, μ[ε (s + 1) | ℱ s] =ᵐ[μ] 0) (t k : ℕ) :
+    μ[Y (t + 1 + k) | ℱ (t + 1)] - μ[Y (t + 1 + k) | ℱ t] =ᵐ[μ]
+      fun ω => (∑ j ∈ range (k + 1), ρ ^ j) * ε (t + 1) ω := by
+  have h1 := nonstationary_forecast ℱ hY hD hYa hDa hYi hDi hεi hε (t + 1) k
+  have h0 : μ[Y (t + 1 + k) | ℱ t] =ᵐ[μ]
+      fun ω => Y t ω + (∑ j ∈ range (k + 1), ρ ^ (j + 1)) * D t ω := by
+    rw [show t + 1 + k = t + (k + 1) by omega]
+    exact nonstationary_forecast ℱ hY hD hYa hDa hYi hDi hεi hε t (k + 1)
+  filter_upwards [h1, h0] with ω e1 e0
+  rw [Pi.sub_apply, e1, e0, hY t ω, hD t ω]
+  have hH : ∑ j ∈ range (k + 1), ρ ^ j = ∑ j ∈ range k, ρ ^ (j + 1) + 1 := by
+    rw [sum_range_succ']; simp
+  have hG : ∑ j ∈ range (k + 1), ρ ^ (j + 1) = ρ * ∑ j ∈ range (k + 1), ρ ^ j := by
+    rw [mul_sum]; exact sum_congr rfl fun j _ => pow_succ' ρ j
+  rw [hG, hH]
+  ring
+
+/-- Closed form of the revision weight in Exercise 4(b), p. 126:
+`1 + ρ + ⋯ + ρ^{n−1} = (1 − ρ^n)/(1 − ρ)` for `ρ ≠ 1`. -/
+theorem revision_weight_closed_form {ρ : ℝ} (hρ : ρ ≠ 1) (n : ℕ) :
+    ∑ j ∈ range n, ρ ^ j = (1 - ρ ^ n) / (1 - ρ) := by
+  rw [geom_sum_eq hρ, ← neg_div_neg_eq, neg_sub, neg_sub]
+
+/-- **Consumption change as revised permanent income**, O&R Exercise 4(a), p. 125. With
+`G = I = 0`, suppose (2.32) holds at `t` and at `t + 1`, written with the date-`t` forecasts
+`F₀ k = E_t Y_{t+1+k}` and date-`t+1` forecasts `F₁ k = E_{t+1} Y_{t+1+k}` (the date-`t` sum split
+as `Y_t + (1 + r)^{-1} Σ_k (1 + r)^{-k} F₀ k`, using that `Y_t` is known at `t`), and that the
+current account identity `B_{t+1} = (1 + r) B_t + Y_t − C_t` holds. Then
+`C_{t+1} − C_t = (r/(1 + r)) Σ_k (1 + r)^{-k} (E_{t+1} − E_t) Y_{t+1+k}`.
+The interchange of the difference with the infinite sum is justified by the two summability
+hypotheses. -/
+theorem consumption_change_revisions {r C0 C1 B0 B1 Y0 : ℝ} {F0 F1 : ℕ → ℝ} (hr : 0 < r)
+    (h0 : Summable fun k => disc r ^ k * F0 k) (h1 : Summable fun k => disc r ^ k * F1 k)
+    (hC0 : C0 = r / (1 + r) * ((1 + r) * B0 + (Y0 + disc r * ∑' k, disc r ^ k * F0 k)))
+    (hC1 : C1 = r / (1 + r) * ((1 + r) * B1 + ∑' k, disc r ^ k * F1 k))
+    (hB : B1 = (1 + r) * B0 + Y0 - C0) :
+    C1 - C0 = r / (1 + r) * ∑' k, disc r ^ k * (F1 k - F0 k) := by
+  have hsub : ∑' k, disc r ^ k * (F1 k - F0 k) =
+      ∑' k, disc r ^ k * F1 k - ∑' k, disc r ^ k * F0 k := by
+    rw [← h1.tsum_sub h0]; congr 1; funext k; ring
+  have hr1 : 1 + r ≠ 0 := by linarith
+  rw [hsub, hC1, hB, hC0, PresentValue.disc]
+  field_simp
+  ring
+
+/-- Present value of the revision weights, used in O&R Exercise 4(c), p. 126: for `ρ ≠ 1` and
+`|ρ| < 1 + r`, `Σ_{k ≥ 0} (1 + r)^{-k} (1 + ρ + ⋯ + ρ^k) = (1 + r)²/(r (1 + r − ρ))`. -/
+theorem hasSum_revision_weights {r ρ : ℝ} (hr : 0 < r) (hρ : |ρ| < 1 + r) (hρ1 : ρ ≠ 1) :
+    HasSum (fun k => disc r ^ k * ∑ j ∈ range (k + 1), ρ ^ j)
+      ((1 + r) ^ 2 / (r * (1 + r - ρ))) := by
+  have hρ1' : ρ - 1 ≠ 0 := sub_ne_zero.2 hρ1
+  have h := ((hasSum_disc_mul_pow hρ).mul_left (ρ / (ρ - 1))).sub
+    ((PresentValue.hasSum_disc_pow hr).mul_left (1 / (ρ - 1)))
+  have hne := one_add_sub_ne_zero hρ
+  convert h using 1
+  · funext k
+    rw [geom_sum_eq hρ1]
+    field_simp
+    ring
+  · field_simp
+    ring
+
+/-- **Consumption innovation via forecast revisions**, O&R Exercise 4(c), p. 126: combining
+Exercise 4(a) with the revisions of Exercise 4(b),
+`(r/(1 + r)) Σ_k (1 + r)^{-k} (1 + ρ + ⋯ + ρ^k) ε = ((1 + r)/(1 + r − ρ)) ε`. -/
+theorem consumption_innovation_from_revisions {r ρ : ℝ} (hr : 0 < r) (hρ : |ρ| < 1 + r)
+    (hρ1 : ρ ≠ 1) (e : ℝ) :
+    r / (1 + r) * ∑' k, disc r ^ k * ((∑ j ∈ range (k + 1), ρ ^ j) * e) =
+      (1 + r) / (1 + r - ρ) * e := by
+  have h := (hasSum_revision_weights hr hρ hρ1).mul_right e
+  have hr1 : 1 + r ≠ 0 := by linarith
+  have hne := one_add_sub_ne_zero hρ
+  rw [show (fun k => disc r ^ k * ((∑ j ∈ range (k + 1), ρ ^ j) * e)) =
+    fun k => disc r ^ k * (∑ j ∈ range (k + 1), ρ ^ j) * e by funext k; ring, h.tsum_eq]
+  field_simp
+
+/-- **Consumption with nonstationary output**, O&R (2.38) with (2.32), p. 84: if output growth
+`D` follows `D_{s+1} = ρ D_s + ε_{s+1}` and consumption obeys (2.32) with `G = I = 0`, then
+`C_t = r B_t + Y_t + (ρ/(1 + r − ρ)) D_t` almost surely (`ρ ≠ 1`, `|ρ| < 1 + r`). -/
+theorem consumption_nonstationary [IsProbabilityMeasure μ] (ℱ : Filtration ℕ m0)
+    {B Y D ε C : ℕ → Ω → ℝ} {r ρ : ℝ} (hr : 0 < r) (hρ : |ρ| < 1 + r) (hρ1 : ρ ≠ 1)
+    (hY : ∀ s ω, Y (s + 1) ω = Y s ω + D (s + 1) ω)
+    (hD : ∀ s ω, D (s + 1) ω = ρ * D s ω + ε (s + 1) ω) (hYa : StronglyAdapted ℱ Y)
+    (hDa : StronglyAdapted ℱ D) (hYi : ∀ s, Integrable (Y s) μ)
+    (hDi : ∀ s, Integrable (D s) μ) (hεi : ∀ s, Integrable (ε s) μ)
+    (hε : ∀ s, μ[ε (s + 1) | ℱ s] =ᵐ[μ] 0) (t : ℕ)
+    (hCE : ∀ᵐ ω ∂μ, C t ω =
+      r / (1 + r) * ((1 + r) * B t ω + ∑' k, disc r ^ k * μ[Y (t + k) | ℱ t] ω)) :
+    ∀ᵐ ω ∂μ, C t ω = r * B t ω + Y t ω + ρ / (1 + r - ρ) * D t ω := by
+  have hf : ∀ᵐ ω ∂μ, ∀ k, μ[Y (t + k) | ℱ t] ω =
+      Y t ω + (∑ j ∈ range k, ρ ^ (j + 1)) * D t ω :=
+    ae_all_iff.2 fun k => nonstationary_forecast ℱ hY hD hYa hDa hYi hDi hεi hε t k
+  have hρ1' : ρ - 1 ≠ 0 := sub_ne_zero.2 hρ1
+  have hne := one_add_sub_ne_zero hρ
+  have hr1 : 1 + r ≠ 0 := by linarith
+  filter_upwards [hCE, hf] with ω h1 h2
+  have hsum : HasSum (fun k => disc r ^ k * μ[Y (t + k) | ℱ t] ω)
+      (Y t ω * ((1 + r) / r) + ρ * D t ω / (ρ - 1) * ((1 + r) / (1 + r - ρ)) -
+        ρ * D t ω / (ρ - 1) * ((1 + r) / r)) := by
+    have := (((PresentValue.hasSum_disc_pow hr).mul_left (Y t ω)).add
+      ((hasSum_disc_mul_pow hρ).mul_left (ρ * D t ω / (ρ - 1)))).sub
+      ((PresentValue.hasSum_disc_pow hr).mul_left (ρ * D t ω / (ρ - 1)))
+    convert this using 1
+    funext k
+    rw [h2]
+    have hg : ∑ j ∈ range k, ρ ^ (j + 1) = ρ * ((ρ ^ k - 1) / (ρ - 1)) := by
+      rw [← geom_sum_eq hρ1, mul_sum]; exact sum_congr rfl fun j _ => pow_succ' ρ j
+    rw [hg]
+    field_simp
+    ring
+  rw [h1, hsum.tsum_eq]
+  field_simp
+  ring
+
+/-- **Consumption innovation with nonstationary output**, O&R Exercise 4(c), p. 126: with the
+consumption rule of `consumption_nonstationary` at `t` and `t + 1` and the current account
+identity, `C_{t+1} − C_t = ((1 + r)/(1 + r − ρ)) ε_{t+1}`. For `0 < ρ < 1` the coefficient exceeds
+one (`consumption_more_volatile`). -/
+theorem consumption_innovation_nonstationary {r ρ B0 B1 Y0 Y1 D0 D1 C0 C1 e : ℝ}
+    (hne : 1 + r - ρ ≠ 0)
+    (hC0 : C0 = r * B0 + Y0 + ρ / (1 + r - ρ) * D0)
+    (hC1 : C1 = r * B1 + Y1 + ρ / (1 + r - ρ) * D1)
+    (hB : B1 = (1 + r) * B0 + Y0 - C0) (hY : Y1 = Y0 + D1) (hD : D1 = ρ * D0 + e) :
+    C1 - C0 = (1 + r) / (1 + r - ρ) * e := by
+  rw [hC1, hB, hY, hD, hC0]
+  field_simp
+  ring
+
+/-- Almost-sure form of Exercise 4(c), p. 126: under the hypotheses of
+`consumption_nonstationary` at dates `t` and `t + 1`, and the current account identity
+`B_{t+1} = (1 + r) B_t + Y_t − C_t`, `C_{t+1} − C_t = ((1 + r)/(1 + r − ρ)) ε_{t+1}` a.s. -/
+theorem consumption_innovation_nonstationary_ae [IsProbabilityMeasure μ]
+    (ℱ : Filtration ℕ m0) {B Y D ε C : ℕ → Ω → ℝ} {r ρ : ℝ} (hr : 0 < r) (hρ : |ρ| < 1 + r)
+    (hρ1 : ρ ≠ 1) (hY : ∀ s ω, Y (s + 1) ω = Y s ω + D (s + 1) ω)
+    (hD : ∀ s ω, D (s + 1) ω = ρ * D s ω + ε (s + 1) ω) (hYa : StronglyAdapted ℱ Y)
+    (hDa : StronglyAdapted ℱ D) (hYi : ∀ s, Integrable (Y s) μ)
+    (hDi : ∀ s, Integrable (D s) μ) (hεi : ∀ s, Integrable (ε s) μ)
+    (hε : ∀ s, μ[ε (s + 1) | ℱ s] =ᵐ[μ] 0) (t : ℕ)
+    (hB : ∀ ω, B (t + 1) ω = (1 + r) * B t ω + Y t ω - C t ω)
+    (hCE : ∀ s, ∀ᵐ ω ∂μ, C s ω =
+      r / (1 + r) * ((1 + r) * B s ω + ∑' k, disc r ^ k * μ[Y (s + k) | ℱ s] ω)) :
+    ∀ᵐ ω ∂μ, C (t + 1) ω - C t ω = (1 + r) / (1 + r - ρ) * ε (t + 1) ω := by
+  filter_upwards [consumption_nonstationary ℱ hr hρ hρ1 hY hD hYa hDa hYi hDi hεi hε t (hCE t),
+    consumption_nonstationary ℱ hr hρ hρ1 hY hD hYa hDa hYi hDi hεi hε (t + 1) (hCE (t + 1))]
+    with ω h0 h1
+  exact consumption_innovation_nonstationary (one_add_sub_ne_zero hρ) h0 h1 (hB ω) (hY t ω)
+    (hD t ω)
+
+/-- **Current account with nonstationary output**, O&R Exercise 4(d), p. 126, and the claim at the
+end of §2.3.3, p. 84. With the consumption rule `C_s = r B_s + Y_s + (ρ/(1 + r − ρ)) D_s` at `t` and
+`t + 1`, `CA_s = r B_s + Y_s − C_s` satisfies `CA_t = −(ρ/(1 + r − ρ)) D_t` and
+`CA_{t+1} = ρ CA_t − (ρ/(1 + r − ρ)) ε_{t+1}`: the response to an innovation is
+`−ρ/(1 + r − ρ)`. -/
+theorem current_account_nonstationary {r ρ B0 B1 Y0 Y1 D0 D1 C0 C1 e : ℝ}
+    (hC0 : C0 = r * B0 + Y0 + ρ / (1 + r - ρ) * D0)
+    (hC1 : C1 = r * B1 + Y1 + ρ / (1 + r - ρ) * D1) (hD : D1 = ρ * D0 + e) :
+    r * B0 + Y0 - C0 = -(ρ / (1 + r - ρ)) * D0 ∧
+      r * B1 + Y1 - C1 = ρ * (r * B0 + Y0 - C0) - ρ / (1 + r - ρ) * e := by
+  constructor
+  · rw [hC0]; ring
+  · rw [hC1, hC0, hD]; ring
+
+/-- Signs in O&R Exercise 4(c)–(d), p. 126: for `0 < ρ` and `|ρ| < 1 + r`, a positive output
+innovation produces a current account deficit (`−ρ/(1 + r − ρ) < 0`) and a consumption innovation
+larger than the output innovation (`(1 + r)/(1 + r − ρ) > 1`). -/
+theorem consumption_more_volatile {r ρ : ℝ} (hρ0 : 0 < ρ) (hρ : |ρ| < 1 + r) :
+    -(ρ / (1 + r - ρ)) < 0 ∧ 1 < (1 + r) / (1 + r - ρ) := by
+  have h : 0 < 1 + r - ρ := by have := le_abs_self ρ; linarith
+  refine ⟨neg_neg_of_pos (div_pos hρ0 h), ?_⟩
+  rw [one_lt_div h]
+  linarith
+
+/-- Conditional covariance, O&R footnote 23, p. 86:
+`Cov(X, Y | m) = E[XY | m] − E[X | m] E[Y | m]`. With `m = ℱ t` this is the book's `Cov_t`. -/
+noncomputable def condCov (μ : Measure Ω) (m : MeasurableSpace Ω) (X Y : Ω → ℝ) : Ω → ℝ :=
+  μ[X * Y | m] - μ[X | m] * μ[Y | m]
+
+/-- O&R footnote 23, p. 86: `E(XY) = E(X) E(Y) + Cov(X, Y)`, in conditional form. -/
+theorem condExp_mul_eq_add_condCov (m : MeasurableSpace Ω) (X Y : Ω → ℝ) :
+    μ[X * Y | m] = μ[X | m] * μ[Y | m] + condCov μ m X Y := by
+  simp [condCov]
+
+/-- O&R footnote 23, p. 86: adding a constant does not change a covariance,
+`Cov(a₀ + X, Y) = Cov(X, Y)` (conditional version, almost surely). -/
+theorem condCov_const_add [IsProbabilityMeasure μ] {m : MeasurableSpace Ω} (hm : m ≤ m0)
+    (a0 : ℝ) {X Y : Ω → ℝ} (hX : Integrable X μ) (hY : Integrable Y μ)
+    (hXY : Integrable (X * Y) μ) :
+    condCov μ m (fun ω => a0 + X ω) Y =ᵐ[μ] condCov μ m X Y := by
+  have h1 : (fun ω => a0 + X ω) * Y = a0 • Y + X * Y := by
+    funext ω; simp; ring
+  have h2 : (fun ω => a0 + X ω) = (fun _ => a0) + X := rfl
+  unfold condCov
+  rw [h1, h2]
+  filter_upwards [condExp_add (hY.smul a0) hXY m, condExp_smul (μ := μ) a0 Y m,
+    condExp_add (integrable_const a0) hX m] with ω e1 e2 e3
+  simp only [Pi.sub_apply, Pi.mul_apply]
+  rw [e1, e3, Pi.add_apply, e2, Pi.add_apply, condExp_const hm]
+  simp only [Pi.smul_apply, smul_eq_mul]
+  ring
+
+/-- **Risky capital**, O&R (2.40), p. 86. Let `m` be the date-`t` information, `u'(C_t)` known
+at `t` and nonzero, `W = u'(C_{t+1})`, `R = A_{t+1} F'(K_{t+1})`, and `M = u'(C_{t+1})/u'(C_t)`.
+Given the bond Euler equation (2.29) `E_t u'(C_{t+1}) = u'(C_t)/((1 + r) β)` and the capital
+Euler equation `u'(C_t) = E_t{[1 + R] β u'(C_{t+1})}` (both taken as hypotheses), and
+`(1 + r) β = 1`, we get `E_t R = r − Cov_t(R, M)`. -/
+theorem risky_capital_return {m : MeasurableSpace Ω} {up : ℝ → ℝ} {Ct Ct1 R : Ω → ℝ} {r β : ℝ}
+    (hrβ : (1 + r) * β = 1)
+    (hpos : ∀ ω, up (Ct ω) ≠ 0) (hmeas : StronglyMeasurable[m] fun ω => up (Ct ω))
+    (hW : Integrable (fun ω => up (Ct1 ω)) μ)
+    (hRW : Integrable (fun ω => R ω * up (Ct1 ω)) μ)
+    (hM : Integrable (fun ω => up (Ct1 ω) / up (Ct ω)) μ)
+    (hRM : Integrable (fun ω => R ω * (up (Ct1 ω) / up (Ct ω))) μ)
+    (hbond : μ[fun ω => up (Ct1 ω) | m] =ᵐ[μ] fun ω => up (Ct ω) / ((1 + r) * β))
+    (hcap : μ[fun ω => (1 + R ω) * (β * up (Ct1 ω)) | m] =ᵐ[μ] fun ω => up (Ct ω)) :
+    μ[R | m] =ᵐ[μ] fun ω => r - condCov μ m R (fun ω => up (Ct1 ω) / up (Ct ω)) ω := by
+  have hβ : β ≠ 0 := by rintro rfl; simp at hrβ
+  set W : Ω → ℝ := fun ω => up (Ct1 ω) with hWdef
+  set q : Ω → ℝ := fun ω => (up (Ct ω))⁻¹ with hqdef
+  have hq : StronglyMeasurable[m] q := hmeas.inv₀
+  have hMq : (fun ω => up (Ct1 ω) / up (Ct ω)) = q * W := by
+    funext ω; simp [hqdef, hWdef, div_eq_inv_mul]
+  have hRMq : R * (fun ω => up (Ct1 ω) / up (Ct ω)) = q * (R * W) := by
+    funext ω; simp [hqdef, hWdef, div_eq_inv_mul]; ring
+  have hcapf : (fun ω => (1 + R ω) * (β * up (Ct1 ω))) = β • W + β • (R * W) := by
+    funext ω; simp [hWdef]; ring
+  rw [hcapf] at hcap
+  have hRW' : Integrable (R * W) μ := hRW
+  have eM := condExp_mul_of_stronglyMeasurable_left hq (hMq ▸ hM) hW
+  have eRM := condExp_mul_of_stronglyMeasurable_left hq (hRMq ▸ hRM) hRW'
+  unfold condCov
+  rw [hRMq, hMq]
+  filter_upwards [eM, eRM, hbond, hcap, condExp_add (hW.smul β) (hRW'.smul β) m,
+    condExp_smul (μ := μ) β W m, condExp_smul (μ := μ) β (R * W) m]
+    with ω h1 h2 h3 h4 h5 h6 h7
+  rw [h5, Pi.add_apply, h6, h7] at h4
+  simp only [Pi.smul_apply, smul_eq_mul] at h4
+  simp only [Pi.sub_apply, Pi.mul_apply]
+  rw [h1, h2, Pi.mul_apply, Pi.mul_apply]
+  have h3' : μ[W | m] ω = up (Ct ω) := by rw [h3, hrβ, div_one]
+  rw [h3'] at h4 ⊢
+  have hp := hpos ω
+  have hRWv : μ[R * W | m] ω = up (Ct ω) / β - up (Ct ω) := by
+    field_simp; linarith
+  rw [hRWv]
+  simp only [hqdef]
+  have hr : r = 1 / β - 1 := by field_simp; linarith
+  rw [hr]
+  field_simp
+  ring
+
+/-- O&R §2.3.6, p. 94: if `u''' ≥ 0` on an open convex set then marginal utility `u'` is convex
+there (`u''` is the derivative of `u'` and `u'''` that of `u''`). -/
+theorem convexOn_of_third_deriv_nonneg {D : Set ℝ} (hD : Convex ℝ D) (hDo : IsOpen D)
+    {up upp uppp : ℝ → ℝ} (h2 : ∀ x ∈ D, HasDerivAt up (upp x) x)
+    (h3 : ∀ x ∈ D, HasDerivAt upp (uppp x) x) (h3nn : ∀ x ∈ D, 0 ≤ uppp x) :
+    ConvexOn ℝ D up := by
+  refine convexOn_of_hasDerivWithinAt2_nonneg (f' := upp) (f'' := uppp) hD
+    (fun x hx => (h2 x hx).continuousAt.continuousWithinAt) (fun x hx => ?_)
+    (fun x hx => ?_) (fun x hx => ?_)
+  · rw [hDo.interior_eq] at hx ⊢; exact (h2 x hx).hasDerivWithinAt
+  · rw [hDo.interior_eq] at hx ⊢; exact (h3 x hx).hasDerivWithinAt
+  · rw [hDo.interior_eq] at hx; exact h3nn x hx
+
+/-- **Isoelastic prudence**, O&R footnote 32, p. 95: for `u'(C) = C^{−1/σ}` with `σ > 0` and
+`C > 0`, `u''(C) = −(1/σ) C^{−1/σ−1}` and `u'''(C) = (1/σ)(1 + 1/σ) C^{−1/σ−2} > 0`. -/
+theorem crra_third_derivative {σ C : ℝ} (hσ : 0 < σ) (hC : 0 < C) :
+    HasDerivAt (fun c : ℝ => c ^ (-1 / σ)) (-1 / σ * C ^ (-1 / σ - 1)) C ∧
+      HasDerivAt (fun c : ℝ => -1 / σ * c ^ (-1 / σ - 1))
+        (1 / σ * (1 + 1 / σ) * C ^ (-1 / σ - 2)) C ∧
+      0 < 1 / σ * (1 + 1 / σ) * C ^ (-1 / σ - 2) := by
+  refine ⟨Real.hasDerivAt_rpow_const (Or.inl hC.ne'), ?_, ?_⟩
+  · have h := (Real.hasDerivAt_rpow_const (p := -1 / σ - 1) (Or.inl hC.ne')).const_mul (-1 / σ)
+    convert h using 1
+    rw [show -1 / σ - 1 - 1 = -1 / σ - 2 by ring]
+    ring
+  · have := Real.rpow_pos_of_pos hC (-1 / σ - 2)
+    positivity
+
+/-- O&R §2.3.6 and footnote 32, pp. 94–95: isoelastic marginal utility `C^{−1/σ}` is convex on
+`C > 0`. -/
+theorem crra_marginal_utility_convex {σ : ℝ} (hσ : 0 < σ) :
+    ConvexOn ℝ (Set.Ioi 0) fun c : ℝ => c ^ (-1 / σ) :=
+  convexOn_of_third_deriv_nonneg (convex_Ioi 0) isOpen_Ioi
+    (fun _ hx => (crra_third_derivative hσ hx).1) (fun _ hx => (crra_third_derivative hσ hx).2.1)
+    (fun _ hx => (crra_third_derivative hσ hx).2.2.le)
+
+/-- **Jensen and precautionary saving**, O&R §2.3.6, p. 94: if marginal utility is convex (and
+continuous) on a closed convex set containing next period's consumption, then
+`E_t u'(C_{t+1}) ≥ u'(E_t C_{t+1})` almost surely (conditional Jensen). -/
+theorem condExp_marginal_utility_ge [IsProbabilityMeasure μ] {m : MeasurableSpace Ω}
+    (hm : m ≤ m0) {up : ℝ → ℝ} {s : Set ℝ} (hconv : ConvexOn ℝ s up) (hcont : ContinuousOn up s)
+    (hs : IsClosed s) {C : Ω → ℝ} (hCs : ∀ᵐ ω ∂μ, C ω ∈ s) (hC : Integrable C μ)
+    (hupC : Integrable (up ∘ C) μ) :
+    up ∘ μ[C | m] ≤ᵐ[μ] μ[up ∘ C | m] :=
+  hconv.map_condExp_le hm hcont.lowerSemicontinuousOn hCs hs hC hupC
+
+/-- **A mean-preserving spread raises expected marginal utility**, O&R §2.3.6, p. 94. If
+`C' = C + η` where `C` is known given the information `m` and `E[η | m] = 0` (a mean-preserving
+spread in the sense of added noise), and `u'` is convex and continuous on a closed convex set
+containing `C'`, then `E u'(C) ≤ E u'(C + η)`. -/
+theorem mps_raises_expected_marginal_utility [IsProbabilityMeasure μ] {m : MeasurableSpace Ω}
+    (hm : m ≤ m0) {up : ℝ → ℝ} {s : Set ℝ} (hconv : ConvexOn ℝ s up) (hcont : ContinuousOn up s)
+    (hs : IsClosed s) {C η : Ω → ℝ} (hCm : StronglyMeasurable[m] C) (hη : μ[η | m] =ᵐ[μ] 0)
+    (hCs : ∀ᵐ ω ∂μ, C ω + η ω ∈ s) (hC : Integrable C μ) (hηi : Integrable η μ)
+    (hupC : Integrable (up ∘ C) μ) (hupCη : Integrable (up ∘ (C + η)) μ) :
+    ∫ ω, up (C ω) ∂μ ≤ ∫ ω, up (C ω + η ω) ∂μ := by
+  have hJ := condExp_marginal_utility_ge (C := C + η) hm hconv hcont hs hCs (hC.add hηi) hupCη
+  have hmean : μ[C + η | m] =ᵐ[μ] C := by
+    filter_upwards [condExp_add hC hηi m, hη] with ω h1 h2
+    rw [h1, Pi.add_apply, h2, condExp_of_stronglyMeasurable hm hCm hC]
+    simp
+  have hle : up ∘ C ≤ᵐ[μ] μ[up ∘ (C + η) | m] := by
+    filter_upwards [hJ, hmean] with ω h1 h2
+    simpa [h2] using h1
+  calc ∫ ω, up (C ω) ∂μ ≤ ∫ ω, μ[up ∘ (C + η) | m] ω ∂μ :=
+        integral_mono_ae hupC integrable_condExp hle
+    _ = ∫ ω, up (C ω + η ω) ∂μ := by rw [integral_condExp hm]; rfl
+
+/-- **Precautionary saving in a two-period model**, O&R §2.3.6, pp. 94–95. Wealth `W` is split
+into consumption `c` today and savings, so tomorrow's consumption is `(1 + r)(W − c) + Y` with
+random income `Y`. Let `c` solve the Euler equation (2.29) under income `Y`, and `c'` solve it
+under the riskier income `Y + η` with `E[η | m] = 0` and `Y` known given `m` (a mean-preserving
+spread). If `u'` is strictly decreasing (`u'' < 0`), convex (`u''' ≥ 0`) and continuous, then
+`c' ≤ c`: more income risk means more saving. The Euler equations are hypotheses. -/
+theorem precautionary_saving_two_period [IsProbabilityMeasure μ] {m : MeasurableSpace Ω}
+    (hm : m ≤ m0) {up : ℝ → ℝ} (hanti : StrictAnti up) (hconv : ConvexOn ℝ Set.univ up)
+    (hcont : Continuous up) {r β W c c' : ℝ} (hr1 : 0 < 1 + r) (hβ : 0 < β) {Y η : Ω → ℝ}
+    (hYm : StronglyMeasurable[m] Y) (hη : μ[η | m] =ᵐ[μ] 0) (hYi : Integrable Y μ)
+    (hηi : Integrable η μ)
+    (hi : Integrable (fun ω => up ((1 + r) * (W - c) + Y ω)) μ)
+    (hi' : Integrable (fun ω => up ((1 + r) * (W - c') + Y ω)) μ)
+    (hi'' : Integrable (fun ω => up ((1 + r) * (W - c') + Y ω + η ω)) μ)
+    (heuler : up c = (1 + r) * β * ∫ ω, up ((1 + r) * (W - c) + Y ω) ∂μ)
+    (heuler' : up c' = (1 + r) * β * ∫ ω, up ((1 + r) * (W - c') + Y ω + η ω) ∂μ) :
+    c' ≤ c := by
+  by_contra hcc
+  push Not at hcc
+  have h1 : up c' < up c := hanti hcc
+  have hmps := mps_raises_expected_marginal_utility (μ := μ) hm hconv hcont.continuousOn
+    isClosed_univ (C := fun ω => (1 + r) * (W - c') + Y ω) (η := η)
+    (stronglyMeasurable_const.add hYm) hη (ae_of_all _ fun _ => Set.mem_univ _)
+    ((integrable_const _).add hYi) hηi hi' hi''
+  have hmono : ∫ ω, up ((1 + r) * (W - c) + Y ω) ∂μ ≤
+      ∫ ω, up ((1 + r) * (W - c') + Y ω) ∂μ := by
+    refine integral_mono hi hi' fun ω => hanti.antitone ?_
+    have : (1 + r) * (W - c') ≤ (1 + r) * (W - c) :=
+      mul_le_mul_of_nonneg_left (by linarith) hr1.le
+    linarith
+  have hk : 0 < (1 + r) * β := mul_pos hr1 hβ
+  have : up c ≤ up c' := by
+    rw [heuler, heuler']
+    exact mul_le_mul_of_nonneg_left (hmono.trans hmps) hk.le
+  linarith
+
+/-- **Hall's random walk under lognormality**, O&R Exercise 3, p. 125. With isoelastic marginal
+utility `u'(C) = C^{−1/σ}`, `(1 + r) β = 1`, and `log C_{t+1}` conditionally normal given the
+date-`t` information `m` with conditional mean `μ_t` and variance `v_t` (hypotheses: the
+conditional moment generating function `E_t exp(θ log C_{t+1}) = exp(θ μ_t + θ² v_t / 2)` and
+`E_t log C_{t+1} = μ_t`), the Euler equation (2.29) gives
+`E_t log C_{t+1} − log C_t = v_t/(2σ)`.
+The book's "constant drift" requires, in addition, a constant conditional variance `v_t`. -/
+theorem lognormal_consumption_drift {m : MeasurableSpace Ω} {Ct Ct1 mean var : Ω → ℝ}
+    {σ r β : ℝ} (hσ : 0 < σ) (hrβ : (1 + r) * β = 1) (hCt : ∀ ω, 0 < Ct ω)
+    (hCt1 : ∀ ω, 0 < Ct1 ω)
+    (heuler : μ[fun ω => Ct1 ω ^ (-1 / σ) | m] =ᵐ[μ] fun ω => Ct ω ^ (-1 / σ) / ((1 + r) * β))
+    (hmgf : ∀ θ : ℝ, μ[fun ω => Real.exp (θ * Real.log (Ct1 ω)) | m] =ᵐ[μ]
+      fun ω => Real.exp (θ * mean ω + θ ^ 2 * var ω / 2))
+    (hmean : μ[fun ω => Real.log (Ct1 ω) | m] =ᵐ[μ] mean) :
+    μ[fun ω => Real.log (Ct1 ω) | m] - (fun ω => Real.log (Ct ω)) =ᵐ[μ]
+      fun ω => var ω / (2 * σ) := by
+  have hf : (fun ω => Ct1 ω ^ (-1 / σ)) =
+      fun ω => Real.exp (-1 / σ * Real.log (Ct1 ω)) := by
+    funext ω; rw [Real.rpow_def_of_pos (hCt1 ω), mul_comm]
+  rw [hf] at heuler
+  filter_upwards [heuler, hmgf (-1 / σ), hmean] with ω h1 h2 h3
+  rw [h1, hrβ, div_one, Real.rpow_def_of_pos (hCt ω)] at h2
+  have h4 := Real.exp_injective h2
+  rw [Pi.sub_apply, h3]
+  field_simp at h4 ⊢
+  linarith
+
+/-- **Random walk with constant drift**, O&R Exercise 3, p. 125: if in addition the conditional
+variance is a constant `v` and `log C_t` is known at `t`, then
+`E_t [log C_{t+1} − log C_t − v/(2σ)] = 0`, i.e. `log C` is a random walk (martingale) with drift
+`v/(2σ)`. -/
+theorem lognormal_random_walk_drift [IsProbabilityMeasure μ] {m : MeasurableSpace Ω}
+    (hm : m ≤ m0) {Ct Ct1 mean : Ω → ℝ} {σ r β v : ℝ} (hσ : 0 < σ) (hrβ : (1 + r) * β = 1)
+    (hCt : ∀ ω, 0 < Ct ω) (hCt1 : ∀ ω, 0 < Ct1 ω)
+    (hLm : StronglyMeasurable[m] fun ω => Real.log (Ct ω))
+    (hL : Integrable (fun ω => Real.log (Ct ω)) μ)
+    (hL1 : Integrable (fun ω => Real.log (Ct1 ω)) μ)
+    (heuler : μ[fun ω => Ct1 ω ^ (-1 / σ) | m] =ᵐ[μ] fun ω => Ct ω ^ (-1 / σ) / ((1 + r) * β))
+    (hmgf : ∀ θ : ℝ, μ[fun ω => Real.exp (θ * Real.log (Ct1 ω)) | m] =ᵐ[μ]
+      fun ω => Real.exp (θ * mean ω + θ ^ 2 * v / 2))
+    (hmean : μ[fun ω => Real.log (Ct1 ω) | m] =ᵐ[μ] mean) :
+    μ[fun ω => Real.log (Ct1 ω) - Real.log (Ct ω) - v / (2 * σ) | m] =ᵐ[μ] 0 := by
+  have hd := lognormal_consumption_drift (var := fun _ => v) hσ hrβ hCt hCt1 heuler hmgf hmean
+  have hf : (fun ω => Real.log (Ct1 ω) - Real.log (Ct ω) - v / (2 * σ)) =
+      (fun ω => Real.log (Ct1 ω)) - (fun ω => Real.log (Ct ω)) - fun _ => v / (2 * σ) := rfl
+  rw [hf]
+  filter_upwards [condExp_sub (hL1.sub hL) (integrable_const (v / (2 * σ))) m,
+    condExp_sub hL1 hL m, hd] with ω h1 h2 h3
+  rw [h1, Pi.sub_apply, h2, condExp_const hm, condExp_of_stronglyMeasurable hm hLm hL]
+  simp only [Pi.sub_apply] at h3 ⊢
+  rw [h3]
+  simp
+
+/-- **Stochastic Euler equation from dynamic programming**, O&R Supplement A.3, p. 722: the
+first-order condition of the stochastic Bellman equation,
+`u'(C_t) = (1 + r) β E_t J'_{t+1}(W_{t+1})`, and the envelope condition
+`u'(C_{t+1}) = J'_{t+1}(W_{t+1})` (both hypotheses; `J'` may depend on the date-`t+1` state) give
+the stochastic Euler equation (2.29), `u'(C_t) = (1 + r) β E_t u'(C_{t+1})`. -/
+theorem euler_of_bellman {m : MeasurableSpace Ω} {up : ℝ → ℝ} {Jp : Ω → ℝ → ℝ}
+    {Ct Ct1 W1 : Ω → ℝ} {r β : ℝ}
+    (hfoc : (fun ω => up (Ct ω)) =ᵐ[μ] fun ω => (1 + r) * β * μ[fun ω => Jp ω (W1 ω) | m] ω)
+    (henv : ∀ᵐ ω ∂μ, up (Ct1 ω) = Jp ω (W1 ω)) :
+    (fun ω => up (Ct ω)) =ᵐ[μ] fun ω => (1 + r) * β * μ[fun ω => up (Ct1 ω) | m] ω := by
+  filter_upwards [hfoc, condExp_congr_ae (m := m) henv] with ω h1 h2
+  rw [h1, h2]
+
+end ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption
+
+/-
+Copyright (c) 2026 Robert Kirkby. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Robert Kirkby
+-/
+
+/-!
+# The present-value test of the current account
+
+Obstfeld and Rogoff (1996), *Foundations of International Macroeconomics*, §2.3.5,
+pp. 90–93 (equations (2.42)–(2.45), footnotes 28–29), with Exercises 5 and 6, p. 126.
+
+Net output is `Z = Y − I − G`. Equation (2.42) says `CA_t = Z_t − E_t Z̃_t`, with
+`E_t Z̃_t = (r/(1+r)) Σ_{s≥t} (1+r)^{-(s-t)} E_t Z_s`; Campbell's form (2.43) is
+`CA_t = −Σ_{s>t} (1+r)^{-(s-t)} E_t ΔZ_s`.
+
+Contents.
+* Deterministic summation by parts (Exercise 6): the finite-horizon identity
+  `campbell_finite_horizon`, the infinite version `campbell_deterministic` (under absolute
+  summability of the present value), and `campbell_of_tail`, which needs only the book's tail
+  condition `(1+r)^{-T} Z_T → 0` and summable changes.
+* Stochastic version, with Mathlib's conditional expectation `μ[·|ℱ t]` for `E_t`:
+  `campbell_eq_43` derives (2.43) from (2.42). The forecasts are summed pathwise, as in the book,
+  so no interchange of `E_t` and `Σ` is needed there. Where an interchange is needed (Exercise 5,
+  footnote 29), it is proved from Mathlib's `condExp_tsum` under the standing assumption
+  `Σ_s (1+r)^{-s} E|Z_{t+s}| < ∞` (the stochastic form of the growth condition on p. 66).
+* Exercise 5 (Campbell's residual test): `condExp_residual_eq_zero` (forward direction),
+  `campbell_of_residual` and `campbell_iff_residual` (converse, corrected).
+  **Correction.** The book says (2.43) holds *if and only if*
+  `CA_{t+1} − ΔZ_{t+1} − (1+r) CA_t` is uncorrelated with date-`t` information. The "if"
+  direction is false without a no-bubble condition `lim_n (1+r)^{-n} E_t CA_{t+n} = 0`. The
+  counterexample `residual_orthogonality_insufficient` has `Z = 0` and `CA_t = (1+r)^t`. The
+  corrected iff is `campbell_iff_residual`.
+* Footnote 29: `condExp_coarser_info` (tower property) and `campbell_coarser_information`:
+  (2.43) survives conditioning on any coarser information set for which `CA_t` is measurable.
+* The VAR forecast (2.44)–(2.45): the matrix geometric series of footnote 28
+  (`tsum_pow_succ_eq_mul_inv`, with the sufficient row-sum condition
+  `summable_disc_smul_pow`), iterated forecasts `E_t x_{t+k} = Ψ^k x_t` (`condExp_var_pow`),
+  the predicted current account (2.45) (`var_predicted_current_account`), and the tested
+  restriction `CA_t = ĈA_t` (`var_null_restriction`).
+-/
+
+namespace ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest
+
+open MeasureTheory Filter Topology Finset
+open scoped Matrix
+open ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValue
+
+/-! ## Deterministic summation by parts -/
+
+/-- `1 − 1/(1 + r) = r/(1 + r)`, the annuity factor of O&R (2.42), p. 90. -/
+theorem one_sub_disc_eq {r : ℝ} (hr : 0 < 1 + r) : 1 - disc r = r / (1 + r) := by
+  unfold disc
+  field_simp
+  ring
+
+/-- Finite-horizon summation by parts behind O&R (2.43), p. 90 (Exercise 6, p. 126):
+`Σ_{s<T} (1+r)^{-(s+1)} ΔZ_{s+1} = (1+r)^{-T} Z_T − Z_0 + (1 − 1/(1+r)) Σ_{s<T} (1+r)^{-s} Z_s`. -/
+theorem sum_disc_diff_eq (r : ℝ) (Z : ℕ → ℝ) (T : ℕ) :
+    ∑ s ∈ range T, disc r ^ (s + 1) * (Z (s + 1) - Z s) =
+      disc r ^ T * Z T - Z 0 + (1 - disc r) * ∑ s ∈ range T, disc r ^ s * Z s := by
+  induction T with
+  | zero => simp
+  | succ T ih =>
+    rw [sum_range_succ, ih, sum_range_succ]
+    ring
+
+/-- Finite-horizon Campbell identity, O&R (2.43), p. 90: net output less its truncated
+annuity value equals minus the discounted sum of future changes plus the terminal term
+`(1+r)^{-T} Z_T`. -/
+theorem campbell_finite_horizon (r : ℝ) (Z : ℕ → ℝ) (T : ℕ) :
+    Z 0 - (1 - disc r) * ∑ s ∈ range T, disc r ^ s * Z s =
+      -∑ s ∈ range T, disc r ^ (s + 1) * (Z (s + 1) - Z s) + disc r ^ T * Z T := by
+  rw [sum_disc_diff_eq]
+  ring
+
+/-- The tail condition `(1+r)^{-T} Z_T → 0` needed for O&R (2.43), p. 90, holds whenever the
+present value of `Z` converges absolutely. -/
+theorem tail_tendsto_zero {r : ℝ} {Z : ℕ → ℝ} (hZ : Summable fun s => disc r ^ s * Z s) :
+    Tendsto (fun T => disc r ^ T * Z T) atTop (𝓝 0) :=
+  hZ.tendsto_atTop_zero
+
+/-- If the present value of `Z` converges, so does the discounted sum of its changes, the
+right-hand side of O&R (2.43), p. 90. -/
+theorem summable_disc_diff {r : ℝ} {Z : ℕ → ℝ} (hZ : Summable fun s => disc r ^ s * Z s) :
+    Summable fun s => disc r ^ (s + 1) * (Z (s + 1) - Z s) := by
+  have h1 : Summable fun s => disc r ^ (s + 1) * Z (s + 1) :=
+    (summable_nat_add_iff 1).2 hZ
+  have h2 : Summable fun s => disc r * (disc r ^ s * Z s) := hZ.mul_left _
+  refine (h1.sub h2).congr fun s => ?_
+  ring
+
+/-- Deterministic Campbell identity, O&R (2.43), p. 90 (Exercise 6, p. 126): if the present
+value of `Z` converges and `r > 0`, then `Z_0 − Z̃ = −Σ_{s≥0} (1+r)^{-(s+1)} (Z_{s+1} − Z_s)`,
+where `Z̃` is the permanent value (2.42). -/
+theorem campbell_deterministic {r : ℝ} (hr : 0 < r) {Z : ℕ → ℝ}
+    (hZ : Summable fun s => disc r ^ s * Z s) :
+    Z 0 - permanent r Z = -∑' s, disc r ^ (s + 1) * (Z (s + 1) - Z s) := by
+  have hr1 : 0 < 1 + r := by linarith
+  have h1 : Summable fun s => disc r ^ (s + 1) * Z (s + 1) :=
+    (summable_nat_add_iff 1).2 hZ
+  have h2 : Summable fun s => disc r * (disc r ^ s * Z s) := hZ.mul_left _
+  have e1 : ∑' s, disc r ^ (s + 1) * Z (s + 1) = pv r Z - Z 0 := by
+    unfold pv
+    rw [hZ.tsum_eq_zero_add]
+    simp
+  have e2 : ∑' s, disc r * (disc r ^ s * Z s) = disc r * pv r Z := by
+    unfold pv
+    exact tsum_mul_left
+  have e3 : ∑' s, disc r ^ (s + 1) * (Z (s + 1) - Z s) =
+      ∑' s, disc r ^ (s + 1) * Z (s + 1) - ∑' s, disc r * (disc r ^ s * Z s) := by
+    rw [← h1.tsum_sub h2]
+    exact tsum_congr fun s => by ring
+  rw [e3, e1, e2]
+  unfold permanent
+  rw [← one_sub_disc_eq hr1]
+  ring
+
+/-- O&R (2.43), p. 90, derived under the book's tail condition only: if the discounted changes
+are summable and `(1+r)^{-T} Z_T → 0`, the truncated permanent values converge and
+`Z_0 − lim_T (r/(1+r)) Σ_{s<T} (1+r)^{-s} Z_s = −Σ (1+r)^{-(s+1)} ΔZ_{s+1}`. (The limit may be
+only conditionally convergent, so it is stated with partial sums.) -/
+theorem campbell_of_tail {r : ℝ} (hr : 0 < 1 + r) {Z : ℕ → ℝ}
+    (hD : Summable fun s => disc r ^ (s + 1) * (Z (s + 1) - Z s))
+    (htail : Tendsto (fun T => disc r ^ T * Z T) atTop (𝓝 0)) :
+    Tendsto (fun T => Z 0 - r / (1 + r) * ∑ s ∈ range T, disc r ^ s * Z s) atTop
+      (𝓝 (-∑' s, disc r ^ (s + 1) * (Z (s + 1) - Z s))) := by
+  have h := (hD.hasSum.tendsto_sum_nat.neg).add htail
+  rw [add_zero] at h
+  refine h.congr fun T => ?_
+  rw [← one_sub_disc_eq hr, campbell_finite_horizon]
+
+/-! ## The stochastic version: conditional expectations -/
+
+namespace Stochastic
+
+variable {Ω : Type*} {m0 : MeasurableSpace Ω} {μ : Measure Ω}
+
+/-- Conditional expected permanent net output `E_t Z̃_t = (r/(1+r)) Σ_{s≥0} (1+r)^{-s} E_t Z_{t+s}`,
+O&R (2.42), p. 90, taken as the sum of the conditional forecasts (as the book writes it). -/
+noncomputable def forecastPermanent (μ : Measure Ω) (ℱ : Filtration ℕ m0) (r : ℝ)
+    (Z : ℕ → Ω → ℝ) (t : ℕ) : Ω → ℝ :=
+  fun ω => r / (1 + r) * ∑' s, disc r ^ s * μ[Z (t + s) | ℱ t] ω
+
+/-- The right-hand side of O&R (2.43), p. 90, without its minus sign:
+`Σ_{s≥0} (1+r)^{-(s+1)} E_t ΔZ_{t+s+1}`. -/
+noncomputable def campbellPV (μ : Measure Ω) (ℱ : Filtration ℕ m0) (r : ℝ)
+    (Z : ℕ → Ω → ℝ) (t : ℕ) : Ω → ℝ :=
+  fun ω => ∑' s, disc r ^ (s + 1) * μ[Z (t + s + 1) - Z (t + s) | ℱ t] ω
+
+/-- The Campbell residual of Exercise 5, p. 126:
+`e_{t+1} = CA_{t+1} − ΔZ_{t+1} − (1+r) CA_t`. -/
+noncomputable def campbellResidual (r : ℝ) (CA Z : ℕ → Ω → ℝ) (t : ℕ) : Ω → ℝ :=
+  CA (t + 1) - (Z (t + 1) - Z t) - (1 + r) • CA t
+
+/-- Technical lemma for O&R (2.43), p. 90: summable `L¹` norms give a finite sum of
+lower integrals (the hypothesis of Mathlib's `condExp_tsum`). -/
+theorem tsum_lintegral_ne_top {f : ℕ → Ω → ℝ} (hf : ∀ s, Integrable (f s) μ)
+    (hs : Summable fun s => ∫ ω, |f s ω| ∂μ) : ∑' s, ∫⁻ ω, ‖f s ω‖ₑ ∂μ ≠ ⊤ := by
+  have h (s : ℕ) : ∫⁻ ω, ‖f s ω‖ₑ ∂μ = ‖∫ ω, |f s ω| ∂μ‖ₑ := by
+    rw [← ofReal_integral_norm_eq_lintegral_enorm (hf s), Real.enorm_eq_ofReal_abs,
+      abs_of_nonneg (integral_nonneg fun ω => abs_nonneg _)]
+    rfl
+  rw [funext h]
+  exact tsum_enorm_ne_top_iff_summable_norm.2 hs.abs
+
+/-- Technical lemma for O&R (2.43), p. 90: summable `L¹` norms give almost-sure absolute
+summability of the random series. -/
+theorem ae_summable_of_integral {f : ℕ → Ω → ℝ} (hf : ∀ s, Integrable (f s) μ)
+    (hs : Summable fun s => ∫ ω, |f s ω| ∂μ) : ∀ᵐ ω ∂μ, Summable fun s => f s ω := by
+  have h : ∑' s, eLpNorm (f s) 1 μ ≠ ⊤ := by
+    rw [show (fun s => eLpNorm (f s) 1 μ) = fun s => ∫⁻ ω, ‖f s ω‖ₑ ∂μ from
+      funext fun s => eLpNorm_one_eq_lintegral_enorm (hf s).1]
+    exact tsum_lintegral_ne_top hf hs
+  filter_upwards [summable_norm_of_tsum_eLpNorm_ne_top le_rfl h] with ω hω
+  exact hω.of_norm
+
+/-- Interchange of conditional expectation and an infinite sum, needed to take `E_t` of the
+present value in O&R (2.43), p. 90, and footnote 29, p. 92: valid when the `L¹` norms are
+summable. -/
+theorem condExp_tsum_of_integral (m : MeasurableSpace Ω) {f : ℕ → Ω → ℝ}
+    (hf : ∀ s, Integrable (f s) μ) (hs : Summable fun s => ∫ ω, |f s ω| ∂μ) :
+    μ[fun ω => ∑' s, f s ω | m] =ᵐ[μ] fun ω => ∑' s, μ[f s | m] ω :=
+  condExp_tsum (fun s => (hf s).1) (tsum_lintegral_ne_top hf hs)
+
+/-- The `L¹` norm of a discounted conditional forecast is at most the discounted `L¹` norm of the
+variable (conditional Jensen), O&R (2.42), p. 90. -/
+theorem integral_abs_mul_condExp_le (m : MeasurableSpace Ω) {c : ℝ} (hc : 0 ≤ c)
+    (X : Ω → ℝ) : ∫ ω, |c * μ[X | m] ω| ∂μ ≤ c * ∫ ω, |X ω| ∂μ := by
+  simp_rw [abs_mul, abs_of_nonneg hc, integral_const_mul]
+  exact mul_le_mul_of_nonneg_left (integral_abs_condExp_le X) hc
+
+/-- Under the standing assumption that net output has a discounted-summable `L¹` norm
+(the stochastic form of O&R's growth condition, p. 66), the discounted forecasts of the changes
+`ΔZ` have summable `L¹` norms, for any information set `m`. Used for O&R (2.43), p. 90. -/
+theorem summable_integral_diff_forecast {r : ℝ} (hr : 0 < 1 + r) {Z : ℕ → Ω → ℝ}
+    (hZ : ∀ t, Integrable (Z t) μ)
+    (hS : ∀ t, Summable fun s => disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ) (t : ℕ)
+    (m : MeasurableSpace Ω) :
+    Summable fun s => ∫ ω, |disc r ^ (s + 1) * μ[Z (t + s + 1) - Z (t + s) | m] ω| ∂μ := by
+  have hd := (disc_pos hr).le
+  have hB : Summable fun s => disc r ^ (s + 1) * ∫ ω, |Z (t + s + 1) ω| ∂μ +
+      disc r * (disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ) :=
+    ((summable_nat_add_iff 1).2 (hS t)).add ((hS t).mul_left _)
+  refine Summable.of_nonneg_of_le (fun s => integral_nonneg fun ω => abs_nonneg _)
+    (fun s => ?_) hB
+  refine (integral_abs_mul_condExp_le m (pow_nonneg hd _) _).trans ?_
+  have hsub : ∫ ω, |(Z (t + s + 1) - Z (t + s)) ω| ∂μ ≤
+      ∫ ω, |Z (t + s + 1) ω| ∂μ + ∫ ω, |Z (t + s) ω| ∂μ := by
+    rw [← integral_add (hZ _).abs (hZ _).abs]
+    refine integral_mono ((hZ _).sub (hZ _)).abs ((hZ _).abs.add (hZ _).abs) fun ω => ?_
+    exact abs_sub _ _
+  calc disc r ^ (s + 1) * ∫ ω, |(Z (t + s + 1) - Z (t + s)) ω| ∂μ
+      ≤ disc r ^ (s + 1) * (∫ ω, |Z (t + s + 1) ω| ∂μ + ∫ ω, |Z (t + s) ω| ∂μ) :=
+        mul_le_mul_of_nonneg_left hsub (pow_nonneg hd _)
+    _ = _ := by ring
+
+/-- The realised discounted changes in net output have summable `L¹` norms under the standing
+discounted-`L¹` assumption; this makes the random present value of footnote 29, p. 92,
+well defined and integrable. -/
+theorem summable_integral_diff {r : ℝ} (hr : 0 < 1 + r) {Z : ℕ → Ω → ℝ}
+    (hZ : ∀ t, Integrable (Z t) μ)
+    (hS : ∀ t, Summable fun s => disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ) (t : ℕ) :
+    Summable fun s => ∫ ω, |disc r ^ (s + 1) * (Z (t + s + 1) - Z (t + s)) ω| ∂μ := by
+  have hd := (disc_pos hr).le
+  have hB : Summable fun s => disc r ^ (s + 1) * ∫ ω, |Z (t + s + 1) ω| ∂μ +
+      disc r * (disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ) :=
+    ((summable_nat_add_iff 1).2 (hS t)).add ((hS t).mul_left _)
+  refine Summable.of_nonneg_of_le (fun s => integral_nonneg fun ω => abs_nonneg _)
+    (fun s => ?_) hB
+  simp_rw [abs_mul, abs_of_nonneg (pow_nonneg hd _), integral_const_mul]
+  have hsub : ∫ ω, |(Z (t + s + 1) - Z (t + s)) ω| ∂μ ≤
+      ∫ ω, |Z (t + s + 1) ω| ∂μ + ∫ ω, |Z (t + s) ω| ∂μ := by
+    rw [← integral_add (hZ _).abs (hZ _).abs]
+    refine integral_mono ((hZ _).sub (hZ _)).abs ((hZ _).abs.add (hZ _).abs) fun ω => ?_
+    exact abs_sub _ _
+  calc disc r ^ (s + 1) * ∫ ω, |(Z (t + s + 1) - Z (t + s)) ω| ∂μ
+      ≤ disc r ^ (s + 1) * (∫ ω, |Z (t + s + 1) ω| ∂μ + ∫ ω, |Z (t + s) ω| ∂μ) :=
+        mul_le_mul_of_nonneg_left hsub (pow_nonneg hd _)
+    _ = _ := by ring
+
+/-- Under the standing discounted-`L¹` assumption on net output (O&R's growth condition, p. 66),
+the conditional forecasts in O&R (2.42), p. 90, are almost surely discount-summable. -/
+theorem ae_summable_forecast {r : ℝ} (hr : 0 < 1 + r) {ℱ : Filtration ℕ m0}
+    {Z : ℕ → Ω → ℝ} (hS : ∀ t, Summable fun s => disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ)
+    (t : ℕ) : ∀ᵐ ω ∂μ, Summable fun s => disc r ^ s * μ[Z (t + s) | ℱ t] ω :=
+  ae_summable_of_integral (f := fun s ω => disc r ^ s * μ[Z (t + s) | ℱ t] ω)
+    (fun _ => integrable_condExp.const_mul _)
+    (Summable.of_nonneg_of_le (fun _ => integral_nonneg fun _ => abs_nonneg _)
+      (fun _ => integral_abs_mul_condExp_le _ (pow_nonneg (disc_pos hr).le _) _) (hS t))
+
+/-- The forecast of a change is the change in forecasts, `E_t ΔZ_s = E_t Z_s − E_t Z_{s−1}`
+(linearity of conditional expectation), simultaneously for all horizons almost surely; used in
+Exercise 6, p. 126. -/
+theorem ae_condExp_diff {ℱ : Filtration ℕ m0} {Z : ℕ → Ω → ℝ}
+    (hZ : ∀ t, Integrable (Z t) μ) (t : ℕ) :
+    ∀ᵐ ω ∂μ, ∀ s, μ[Z (t + s + 1) - Z (t + s) | ℱ t] ω =
+      μ[Z (t + s + 1) | ℱ t] ω - μ[Z (t + s) | ℱ t] ω :=
+  ae_all_iff.2 fun _ => condExp_sub (hZ _) (hZ _) _
+
+/-- **Exercise 6, p. 126: derivation of O&R (2.43), p. 90.** If the current account obeys the
+permanent-income form (2.42), `CA_t = Z_t − E_t Z̃_t`, with `Z_t` known at `t` and the forecasts
+discount-summable, then `CA_t = −Σ_{s>t} (1+r)^{-(s-t)} E_t ΔZ_s` almost surely. -/
+theorem campbell_eq_43 [IsProbabilityMeasure μ] {r : ℝ} (hr : 0 < r) {ℱ : Filtration ℕ m0}
+    {Z CA : ℕ → Ω → ℝ} (hZ : ∀ t, Integrable (Z t) μ) {t : ℕ}
+    (hZt : StronglyMeasurable[ℱ t] (Z t))
+    (hsum : ∀ᵐ ω ∂μ, Summable fun s => disc r ^ s * μ[Z (t + s) | ℱ t] ω)
+    (h42 : CA t =ᵐ[μ] fun ω => Z t ω - forecastPermanent μ ℱ r Z t ω) :
+    CA t =ᵐ[μ] fun ω => -campbellPV μ ℱ r Z t ω := by
+  have hself : μ[Z t | ℱ t] = Z t := condExp_of_stronglyMeasurable (ℱ.le t) hZt (hZ t)
+  filter_upwards [h42, hsum, ae_condExp_diff (ℱ := ℱ) hZ t] with ω h1 h2 h3
+  rw [h1]
+  have key := campbell_deterministic hr h2
+  simp only [add_zero, hself] at key
+  unfold permanent pv at key
+  unfold forecastPermanent campbellPV
+  simp only [h3]
+  exact key
+
+/-- Linearity of conditional expectation applied to the Campbell residual of Exercise 5, p. 126:
+`E[e_{u+1} | m] = E[CA_{u+1} | m] − E[ΔZ_{u+1} | m] − (1+r) E[CA_u | m]`. -/
+theorem condExp_residual_ae {r : ℝ} {Z CA : ℕ → Ω → ℝ} (hZ : ∀ t, Integrable (Z t) μ)
+    (hCA : ∀ t, Integrable (CA t) μ) (m : MeasurableSpace Ω) (u : ℕ) :
+    μ[campbellResidual r CA Z u | m] =ᵐ[μ]
+      μ[CA (u + 1) | m] - μ[Z (u + 1) - Z u | m] - (1 + r) • μ[CA u | m] := by
+  unfold campbellResidual
+  refine (condExp_sub ((hCA _).sub ((hZ _).sub (hZ _))) ((hCA _).smul (1 + r)) _).trans ?_
+  exact EventuallyEq.sub (condExp_sub (hCA _) ((hZ _).sub (hZ _)) _) (condExp_smul _ _ _)
+
+/-- If the Campbell residual is unpredictable at every date, O&R Exercise 5, p. 126, then the
+date-`t` forecasts `V_n = E_t CA_{t+n}` obey `(1+r) V_n = −E_t ΔZ_{t+n+1} + V_{n+1}` for all `n`,
+almost surely (law of iterated expectations). -/
+theorem ae_forecast_recursion [IsProbabilityMeasure μ] {r : ℝ} {ℱ : Filtration ℕ m0}
+    {Z CA : ℕ → Ω → ℝ} (hZ : ∀ t, Integrable (Z t) μ) (hCA : ∀ t, Integrable (CA t) μ)
+    (hres : ∀ t, μ[campbellResidual r CA Z t | ℱ t] =ᵐ[μ] 0) (t : ℕ) :
+    ∀ᵐ ω ∂μ, ∀ n, (1 + r) * μ[CA (t + n) | ℱ t] ω =
+      -μ[Z (t + n + 1) - Z (t + n) | ℱ t] ω + μ[CA (t + n + 1) | ℱ t] ω := by
+  refine ae_all_iff.2 fun n => ?_
+  have h0 : μ[campbellResidual r CA Z (t + n) | ℱ t] =ᵐ[μ] 0 := by
+    have htow := condExp_condExp_of_le (μ := μ) (f := campbellResidual r CA Z (t + n))
+      (ℱ.mono (Nat.le_add_right t n)) (ℱ.le (t + n))
+    refine htow.symm.trans ?_
+    refine (condExp_congr_ae (hres (t + n))).trans ?_
+    rw [condExp_zero]
+  filter_upwards [h0, condExp_residual_ae (r := r) hZ hCA (ℱ t) (t + n)] with ω h0 hlin
+  rw [h0] at hlin
+  simp only [Pi.zero_apply, Pi.sub_apply, Pi.smul_apply, smul_eq_mul] at hlin
+  linarith
+
+/-- Under the standing discounted-`L¹` assumption, the discounted forecasts of future changes in
+O&R (2.43), p. 90, are almost surely summable. -/
+theorem ae_summable_diff_forecast {r : ℝ} (hr : 0 < 1 + r) {ℱ : Filtration ℕ m0}
+    {Z : ℕ → Ω → ℝ} (hZ : ∀ t, Integrable (Z t) μ)
+    (hS : ∀ t, Summable fun s => disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ) (t : ℕ) :
+    ∀ᵐ ω ∂μ, Summable fun s => disc r ^ (s + 1) * μ[Z (t + s + 1) - Z (t + s) | ℱ t] ω :=
+  ae_summable_of_integral (f := fun s ω => disc r ^ (s + 1) * μ[Z (t + s + 1) - Z (t + s) | ℱ t] ω)
+    (fun _ => integrable_condExp.const_mul _) (summable_integral_diff_forecast hr hZ hS t (ℱ t))
+
+/-- **Exercise 5, p. 126, forward direction.** If O&R (2.43), p. 90, holds at every date, the
+Campbell residual `e_{t+1} = CA_{t+1} − ΔZ_{t+1} − (1+r) CA_t` has zero conditional expectation
+given date-`t` information, hence is uncorrelated with every date-`t` variable. -/
+theorem condExp_residual_eq_zero [IsProbabilityMeasure μ] {r : ℝ} (hr : 0 < 1 + r)
+    {ℱ : Filtration ℕ m0} {Z CA : ℕ → Ω → ℝ} (hZ : ∀ t, Integrable (Z t) μ)
+    (hS : ∀ t, Summable fun s => disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ)
+    (hCA : ∀ t, Integrable (CA t) μ) (hCAad : ∀ t, StronglyMeasurable[ℱ t] (CA t))
+    (h43 : ∀ t, CA t =ᵐ[μ] fun ω => -campbellPV μ ℱ r Z t ω) (t : ℕ) :
+    μ[campbellResidual r CA Z t | ℱ t] =ᵐ[μ] 0 := by
+  have e : ∀ s, t + 1 + s = t + s + 1 := fun s => Nat.add_right_comm t 1 s
+  have hself : μ[CA t | ℱ t] = CA t := condExp_of_stronglyMeasurable (ℱ.le t) (hCAad t) (hCA t)
+  -- `E_t CA_{t+1}` by the interchange of `E_t` and the sum, then the tower property
+  have hT := condExp_tsum_of_integral (ℱ t)
+    (f := fun s ω => disc r ^ (s + 1) * μ[Z (t + 1 + s + 1) - Z (t + 1 + s) | ℱ (t + 1)] ω)
+    (fun _ => integrable_condExp.const_mul _) (summable_integral_diff_forecast hr hZ hS _ _)
+  have hTow : ∀ᵐ ω ∂μ, ∀ s,
+      μ[fun ω => disc r ^ (s + 1) * μ[Z (t + 1 + s + 1) - Z (t + 1 + s) | ℱ (t + 1)] ω | ℱ t] ω
+        = disc r ^ (s + 1) * μ[Z (t + (s + 1) + 1) - Z (t + (s + 1)) | ℱ t] ω := by
+    refine ae_all_iff.2 fun s => ?_
+    have a := condExp_smul (μ := μ) (disc r ^ (s + 1))
+      (μ[Z (t + 1 + s + 1) - Z (t + 1 + s) | ℱ (t + 1)]) (ℱ t)
+    have b := condExp_condExp_of_le (μ := μ) (f := Z (t + 1 + s + 1) - Z (t + 1 + s))
+      (ℱ.mono (Nat.le_succ t)) (ℱ.le (t + 1))
+    filter_upwards [a, b] with ω ha hb
+    have ha' : μ[fun ω => disc r ^ (s + 1) * μ[Z (t + 1 + s + 1) - Z (t + 1 + s) | ℱ (t + 1)] ω
+        | ℱ t] ω = disc r ^ (s + 1) *
+          μ[μ[Z (t + 1 + s + 1) - Z (t + 1 + s) | ℱ (t + 1)] | ℱ t] ω := ha
+    rw [ha', hb, e s]
+    rfl
+  have hE1 : ∀ᵐ ω ∂μ, μ[CA (t + 1) | ℱ t] ω =
+      -∑' s, disc r ^ (s + 1) * μ[Z (t + (s + 1) + 1) - Z (t + (s + 1)) | ℱ t] ω := by
+    have h1 := (condExp_congr_ae (m := ℱ t) (h43 (t + 1))).trans
+      (condExp_neg (μ := μ) (campbellPV μ ℱ r Z (t + 1)) (ℱ t))
+    filter_upwards [h1, hT, hTow] with ω h1 h2 h3
+    rw [h1, Pi.neg_apply]
+    unfold campbellPV
+    rw [h2, tsum_congr h3]
+  filter_upwards [condExp_residual_ae (r := r) hZ hCA (ℱ t) t, hE1, h43 t,
+    ae_summable_diff_forecast hr (ℱ := ℱ) hZ hS t] with ω hlin hE1 h43t hsum
+  rw [hlin]
+  simp only [Pi.sub_apply, Pi.smul_apply, smul_eq_mul, Pi.zero_apply, hself]
+  rw [hE1, h43t]
+  unfold campbellPV
+  rw [hsum.tsum_eq_zero_add]
+  have hd := one_add_mul_disc hr
+  have hmul : (1 + r) * ∑' s, disc r ^ (s + 1 + 1) *
+      μ[Z (t + (s + 1) + 1) - Z (t + (s + 1)) | ℱ t] ω =
+        ∑' s, disc r ^ (s + 1) * μ[Z (t + (s + 1) + 1) - Z (t + (s + 1)) | ℱ t] ω := by
+    rw [← tsum_mul_left]
+    refine tsum_congr fun s => ?_
+    rw [pow_succ, ← mul_assoc, ← mul_assoc, mul_comm (1 + r), mul_assoc _ (1 + r), hd, mul_one]
+  rw [← hmul]
+  simp only [add_zero, zero_add, pow_one]
+  linear_combination (μ[Z (t + 1) - Z t | ℱ t] ω) * hd
+
+/-- Exercise 5, p. 126, the key step: once the Campbell residual is unpredictable, O&R (2.43),
+p. 90, holds at date `t` exactly when the no-bubble condition
+`(1+r)^{-n} E_t CA_{t+n} → 0` holds (almost surely, pathwise in `ω`). -/
+theorem ae_campbell_iff_noBubble [IsProbabilityMeasure μ] {r : ℝ} (hr : 0 < 1 + r)
+    {ℱ : Filtration ℕ m0} {Z CA : ℕ → Ω → ℝ} (hZ : ∀ t, Integrable (Z t) μ)
+    (hS : ∀ t, Summable fun s => disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ)
+    (hCA : ∀ t, Integrable (CA t) μ) (hCAad : ∀ t, StronglyMeasurable[ℱ t] (CA t))
+    (hres : ∀ t, μ[campbellResidual r CA Z t | ℱ t] =ᵐ[μ] 0) (t : ℕ) :
+    ∀ᵐ ω ∂μ, (CA t ω = -campbellPV μ ℱ r Z t ω ↔
+      Tendsto (fun n => disc r ^ n * μ[CA (t + n) | ℱ t] ω) atTop (𝓝 0)) := by
+  have hself : μ[CA t | ℱ t] = CA t := condExp_of_stronglyMeasurable (ℱ.le t) (hCAad t) (hCA t)
+  filter_upwards [ae_forecast_recursion hZ hCA hres t,
+    ae_summable_diff_forecast hr (ℱ := ℱ) hZ hS t] with ω hrec hsum
+  set V : ℕ → ℝ := fun n => μ[CA (t + n) | ℱ t] ω with hV
+  set D : ℕ → ℝ := fun k => -μ[Z (t + (k - 1) + 1) - Z (t + (k - 1)) | ℱ t] ω with hD
+  have h : ∀ s, (1 + r) * V s = D (s + 1) + V (s + 1) := by
+    intro s
+    simp only [hV, hD, add_tsub_cancel_right]
+    exact hrec s
+  have hs : Summable fun s => disc r ^ (s + 1) * D (s + 1) := by
+    refine hsum.neg.congr fun s => ?_
+    simp only [hD, add_tsub_cancel_right]
+    ring
+  have hV0 : V 0 = CA t ω := by simp only [hV, add_zero, hself]
+  have hsumD : ∑' s, disc r ^ (s + 1) * D (s + 1) = -campbellPV μ ℱ r Z t ω := by
+    unfold campbellPV
+    rw [← tsum_neg]
+    refine tsum_congr fun s => ?_
+    simp only [hD, add_tsub_cancel_right]
+    ring
+  rw [← hV0, ← hsumD]
+  exact forward_solution_iff hr h hs
+
+/-- **Exercise 5, p. 126, converse direction (corrected).** If the Campbell residual
+`CA_{t+1} − ΔZ_{t+1} − (1+r) CA_t` is unpredictable at every date AND the no-bubble condition
+`(1+r)^{-n} E_t CA_{t+n} → 0` holds, then O&R (2.43), p. 90, holds at `t`. The book states the
+converse without the no-bubble condition; see `residual_orthogonality_insufficient`. -/
+theorem campbell_of_residual [IsProbabilityMeasure μ] {r : ℝ} (hr : 0 < 1 + r)
+    {ℱ : Filtration ℕ m0} {Z CA : ℕ → Ω → ℝ} (hZ : ∀ t, Integrable (Z t) μ)
+    (hS : ∀ t, Summable fun s => disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ)
+    (hCA : ∀ t, Integrable (CA t) μ) (hCAad : ∀ t, StronglyMeasurable[ℱ t] (CA t))
+    (hres : ∀ t, μ[campbellResidual r CA Z t | ℱ t] =ᵐ[μ] 0) (t : ℕ)
+    (hnb : ∀ᵐ ω ∂μ, Tendsto (fun n => disc r ^ n * μ[CA (t + n) | ℱ t] ω) atTop (𝓝 0)) :
+    CA t =ᵐ[μ] fun ω => -campbellPV μ ℱ r Z t ω := by
+  filter_upwards [ae_campbell_iff_noBubble hr hZ hS hCA hCAad hres t, hnb] with ω h1 h2
+  exact h1.2 h2
+
+/-- **Exercise 5, p. 126 (corrected iff).** Given integrable, adapted `CA` and net output with
+discount-summable `L¹` norms, O&R (2.43), p. 90, holds at every date if and only if the Campbell
+residual `CA_{t+1} − ΔZ_{t+1} − (1+r) CA_t` is unpredictable from date-`t` information at every
+date and the no-bubble condition `lim_n (1+r)^{-n} E_t CA_{t+n} = 0` holds at every date. -/
+theorem campbell_iff_residual [IsProbabilityMeasure μ] {r : ℝ} (hr : 0 < 1 + r)
+    {ℱ : Filtration ℕ m0} {Z CA : ℕ → Ω → ℝ} (hZ : ∀ t, Integrable (Z t) μ)
+    (hS : ∀ t, Summable fun s => disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ)
+    (hCA : ∀ t, Integrable (CA t) μ) (hCAad : ∀ t, StronglyMeasurable[ℱ t] (CA t)) :
+    (∀ t, CA t =ᵐ[μ] fun ω => -campbellPV μ ℱ r Z t ω) ↔
+      (∀ t, μ[campbellResidual r CA Z t | ℱ t] =ᵐ[μ] 0) ∧
+        ∀ t, ∀ᵐ ω ∂μ, Tendsto (fun n => disc r ^ n * μ[CA (t + n) | ℱ t] ω) atTop (𝓝 0) := by
+  constructor
+  · intro h43
+    have hres := condExp_residual_eq_zero hr hZ hS hCA hCAad h43
+    refine ⟨hres, fun t => ?_⟩
+    filter_upwards [ae_campbell_iff_noBubble hr hZ hS hCA hCAad hres t, h43 t] with ω h1 h2
+    exact h1.1 h2
+  · rintro ⟨hres, hnb⟩ t
+    exact campbell_of_residual hr hZ hS hCA hCAad hres t (hnb t)
+
+/-- **The no-bubble condition cannot be dropped from Exercise 5, p. 126.** With zero net output
+and the explosive current account `CA_t = (1+r)^t` (integrable and adapted), the Campbell residual
+is identically zero, yet O&R (2.43), p. 90, fails at date 0 (it would force `CA_0 = 0`). -/
+theorem residual_orthogonality_insufficient [IsProbabilityMeasure μ] (r : ℝ)
+    (ℱ : Filtration ℕ m0) :
+    ∃ Z CA : ℕ → Ω → ℝ, (∀ t, Integrable (Z t) μ) ∧ (∀ t, Integrable (CA t) μ) ∧
+      (∀ t, StronglyMeasurable[ℱ t] (CA t)) ∧
+      (∀ t, μ[campbellResidual r CA Z t | ℱ t] =ᵐ[μ] 0) ∧
+      ¬ (CA 0 =ᵐ[μ] fun ω => -campbellPV μ ℱ r Z 0 ω) := by
+  refine ⟨fun _ _ => 0, fun t _ => (1 + r) ^ t, fun _ => integrable_const _,
+    fun _ => integrable_const _, fun _ => stronglyMeasurable_const, fun t => ?_, ?_⟩
+  · have h0 : campbellResidual r (fun t (_ : Ω) => (1 + r) ^ t) (fun _ (_ : Ω) => (0 : ℝ)) t
+        = 0 := by
+      funext ω
+      simp only [campbellResidual, Pi.sub_apply, Pi.smul_apply, smul_eq_mul, Pi.zero_apply,
+        pow_succ]
+      ring
+    rw [h0, condExp_zero]
+  · intro h
+    have hc : campbellPV μ ℱ r (fun _ _ => 0) 0 = 0 := by
+      funext ω
+      simp [campbellPV, condExp_zero]
+    obtain ⟨ω, hω⟩ := h.exists
+    simp [hc] at hω
+
+/-! ### Footnote 29: coarser information sets -/
+
+/-- **O&R footnote 29, p. 92 (tower property).** If `CA = −E[PV | 𝓘]` for the full information
+set `𝓘`, and `CA` is measurable with respect to a coarser `𝓖 ⊆ 𝓘`, then also `CA = −E[PV | 𝓖]`:
+the econometrician's smaller information set gives the same prediction. -/
+theorem condExp_coarser_info [IsProbabilityMeasure μ] {𝓖 𝓘 : MeasurableSpace Ω}
+    (h𝓖 : 𝓖 ≤ 𝓘) (h𝓘 : 𝓘 ≤ m0) {CA PV : Ω → ℝ} (hCA : CA =ᵐ[μ] -μ[PV | 𝓘])
+    (hCAm : StronglyMeasurable[𝓖] CA) : CA =ᵐ[μ] -μ[PV | 𝓖] := by
+  have hint : Integrable CA μ := integrable_condExp.neg.congr hCA.symm
+  have hself : μ[CA | 𝓖] = CA := condExp_of_stronglyMeasurable (h𝓖.trans h𝓘) hCAm hint
+  have h := (condExp_congr_ae (m := 𝓖) hCA).trans
+    ((condExp_neg (μ[PV | 𝓘]) 𝓖).trans (condExp_condExp_of_le h𝓖 h𝓘).neg)
+  rwa [hself] at h
+
+/-- The realised present value of future net-output changes,
+`Σ_{s≥0} (1+r)^{-(s+1)} ΔZ_{t+s+1}`, the random variable inside the expectation of O&R
+footnote 29, p. 92. -/
+noncomputable def pvChanges (r : ℝ) (Z : ℕ → Ω → ℝ) (t : ℕ) : Ω → ℝ :=
+  fun ω => ∑' s, disc r ^ (s + 1) * (Z (t + s + 1) - Z (t + s)) ω
+
+/-- The sum of conditional forecasts of future changes equals the conditional expectation of
+their realised present value, for any information set `m` (O&R (2.43), p. 90, and footnote 29,
+p. 92): the interchange `Σ E[·|m] = E[Σ ·|m]`, proved under the standing `L¹` assumption. -/
+theorem forecastSum_ae_eq_condExp {r : ℝ} (hr : 0 < 1 + r) {Z : ℕ → Ω → ℝ}
+    (hZ : ∀ t, Integrable (Z t) μ)
+    (hS : ∀ t, Summable fun s => disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ) (t : ℕ)
+    (m : MeasurableSpace Ω) :
+    (fun ω => ∑' s, disc r ^ (s + 1) * μ[Z (t + s + 1) - Z (t + s) | m] ω) =ᵐ[μ]
+      μ[pvChanges r Z t | m] := by
+  have hT := condExp_tsum_of_integral m
+    (f := fun s ω => disc r ^ (s + 1) * (Z (t + s + 1) - Z (t + s)) ω)
+    (fun _ => ((hZ _).sub (hZ _)).const_mul _) (summable_integral_diff hr hZ hS t)
+  have hsm : ∀ᵐ ω ∂μ, ∀ s,
+      μ[fun ω => disc r ^ (s + 1) * (Z (t + s + 1) - Z (t + s)) ω | m] ω =
+        disc r ^ (s + 1) * μ[Z (t + s + 1) - Z (t + s) | m] ω :=
+    ae_all_iff.2 fun s => condExp_smul (μ := μ) (disc r ^ (s + 1)) (Z (t + s + 1) - Z (t + s)) m
+  filter_upwards [hT, hsm] with ω h1 h2
+  unfold pvChanges
+  rw [h1, tsum_congr h2]
+
+/-- **O&R footnote 29, p. 92, for the model.** If O&R (2.43), p. 90, holds with respect to the
+consumers' information `ℱ t`, then it holds with respect to any coarser information set
+`𝓖 ⊆ ℱ t` (for example the econometrician's VAR information `(ΔZ_t, CA_t)`) for which `CA_t` is
+measurable: `CA_t = −Σ_{s>t} (1+r)^{-(s-t)} E[ΔZ_s | 𝓖]`. -/
+theorem campbell_coarser_information [IsProbabilityMeasure μ] {r : ℝ} (hr : 0 < 1 + r)
+    {ℱ : Filtration ℕ m0} {Z CA : ℕ → Ω → ℝ} (hZ : ∀ t, Integrable (Z t) μ)
+    (hS : ∀ t, Summable fun s => disc r ^ s * ∫ ω, |Z (t + s) ω| ∂μ) {t : ℕ}
+    (h43 : CA t =ᵐ[μ] fun ω => -campbellPV μ ℱ r Z t ω) {𝓖 : MeasurableSpace Ω}
+    (h𝓖 : 𝓖 ≤ ℱ t) (hCAm : StronglyMeasurable[𝓖] (CA t)) :
+    CA t =ᵐ[μ] fun ω => -∑' s, disc r ^ (s + 1) * μ[Z (t + s + 1) - Z (t + s) | 𝓖] ω := by
+  have h1 : CA t =ᵐ[μ] -μ[pvChanges r Z t | ℱ t] := by
+    filter_upwards [h43, forecastSum_ae_eq_condExp hr hZ hS t (ℱ t)] with ω h1 h2
+    rw [h1, Pi.neg_apply, ← h2]
+    rfl
+  have h2 := condExp_coarser_info h𝓖 (ℱ.le t) h1 hCAm
+  filter_upwards [h2, forecastSum_ae_eq_condExp hr hZ hS t 𝓖] with ω h2 h3
+  rw [h2, Pi.neg_apply, ← h3]
+
+/-! ### The VAR forecast (2.44)–(2.45) -/
+
+/-- The matrix geometric series of O&R footnote 28, p. 91: if `Σ_k A^k` converges then
+`Σ_{k≥1} A^k = A (I − A)^{-1}`. -/
+theorem tsum_pow_succ_eq_mul_inv {n : Type*} [Fintype n] [DecidableEq n]
+    {A : Matrix n n ℝ} (hA : Summable fun k => A ^ k) :
+    ∑' k, A ^ (k + 1) = A * (1 - A)⁻¹ := by
+  rw [Matrix.inv_eq_left_inv hA.tsum_pow_mul_one_sub, ← hA.tsum_mul_left]
+  simp only [pow_succ']
+
+/-- A sufficient condition for the matrix geometric series of O&R footnote 28, p. 91, to
+converge: every absolute row sum of `A` is below one (the `ℓ∞` operator norm `‖A‖ < 1`). -/
+theorem summable_pow_of_rowSum_lt_one {n : Type*} [Fintype n] [DecidableEq n]
+    {A : Matrix n n ℝ} (h : ∀ i, ∑ j, |A i j| < 1) : Summable fun k => A ^ k := by
+  let _ := Matrix.linftyOpNormedRing (n := n) (α := ℝ)
+  let _ := Matrix.linftyOpNormedAlgebra (R := ℝ) (n := n) (α := ℝ)
+  have : CompleteSpace (Matrix n n ℝ) := FiniteDimensional.complete ℝ _
+  have hA : ‖A‖ < 1 := by
+    rw [Matrix.linfty_opNorm_def]
+    have : (Finset.univ.sup fun i : n => ∑ j : n, ‖A i j‖₊) < 1 := by
+      rw [Finset.sup_lt_iff (by simp)]
+      intro i _
+      rw [← NNReal.coe_lt_coe, NNReal.coe_sum]
+      simpa [coe_nnnorm, Real.norm_eq_abs] using h i
+    exact_mod_cast this
+  exact summable_geometric_of_norm_lt_one hA
+
+/-- With `Ψ` scaled by `1/(1+r)`, the summability of `Σ_k (Ψ/(1+r))^k` in O&R footnote 28,
+p. 91, holds when every absolute row sum of the VAR matrix `Ψ` is below `1 + r`. -/
+theorem summable_disc_smul_pow {n : Type*} [Fintype n] [DecidableEq n] {r : ℝ}
+    (hr : 0 < 1 + r) {Ψ : Matrix n n ℝ} (h : ∀ i, ∑ j, |Ψ i j| < 1 + r) :
+    Summable fun k => (disc r • Ψ) ^ k := by
+  refine summable_pow_of_rowSum_lt_one fun i => ?_
+  have hd := disc_pos hr
+  simp only [Matrix.smul_apply, smul_eq_mul, abs_mul, abs_of_pos hd, ← Finset.mul_sum]
+  calc disc r * ∑ j, |Ψ i j| < disc r * (1 + r) := mul_lt_mul_of_pos_left (h i) hd
+    _ = 1 := by rw [mul_comm, one_add_mul_disc hr]
+
+/-- Iterated VAR forecasts, O&R p. 91: if `E_t x_{t+1} = Ψ x_t` at every date (the VAR (2.44)
+with unpredictable errors) and `x_t` is known at `t`, then `E_t x_{t+k} = Ψ^k x_t` (law of
+iterated expectations and linearity). -/
+theorem condExp_var_pow [IsProbabilityMeasure μ] {ℱ : Filtration ℕ m0}
+    {x : ℕ → Ω → Fin 2 → ℝ} {Ψ : Matrix (Fin 2) (Fin 2) ℝ} (hx : ∀ t, Integrable (x t) μ)
+    (hvar : ∀ t, μ[x (t + 1) | ℱ t] =ᵐ[μ] fun ω => Ψ *ᵥ x t ω) {t : ℕ}
+    (hxt : StronglyMeasurable[ℱ t] (x t)) (k : ℕ) :
+    μ[x (t + k) | ℱ t] =ᵐ[μ] fun ω => (Ψ ^ k) *ᵥ x t ω := by
+  induction k with
+  | zero =>
+    have h := condExp_of_stronglyMeasurable (μ := μ) (ℱ.le t) hxt (hx t)
+    refine Eventually.of_forall fun ω => ?_
+    simp only [add_zero, h, pow_zero, Matrix.one_mulVec]
+  | succ k ih =>
+    let T : (Fin 2 → ℝ) →L[ℝ] (Fin 2 → ℝ) := LinearMap.toContinuousLinearMap (Matrix.mulVecLin Ψ)
+    have htow := condExp_condExp_of_le (μ := μ) (f := x (t + k + 1))
+      (ℱ.mono (Nat.le_add_right t k)) (ℱ.le (t + k))
+    have h1 := condExp_congr_ae (m := ℱ t) (hvar (t + k))
+    have h2 := T.comp_condExp_comm (μ := μ) (m := ℱ t) (hx (t + k))
+    have hT : (fun ω => Ψ *ᵥ x (t + k) ω) = T ∘ x (t + k) := by
+      funext ω
+      simp [T]
+    rw [hT] at h1
+    filter_upwards [htow, h1, h2, ih] with ω a b c d
+    change μ[x (t + k + 1) | ℱ t] ω = _
+    rw [← a, b, ← c, Function.comp_apply, d]
+    simp [T, pow_succ', Matrix.mulVec_mulVec]
+
+/-- The component forecast `E_t ΔZ_{t+k}`: the conditional expectation of the first coordinate
+of `x_{t+k}` is the first coordinate of `E_t x_{t+k}` (premultiplication by `[1 0]`, p. 91). -/
+theorem condExp_coord {m : MeasurableSpace Ω} {X : Ω → Fin 2 → ℝ}
+    (hX : Integrable X μ) (i : Fin 2) :
+    μ[fun ω => X ω i | m] =ᵐ[μ] fun ω => μ[X | m] ω i := by
+  have h := (ContinuousLinearMap.proj (R := ℝ) (φ := fun _ : Fin 2 => ℝ) i).comp_condExp_comm
+    (μ := μ) (m := m) hX
+  exact h.symm
+
+/-- **O&R (2.45), p. 91, deterministic core.** For `A = Ψ/(1+r)` with convergent geometric
+series, `−Σ_{s≥1} (1+r)^{-s} [1 0] Ψ^s v = −[1 0] (Ψ/(1+r)) (I − Ψ/(1+r))^{-1} v`. -/
+theorem var_forecast_sum {r : ℝ} {Ψ : Matrix (Fin 2) (Fin 2) ℝ}
+    (hsum : Summable fun k => (disc r • Ψ) ^ k) (v : Fin 2 → ℝ) :
+    -∑' s, disc r ^ (s + 1) * ((Ψ ^ (s + 1)) *ᵥ v) 0 =
+      -(((disc r • Ψ) * (1 - disc r • Ψ)⁻¹) *ᵥ v) 0 := by
+  let L : Matrix (Fin 2) (Fin 2) ℝ →+ ℝ :=
+    { toFun := fun B => (B *ᵥ v) 0
+      map_zero' := by simp
+      map_add' := fun B C => by simp [Matrix.add_mulVec] }
+  have hL : Continuous L :=
+    (continuous_apply 0).comp (continuous_id.matrix_mulVec continuous_const)
+  have hs : Summable fun k => (disc r • Ψ) ^ (k + 1) := (summable_nat_add_iff 1).2 hsum
+  rw [← tsum_pow_succ_eq_mul_inv hsum]
+  have e : (((∑' k, (disc r • Ψ) ^ (k + 1)) *ᵥ v) 0) = L (∑' k, (disc r • Ψ) ^ (k + 1)) := rfl
+  rw [e, hs.map_tsum L hL]
+  congr 1
+  refine tsum_congr fun s => ?_
+  simp [L, smul_pow, Matrix.smul_mulVec]
+
+/-- **O&R (2.45), p. 91.** Under the VAR (2.44) with `E_t x_{t+1} = Ψ x_t`, `x_t = (ΔZ_t, CA_t)`
+known at `t`, and a convergent series `Σ_k (Ψ/(1+r))^k`, the model's predicted current account
+`−Σ_{s>t} (1+r)^{-(s-t)} E_t ΔZ_s` equals `−[1 0] (Ψ/(1+r)) (I − Ψ/(1+r))^{-1} x_t` a.s. -/
+theorem var_predicted_current_account [IsProbabilityMeasure μ] {r : ℝ}
+    {ℱ : Filtration ℕ m0} {x : ℕ → Ω → Fin 2 → ℝ} {Ψ : Matrix (Fin 2) (Fin 2) ℝ}
+    (hx : ∀ t, Integrable (x t) μ) (hvar : ∀ t, μ[x (t + 1) | ℱ t] =ᵐ[μ] fun ω => Ψ *ᵥ x t ω)
+    {t : ℕ} (hxt : StronglyMeasurable[ℱ t] (x t)) (hsum : Summable fun k => (disc r • Ψ) ^ k) :
+    (fun ω => -∑' s, disc r ^ (s + 1) * μ[fun ω' => x (t + s + 1) ω' 0 | ℱ t] ω) =ᵐ[μ]
+      fun ω => -(((disc r • Ψ) * (1 - disc r • Ψ)⁻¹) *ᵥ x t ω) 0 := by
+  have h1 : ∀ᵐ ω ∂μ, ∀ s, μ[fun ω' => x (t + s + 1) ω' 0 | ℱ t] ω = μ[x (t + s + 1) | ℱ t] ω 0 :=
+    ae_all_iff.2 fun s => condExp_coord (hx _) 0
+  have h2 : ∀ᵐ ω ∂μ, ∀ s, μ[x (t + (s + 1)) | ℱ t] ω = (Ψ ^ (s + 1)) *ᵥ x t ω :=
+    ae_all_iff.2 fun s => condExp_var_pow hx hvar hxt (s + 1)
+  filter_upwards [h1, h2] with ω h1 h2
+  rw [← var_forecast_sum hsum]
+  congr 2
+  funext s
+  rw [h1 s]
+  exact congrArg (fun w => disc r ^ (s + 1) * w 0) (h2 s)
+
+/-- **The restriction tested on p. 92.** If, in addition, the current account is the second VAR
+coordinate and satisfies O&R (2.43), p. 90, with the VAR forecasts, then
+`CA_t = [Φ_ΔZ Φ_CA] x_t` with `[Φ_ΔZ Φ_CA] = −[1 0] (Ψ/(1+r)) (I − Ψ/(1+r))^{-1}`, i.e. the
+predicted and actual current accounts coincide almost surely. -/
+theorem var_null_restriction [IsProbabilityMeasure μ] {r : ℝ}
+    {ℱ : Filtration ℕ m0} {x : ℕ → Ω → Fin 2 → ℝ} {Ψ : Matrix (Fin 2) (Fin 2) ℝ}
+    (hx : ∀ t, Integrable (x t) μ) (hvar : ∀ t, μ[x (t + 1) | ℱ t] =ᵐ[μ] fun ω => Ψ *ᵥ x t ω)
+    {t : ℕ} (hxt : StronglyMeasurable[ℱ t] (x t)) (hsum : Summable fun k => (disc r • Ψ) ^ k)
+    (h43 : (fun ω => x t ω 1) =ᵐ[μ]
+      fun ω => -∑' s, disc r ^ (s + 1) * μ[fun ω' => x (t + s + 1) ω' 0 | ℱ t] ω) :
+    (fun ω => x t ω 1) =ᵐ[μ] fun ω => -(((disc r • Ψ) * (1 - disc r • Ψ)⁻¹) *ᵥ x t ω) 0 :=
+  h43.trans (var_predicted_current_account hx hvar hxt hsum)
+
+end Stochastic
+
+end ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest
+
+/-
+Copyright (c) 2026 Robert Kirkby. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Robert Kirkby
+-/
+
+/-!
+# Consumer durables and the current account
+
+Obstfeld and Rogoff (1996), *Foundations of International Macroeconomics*,
+§2.4, pp. 96–99. Date 0 stands for the book's date `t`. The consumer values
+nondurables `C_s` and the end-of-period durables stock `D_s` by
+`Σ β^s [γ log C_s + (1 − γ) log D_s]` (O&R (2.46)). Durables cost `p_s`,
+depreciate at rate `δ`, and yield services in the period they are bought, so the
+finance constraint is
+`B_{s+1} − B_s = r B_s + Y_s − C_s − p_s[D_s − (1 − δ) D_{s−1}] − I_s − G_s`,
+with `I_s = K_{s+1} − K_s`. The initial stock `D_{−1}` is the number `Dm`
+(`prevStock`).
+
+* **Euler equations** (p. 97): one-period perturbations of bonds and of durables
+  that leave the finance constraint intact elsewhere have zero utility
+  derivative at an optimum (`consumption_euler_of_isLocalMax`,
+  `durable_euler_of_isLocalMax`).
+* **User cost** (2.47): `(1 − γ)C_s/(γ D_s) = p_s − (1 − δ)p_{s+1}/(1 + r_{s+1}) = ι_s`.
+* **Intertemporal budget constraint** (2.48), constant `r`: the combined stock
+  `A_s = (1 + r)B_s + (1 − δ)p_s D_{s−1}` of bonds and resale value of durables
+  obeys `A_{s+1} = (1 + r)(A_s + Z_s − C_s − ι_s D_s)` with `Z = Y − G − I`, so
+  transversality on `A` is equivalent to
+  `PV(C + ιD) = (1 + r)B_0 + (1 − δ)p_0 D_{−1} + PV(Y − G − I)` (`durables_ibc_iff`).
+* **Consumption functions** (2.49) with `β(1 + r) = 1`.
+* **Constant durables price** (2.50) and the lumpiness of durables purchases (p. 98).
+* **The modified fundamental current-account equation** (2.51):
+  `CA = (Y − Ỹ) − (I − Ĩ) − (G − G̃) + (ι − p)ΔD`, with `ι → p` as `δ → 1`.
+-/
+
+namespace ObstfeldRogoff.SmallOpenEconomyDynamics.Durables
+
+open Filter Topology PresentValue FundamentalCurrentAccount
+
+/-- The durables stock held at the start of date `s`, i.e. `D_{s−1}` (O&R p. 96); at date 0 it is
+the initial stock `Dm = D_{t−1}`. -/
+def prevStock (Dm : ℝ) (D : ℕ → ℝ) : ℕ → ℝ
+  | 0 => Dm
+  | s + 1 => D s
+
+/-- The user cost of durables with a constant interest rate, O&R (2.47), p. 97:
+`ι_s = p_s − (1 − δ) p_{s+1}/(1 + r)`. -/
+noncomputable def userCost (r δ : ℝ) (p : ℕ → ℝ) (s : ℕ) : ℝ :=
+  p s - (1 - δ) * p (s + 1) / (1 + r)
+
+/-- Bonds plus the resale value of the depreciated durables stock at the start of date `s`,
+`A_s = (1 + r) B_s + (1 − δ) p_s D_{s−1}`: the right side of O&R (2.48) at date `s`. -/
+noncomputable def durableAssets (r δ Dm : ℝ) (B D p : ℕ → ℝ) (s : ℕ) : ℝ :=
+  (1 + r) * B s + (1 - δ) * p s * prevStock Dm D s
+
+/-- Durables-inclusive wealth `W^D = (1 + r)B_0 + (1 − δ)p_0 D_{−1} + PV(Y − G − I)`, the right side
+of O&R (2.48), p. 97, built on the lifetime wealth of O&R (2.19). -/
+noncomputable def durableWealth (r δ B0 p0 Dm : ℝ) (Y G I : ℕ → ℝ) : ℝ :=
+  wealth r B0 Y G I + (1 - δ) * p0 * Dm
+
+/-! ### Euler equations and the user cost -/
+
+/-- **The durables perturbation is feasible**, O&R p. 97: buying `ε` more durables at date `s`
+(paid out of nondurables) and selling the depreciated extra `(1 − δ)ε` at `s + 1` (spent on
+nondurables) leaves total outlays `C + p[D − (1 − δ)D_{−1}]` unchanged at both dates, so the
+bond path, and hence the finance constraint, is unaffected. -/
+theorem durable_perturbation_feasible (Cs Cs1 Ds Ds1 Dprev ps ps1 δ ε : ℝ) :
+    (Cs - ps * ε) + ps * ((Ds + ε) - (1 - δ) * Dprev) = Cs + ps * (Ds - (1 - δ) * Dprev) ∧
+      (Cs1 + (1 - δ) * ps1 * ε) + ps1 * (Ds1 - (1 - δ) * (Ds + ε)) =
+        Cs1 + ps1 * (Ds1 - (1 - δ) * Ds) := by
+  constructor <;> ring
+
+/-- **Utility derivative of the durables perturbation**, O&R p. 97: the utility terms of (2.46)
+that the perturbation of `durable_perturbation_feasible` changes,
+`γ log(C_s − p_s ε) + (1 − γ) log(D_s + ε) + βγ log(C_{s+1} + (1 − δ)p_{s+1} ε)`, have derivative
+`(1 − γ)/D_s + β(1 − δ)γ p_{s+1}/C_{s+1} − γ p_s/C_s` at `ε = 0`. -/
+theorem hasDerivAt_durable_perturbation {γ β δ Cs Cs1 Ds ps ps1 : ℝ} (hCs : Cs ≠ 0)
+    (hCs1 : Cs1 ≠ 0) (hDs : Ds ≠ 0) :
+    HasDerivAt (fun ε => γ * Real.log (Cs - ps * ε) + (1 - γ) * Real.log (Ds + ε) +
+        β * (γ * Real.log (Cs1 + (1 - δ) * ps1 * ε)))
+      ((1 - γ) / Ds + β * (1 - δ) * γ * ps1 / Cs1 - γ * ps / Cs) 0 := by
+  have h1 : HasDerivAt (fun ε : ℝ => Cs - ps * ε) (-ps) 0 := by
+    have := ((hasDerivAt_id (0 : ℝ)).const_mul ps).const_sub Cs
+    simpa using this
+  have h2 : HasDerivAt (fun ε : ℝ => Ds + ε) 1 0 := by
+    simpa using (hasDerivAt_id (0 : ℝ)).const_add Ds
+  have h3 : HasDerivAt (fun ε : ℝ => Cs1 + (1 - δ) * ps1 * ε) ((1 - δ) * ps1) 0 := by
+    simpa using ((hasDerivAt_id (0 : ℝ)).const_mul ((1 - δ) * ps1)).const_add Cs1
+  have l1 := (h1.log (by simpa using hCs)).const_mul γ
+  have l2 := (h2.log (by simpa using hDs)).const_mul (1 - γ)
+  have l3 := ((h3.log (by simpa using hCs1)).const_mul γ).const_mul β
+  have := HasDerivAt.add (HasDerivAt.add l1 l2) l3
+  refine this.congr_deriv ?_
+  simp only [mul_zero, sub_zero, add_zero]
+  field_simp
+  ring
+
+/-- **Durables Euler equation**, O&R p. 97: if the durables perturbation cannot raise utility
+(local maximum at `ε = 0`; positive consumption and stock make the logs well defined), then
+`γ p_s/C_s = (1 − γ)/D_s + β(1 − δ)γ p_{s+1}/C_{s+1}`. -/
+theorem durable_euler_of_isLocalMax {γ β δ Cs Cs1 Ds ps ps1 : ℝ} (hCs : 0 < Cs)
+    (hCs1 : 0 < Cs1) (hDs : 0 < Ds)
+    (hmax : IsLocalMax (fun ε => γ * Real.log (Cs - ps * ε) + (1 - γ) * Real.log (Ds + ε) +
+        β * (γ * Real.log (Cs1 + (1 - δ) * ps1 * ε))) 0) :
+    γ * ps / Cs = (1 - γ) / Ds + β * (1 - δ) * γ * ps1 / Cs1 := by
+  have := hmax.hasDerivAt_eq_zero
+    (hasDerivAt_durable_perturbation (γ := γ) (β := β) (δ := δ) (ps := ps) (ps1 := ps1)
+      hCs.ne' hCs1.ne' hDs.ne')
+  linarith
+
+/-- **Utility derivative of the bond perturbation**, O&R p. 97: lending `ε` more at date `s` and
+consuming the proceeds `(1 + r_{s+1})ε` at `s + 1` changes utility by
+`γ log(C_s − ε) + βγ log(C_{s+1} + (1 + r_{s+1})ε)`, with derivative
+`βγ(1 + r_{s+1})/C_{s+1} − γ/C_s` at `ε = 0`. -/
+theorem hasDerivAt_bond_perturbation {γ β r1 Cs Cs1 : ℝ} (hCs : Cs ≠ 0) (hCs1 : Cs1 ≠ 0) :
+    HasDerivAt (fun ε => γ * Real.log (Cs - ε) + β * (γ * Real.log (Cs1 + (1 + r1) * ε)))
+      (β * γ * (1 + r1) / Cs1 - γ / Cs) 0 := by
+  have h1 : HasDerivAt (fun ε : ℝ => Cs - ε) (-1) 0 := by
+    simpa using (hasDerivAt_id (0 : ℝ)).const_sub Cs
+  have h3 : HasDerivAt (fun ε : ℝ => Cs1 + (1 + r1) * ε) (1 + r1) 0 := by
+    simpa using ((hasDerivAt_id (0 : ℝ)).const_mul (1 + r1)).const_add Cs1
+  have l1 := (h1.log (by simpa using hCs)).const_mul γ
+  have l3 := ((h3.log (by simpa using hCs1)).const_mul γ).const_mul β
+  refine (HasDerivAt.add l1 l3).congr_deriv ?_
+  simp only [mul_zero, sub_zero, add_zero]
+  field_simp
+  ring
+
+/-- **Nondurables Euler equation**, O&R p. 97: at an optimum of the bond perturbation, with
+`γ > 0` and positive consumption, `C_{s+1} = (1 + r_{s+1}) β C_s`. -/
+theorem consumption_euler_of_isLocalMax {γ β r1 Cs Cs1 : ℝ} (hγ : 0 < γ) (hCs : 0 < Cs)
+    (hCs1 : 0 < Cs1)
+    (hmax : IsLocalMax
+      (fun ε => γ * Real.log (Cs - ε) + β * (γ * Real.log (Cs1 + (1 + r1) * ε))) 0) :
+    Cs1 = (1 + r1) * β * Cs := by
+  have h := hmax.hasDerivAt_eq_zero
+    (hasDerivAt_bond_perturbation (γ := γ) (β := β) (r1 := r1) hCs.ne' hCs1.ne')
+  have e : β * γ * (1 + r1) / Cs1 = γ / Cs := by linarith
+  field_simp at e
+  rw [← e]
+  ring
+
+/-- **The user cost of durables**, O&R (2.47), p. 97, with variable interest rates: combining
+the two Euler equations (eliminating `C_{s+1}`),
+`(1 − γ) C_s/(γ D_s) = p_s − (1 − δ) p_{s+1}/(1 + r_{s+1})`. Requires `γ ≠ 0`, `β ≠ 0`,
+`1 + r_{s+1} ≠ 0` and nonzero consumption and stock. -/
+theorem user_cost_of_euler {γ β δ r1 Cs Cs1 Ds ps ps1 : ℝ} (hγ : γ ≠ 0) (hβ : β ≠ 0)
+    (hr : 1 + r1 ≠ 0) (hCs : Cs ≠ 0) (hDs : Ds ≠ 0)
+    (hC : Cs1 = (1 + r1) * β * Cs)
+    (hD : γ * ps / Cs = (1 - γ) / Ds + β * (1 - δ) * γ * ps1 / Cs1) :
+    (1 - γ) * Cs / (γ * Ds) = ps - (1 - δ) * ps1 / (1 + r1) := by
+  subst hC
+  field_simp at hD ⊢
+  linear_combination (-1 : ℝ) * hD
+
+/-- The constant-rate user cost is the (2.47) expression with `r_{s+1} = r`. -/
+theorem user_cost_of_euler_const {γ β δ r Ds : ℝ} {C p : ℕ → ℝ} {s : ℕ} (hγ : γ ≠ 0)
+    (hβ : β ≠ 0) (hr : 1 + r ≠ 0) (hCs : C s ≠ 0) (hDs : Ds ≠ 0)
+    (hC : C (s + 1) = (1 + r) * β * C s)
+    (hD : γ * p s / C s = (1 - γ) / Ds + β * (1 - δ) * γ * p (s + 1) / C (s + 1)) :
+    (1 - γ) * C s / (γ * Ds) = userCost r δ p s :=
+  user_cost_of_euler hγ hβ hr hCs hDs hC hD
+
+/-! ### The intertemporal budget constraint with durables -/
+
+/-- **Law of motion of bonds plus durables**, O&R p. 97: the finance constraint of p. 96 with a
+constant rate implies `A_{s+1} = (1 + r)A_s + (1 + r)(Y_s − G_s − I_s − C_s − ι_s D_s)`. -/
+theorem durableAssets_succ {r δ Dm : ℝ} (hr : 1 + r ≠ 0) {B C D p Y G I : ℕ → ℝ}
+    (hB : ∀ s, B (s + 1) = (1 + r) * B s + Y s - G s - I s - C s -
+      p s * (D s - (1 - δ) * prevStock Dm D s)) (s : ℕ) :
+    durableAssets r δ Dm B D p (s + 1) = (1 + r) * durableAssets r δ Dm B D p s +
+      (1 + r) * (Y s - G s - I s - (C s + userCost r δ p s * D s)) := by
+  unfold durableAssets userCost
+  rw [hB s]
+  simp only [prevStock]
+  field_simp
+  ring
+
+/-- **The intertemporal budget constraint with durables**, O&R (2.48), p. 97 (constant `r`, as in
+the book): given the finance constraint and summable present values, the transversality
+condition `(1 + r)^{-n} A_n → 0` on bonds plus durables holds iff
+`Σ (1 + r)^{-s}(C_s + ι_s D_s) = (1 + r)B_0 + (1 − δ)p_0 D_{−1} + Σ (1 + r)^{-s}(Y − G − I)_s`. -/
+theorem durables_ibc_iff {r δ Dm : ℝ} (hr : 0 < 1 + r) {B C D p Y G I : ℕ → ℝ}
+    (hB : ∀ s, B (s + 1) = (1 + r) * B s + Y s - G s - I s - C s -
+      p s * (D s - (1 - δ) * prevStock Dm D s))
+    (hZ : Summable fun s => disc r ^ s * (Y s - G s - I s))
+    (hX : Summable fun s => disc r ^ s * (C s + userCost r δ p s * D s)) :
+    Tendsto (fun n => disc r ^ n * durableAssets r δ Dm B D p n) atTop (𝓝 0) ↔
+      pv r (fun s => C s + userCost r δ p s * D s) =
+        (1 + r) * B 0 + (1 - δ) * p 0 * Dm + pv r (fun s => Y s - G s - I s) := by
+  have key : ∀ s, disc r ^ (s + 1) * ((1 + r) * (Y s - G s - I s -
+      (C s + userCost r δ p s * D s))) = disc r ^ s * (Y s - G s - I s) -
+        disc r ^ s * (C s + userCost r δ p s * D s) := by
+    intro s
+    have := one_add_mul_disc hr
+    rw [pow_succ]
+    linear_combination (disc r ^ s * (Y s - G s - I s - (C s + userCost r δ p s * D s))) * this
+  have hs : Summable fun s => disc r ^ (s + 1) * ((1 + r) * (Y s - G s - I s -
+      (C s + userCost r δ p s * D s))) := by
+    simp_rw [key]
+    exact hZ.sub hX
+  rw [discounted_tendsto_zero_iff hr (durableAssets_succ hr.ne' hB) hs]
+  simp_rw [key]
+  rw [hZ.tsum_sub hX]
+  unfold pv durableAssets
+  simp only [prevStock]
+  constructor <;> intro e <;> linarith
+
+/-- **Transversality on bonds and on durables**, O&R p. 97: if `(1 + r)^{-n} B_n → 0` and
+`(1 + r)^{-n} p_n D_{n−1} → 0`, the combined condition of `durables_ibc_iff` holds. -/
+theorem durableAssets_transversality {r δ Dm : ℝ} {B D p : ℕ → ℝ}
+    (hB : Tendsto (fun n => disc r ^ n * B n) atTop (𝓝 0))
+    (hpD : Tendsto (fun n => disc r ^ n * (p n * prevStock Dm D n)) atTop (𝓝 0)) :
+    Tendsto (fun n => disc r ^ n * durableAssets r δ Dm B D p n) atTop (𝓝 0) := by
+  have := (hB.const_mul (1 + r)).add (hpD.const_mul (1 - δ))
+  simp only [mul_zero, add_zero] at this
+  refine this.congr (fun n => ?_)
+  unfold durableAssets
+  ring
+
+/-! ### Consumption functions with `β = 1/(1 + r)` -/
+
+/-- **Flat nondurables consumption**, O&R p. 98: with `β(1 + r) = 1` the Euler equation
+`C_{s+1} = (1 + r)βC_s` makes nondurables consumption constant. -/
+theorem flat_nondurables {r β : ℝ} {C : ℕ → ℝ} (hβ : β * (1 + r) = 1)
+    (hE : ∀ s, C (s + 1) = (1 + r) * β * C s) (s : ℕ) : C s = C 0 := by
+  induction s with
+  | zero => rfl
+  | succ n ih =>
+    rw [hE n, ih]
+    linear_combination C 0 * hβ
+
+/-- **Nondurables consumption function**, O&R (2.49), p. 98: with flat nondurables consumption, the
+user-cost relation `γ ι_s D_s = (1 − γ)C_s` of (2.47), and the budget constraint (2.48)
+`PV(C + ιD) = W^D`, nondurables consumption is `C_t = γ r W^D/(1 + r)`. -/
+theorem nondurables_consumption {r γ δ WD : ℝ} (hr : 0 < r) (hγ : γ ≠ 0) {C D p : ℕ → ℝ}
+    (hflat : ∀ s, C s = C 0) (hι : ∀ s, γ * (userCost r δ p s * D s) = (1 - γ) * C s)
+    (hibc : pv r (fun s => C s + userCost r δ p s * D s) = WD) :
+    C 0 = γ * r / (1 + r) * WD := by
+  have e : ∀ s, C s + userCost r δ p s * D s = C 0 / γ := by
+    intro s
+    have := hι s
+    rw [hflat s] at this ⊢
+    field_simp
+    linear_combination this
+  simp_rw [e, pv_const hr] at hibc
+  rw [← hibc]
+  have : (1 : ℝ) + r ≠ 0 := by linarith
+  field_simp
+
+/-- **Durables consumption function**, O&R (2.49), p. 98: under the hypotheses of
+`nondurables_consumption`, and with a nonzero user cost, the durables stock at every date is
+`D_s = (1 − γ) r W^D/(ι_s (1 + r))`; the book states it at `s = t`. -/
+theorem durables_consumption {r γ δ WD : ℝ} (hr : 0 < r) (hγ : γ ≠ 0) {C D p : ℕ → ℝ}
+    (hflat : ∀ s, C s = C 0) (hι : ∀ s, γ * (userCost r δ p s * D s) = (1 - γ) * C s)
+    (hibc : pv r (fun s => C s + userCost r δ p s * D s) = WD) (s : ℕ)
+    (hιs : userCost r δ p s ≠ 0) :
+    D s = (1 - γ) * r * WD / (userCost r δ p s * (1 + r)) := by
+  have hC := nondurables_consumption hr hγ hflat hι hibc
+  have h := hι s
+  rw [hflat s, hC] at h
+  have : (1 : ℝ) + r ≠ 0 := by linarith
+  field_simp
+  field_simp at h
+  linear_combination h
+
+/-! ### A constant price of durables -/
+
+/-- **Constant user cost**, O&R (2.50), p. 98: with a constant durables price `p`,
+`ι = p(r + δ)/(1 + r)`. -/
+theorem userCost_const {r δ p0 : ℝ} (hr : 1 + r ≠ 0) {p : ℕ → ℝ} (hp : ∀ s, p s = p0) (s : ℕ) :
+    userCost r δ p s = p0 * (r + δ) / (1 + r) := by
+  unfold userCost
+  rw [hp s, hp (s + 1)]
+  field_simp
+  ring
+
+/-- **The durables price and the consumption ratio**, O&R (2.50), p. 98: with a constant price
+the user-cost relation `(1 − γ)C = γ ι D` gives `p = ((1 + r)/(r + δ))((1 − γ)/γ)(C/D)`
+(for `r + δ ≠ 0`, `γ ≠ 0`, `D ≠ 0`). -/
+theorem price_of_consumption_ratio {r δ γ p C D : ℝ} (hr : 1 + r ≠ 0) (hrδ : r + δ ≠ 0)
+    (hγ : γ ≠ 0) (hD : D ≠ 0) (hι : γ * (p * (r + δ) / (1 + r) * D) = (1 - γ) * C) :
+    p = (1 + r) / (r + δ) * ((1 - γ) / γ) * (C / D) := by
+  field_simp
+  field_simp at hι
+  linear_combination hι
+
+/-- **A constant durables stock**, O&R p. 98: with constant `p`, flat nondurables consumption
+and the user-cost relation, and `p(r + δ) ≠ 0`, the durables stock is constant: the consumer
+smooths the service flow. -/
+theorem durables_stock_const {r δ γ p0 : ℝ} (hr : 1 + r ≠ 0) (hγ : γ ≠ 0)
+    (hpι : p0 * (r + δ) ≠ 0) {C D p : ℕ → ℝ} (hp : ∀ s, p s = p0) (hflat : ∀ s, C s = C 0)
+    (hι : ∀ s, γ * (userCost r δ p s * D s) = (1 - γ) * C s) (s : ℕ) : D s = D 0 := by
+  have hs := hι s
+  have h0 := hι 0
+  rw [userCost_const hr hp, hflat s] at hs
+  rw [userCost_const hr hp] at h0
+  have hc : p0 * (r + δ) / (1 + r) ≠ 0 := div_ne_zero hpι hr
+  have : γ * (p0 * (r + δ) / (1 + r)) * D s = γ * (p0 * (r + δ) / (1 + r)) * D 0 := by
+    linear_combination hs - h0
+  exact mul_left_cancel₀ (mul_ne_zero hγ hc) this
+
+/-- **Durables expenditure after date `t` is replacement only**, O&R p. 98: under the hypotheses
+of `durables_stock_const`, spending on durables at every date after `t` is `p δ D_t`, while the
+date-`t` purchase is `p(D_t − (1 − δ)D_{t−1})`. Expenditures are not smoothed. -/
+theorem durables_purchases_after_t {r δ γ p0 Dm : ℝ} (hr : 1 + r ≠ 0) (hγ : γ ≠ 0)
+    (hpι : p0 * (r + δ) ≠ 0) {C D p : ℕ → ℝ} (hp : ∀ s, p s = p0) (hflat : ∀ s, C s = C 0)
+    (hι : ∀ s, γ * (userCost r δ p s * D s) = (1 - γ) * C s) (s : ℕ) :
+    p (s + 1) * (D (s + 1) - (1 - δ) * prevStock Dm D (s + 1)) = p0 * δ * D 0 := by
+  simp only [prevStock]
+  rw [hp, durables_stock_const hr hγ hpι hp hflat hι (s + 1),
+    durables_stock_const hr hγ hpι hp hflat hι s]
+  ring
+
+/-- **Lump-sum durables purchases**, O&R p. 98: with constant `r` and `p` and no depreciation
+(`δ = 0`, `p r ≠ 0`), all durables are bought at date `t`; purchases at every later date are
+zero. -/
+theorem durables_lump_sum {r γ p0 Dm : ℝ} (hr : 1 + r ≠ 0) (hγ : γ ≠ 0) (hpr : p0 * r ≠ 0)
+    {C D p : ℕ → ℝ} (hp : ∀ s, p s = p0) (hflat : ∀ s, C s = C 0)
+    (hι : ∀ s, γ * (userCost r 0 p s * D s) = (1 - γ) * C s) (s : ℕ) :
+    p (s + 1) * (D (s + 1) - prevStock Dm D (s + 1)) = 0 := by
+  have h := durables_purchases_after_t (Dm := Dm) hr hγ (by simpa using hpr) hp hflat hι s
+  simpa using h
+
+/-! ### The modified fundamental current-account equation -/
+
+/-- The date-`t` current account with durables, O&R p. 98:
+`CA_t = rB_t + Y_t − C_t − G_t − I_t − p[D_t − (1 − δ)D_{t−1}]`. -/
+def currentAccountDurables (r δ B0 C0 p D0 Dm : ℝ) (Y G I : ℕ → ℝ) : ℝ :=
+  currentAccount r B0 C0 Y G I - p * (D0 - (1 - δ) * Dm)
+
+/-- **The modified fundamental current-account equation**, O&R (2.51), p. 99: with a constant
+durables price `p`, nondurables consumption `C_t = γ r W^D/(1 + r)` from (2.49), and the
+user-cost relation `(1 − γ)C_t = γ ι D_t` with `ι = p(r + δ)/(1 + r)` from (2.50),
+`CA_t = (Y_t − Ỹ) − (I_t − Ĩ) − (G_t − G̃) + (ι − p)(D_t − D_{t−1})`. -/
+theorem durables_current_account {r δ γ B0 C0 p D0 Dm : ℝ} (hr : 0 < r) (hγ : γ ≠ 0)
+    {Y G I : ℕ → ℝ} (hY : Summable fun s => disc r ^ s * Y s)
+    (hG : Summable fun s => disc r ^ s * G s) (hI : Summable fun s => disc r ^ s * I s)
+    (hC : C0 = γ * r / (1 + r) * durableWealth r δ B0 p Dm Y G I)
+    (hι : γ * (p * (r + δ) / (1 + r) * D0) = (1 - γ) * C0) :
+    currentAccountDurables r δ B0 C0 p D0 Dm Y G I =
+      (Y 0 - permanent r Y) - (I 0 - permanent r I) - (G 0 - permanent r G) +
+        (p * (r + δ) / (1 + r) - p) * (D0 - Dm) := by
+  have h0 := fundamental_current_account hr hY hG hI
+    (C0 := r / (1 + r) * wealth r B0 Y G I) (B0 := B0) rfl
+  have split : currentAccount r B0 C0 Y G I =
+      currentAccount r B0 (r / (1 + r) * wealth r B0 Y G I) Y G I +
+        (r / (1 + r) * wealth r B0 Y G I - C0) := by
+    unfold currentAccount; ring
+  rw [currentAccountDurables, split, h0]
+  unfold durableWealth at hC
+  have hr1 : (1 : ℝ) + r ≠ 0 := by linarith
+  have e : γ * (r / (1 + r) * wealth r B0 Y G I - C0 - p * (D0 - (1 - δ) * Dm) -
+      (p * (r + δ) / (1 + r) - p) * (D0 - Dm)) = 0 := by
+    rw [hC] at hι ⊢
+    field_simp at hι ⊢
+    linear_combination (-γ) * hι
+  have := (mul_eq_zero.1 e).resolve_left hγ
+  linear_combination this
+
+/-- **Full depreciation removes the durables term**, O&R p. 99: at `δ = 1` the user cost equals
+the price, `ι_s = p_s`, for any price path. -/
+theorem userCost_full_depreciation (r : ℝ) (p : ℕ → ℝ) (s : ℕ) : userCost r 1 p s = p s := by
+  simp [userCost]
+
+/-- **`ι → p` as `δ → 1`**, O&R p. 99: with a constant price, the user cost `p(r + δ)/(1 + r)`
+tends to `p` as the depreciation rate tends to one. -/
+theorem userCost_tendsto_price {r : ℝ} (hr : 1 + r ≠ 0) (p : ℝ) :
+    Tendsto (fun δ : ℝ => p * (r + δ) / (1 + r)) (𝓝 1) (𝓝 p) := by
+  have hc : Continuous fun δ : ℝ => p * (r + δ) / (1 + r) := by fun_prop
+  have := hc.tendsto 1
+  have e : p * (r + 1) / (1 + r) = p := by field_simp; ring
+  rwa [e] at this
+
+/-- **With full depreciation (2.51) reduces to (2.18)**, O&R p. 99: at `δ = 1` durables behave
+like nondurables and the current account obeys the fundamental equation of O&R (2.18). -/
+theorem durables_current_account_full_depreciation {r γ B0 C0 p D0 Dm : ℝ} (hr : 0 < r)
+    (hγ : γ ≠ 0) {Y G I : ℕ → ℝ} (hY : Summable fun s => disc r ^ s * Y s)
+    (hG : Summable fun s => disc r ^ s * G s) (hI : Summable fun s => disc r ^ s * I s)
+    (hC : C0 = γ * r / (1 + r) * durableWealth r 1 B0 p Dm Y G I)
+    (hι : γ * (p * (r + 1) / (1 + r) * D0) = (1 - γ) * C0) :
+    currentAccountDurables r 1 B0 C0 p D0 Dm Y G I =
+      (Y 0 - permanent r Y) - (I 0 - permanent r I) - (G 0 - permanent r G) := by
+  rw [durables_current_account hr hγ hY hG hI hC hι]
+  have : (1 : ℝ) + r ≠ 0 := by linarith
+  have e : p * (r + 1) / (1 + r) - p = 0 := by field_simp; ring
+  rw [e]
+  ring
+
+end ObstfeldRogoff.SmallOpenEconomyDynamics.Durables
+
+/-
+Copyright (c) 2026 Robert Kirkby. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Robert Kirkby
+-/
+
+/-!
+# Firms, the labour market, and financial and human wealth
+
+Obstfeld and Rogoff (1996), *Foundations of International Macroeconomics*, §2.5.1,
+pp. 99–105, footnotes 35–38, and Appendix 2B.1, pp. 121–123. Date 0 stands for the
+book's date `t`; sequences are indexed from date 0.
+
+* The consumer holds bonds `B` and firm shares `x`. The bond and share Euler equations give
+  the arbitrage condition (2.53), `1 + r = (d_{s+1} + V_{s+1})/V_s`: `share_arbitrage_iff`.
+  With it the finance constraint (2.52) becomes the financial-wealth accumulation equation
+  `Q_{s+1} − Q_s = rQ_s + w_sL − C_s − G_s` for any share holdings, not only `x = 1`
+  (`wealth_accumulation`), and the intertemporal budget constraint (2.55) is equivalent to
+  the transversality condition on `Q` (`ibc_iff_transversality`).
+* (2.56)–(2.57): the share price is the present value of dividends iff there is no bubble
+  (`share_price_eq_pv_dividends_iff`, reusing `PresentValue.forward_solution_iff`).
+* (2.58): the firm's first-order conditions `A_sF_L = w_s` (`labor_foc`) and
+  `A_{s+1}F_K = r` (`capital_foc`), derived from optimality against one-date perturbations
+  of the plan. Euler's theorem `F = K F_K + L F_L` is proved from degree-one homogeneity and
+  differentiability (`euler_homogeneous`).
+* (2.59): the firm's value equals next period's capital. The present value of dividends is
+  `K_{t+1}` (`tendsto_pv_capital_dividends`), and more precisely
+  `(1 + r)^{-n}V_n → V_0 − K_1`, so `V_0 = K_1` iff there is no bubble
+  (`firm_value_eq_capital_iff`); then `V_s = K_{s+1}` at every date.
+* (2.60)–(2.61) and the saving and current-account equations of pp. 104–105.
+* Footnote 36 (Modigliani–Miller): firm borrowing leaves equity plus debt, and the consumer's
+  wealth, unchanged (`modigliani_miller`, `modigliani_miller_consumer_wealth`).
+* Appendix 2B.1: the iterated asset Euler equation (2.78) and the equivalence of its limit
+  condition with (2.57). The book's argument that a positive limit cannot be an equilibrium
+  is informal; we prove only that a positive limit means the price exceeds fundamentals and
+  that nonnegative prices (free disposal, footnote 54) exclude a negative limit.
+-/
+
+namespace ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth
+
+open PresentValue Filter Topology Finset
+
+/-! ## The consumer: arbitrage and financial wealth -/
+
+/-- **Arbitrage between bonds and shares**, O&R (2.53), p. 101: given the bond Euler equation
+`u'(C_s) = β(1 + r)u'(C_{s+1})` with `β > 0` and `u'(C_{s+1}) > 0`, the share Euler equation
+`V_s u'(C_s) = (V_{s+1} + d_{s+1})βu'(C_{s+1})` holds iff `(1 + r)V_s = d_{s+1} + V_{s+1}`. -/
+theorem share_arbitrage_iff {r β u u' V V' d' : ℝ} (hβ : 0 < β) (hu' : 0 < u')
+    (hbond : u = β * (1 + r) * u') :
+    V * u = (V' + d') * β * u' ↔ (1 + r) * V = d' + V' := by
+  have hne : β * u' ≠ 0 := (mul_pos hβ hu').ne'
+  rw [hbond]
+  constructor
+  · intro h
+    apply mul_left_cancel₀ hne
+    linear_combination h
+  · intro h
+    linear_combination β * u' * h
+
+/-- The ex post return identity O&R (2.54), p. 101: under the arbitrage condition (2.53)
+dated `s − 1`, dividends plus capital gains on `x_s` shares equal `rV_{s−1}x_s`. -/
+theorem dividend_capital_gain_eq {r Vp Vs ds xs : ℝ} (harb : (1 + r) * Vp = ds + Vs) :
+    ds * xs + (Vs - Vp) * xs = r * Vp * xs := by
+  linear_combination -xs * harb
+
+/-- **Financial-wealth accumulation**, O&R p. 101: if the finance constraint (2.52) holds at
+date `s` and the arbitrage condition (2.53) held between `s − 1` and `s`, then financial wealth
+`Q_{s+1} = B_{s+1} + V_s x_{s+1}` obeys `Q_{s+1} − Q_s = rQ_s + w_sL − C_s − G_s`, for arbitrary
+share holdings `x_s, x_{s+1}`. -/
+theorem wealth_accumulation {r Bs Bs1 Vp Vs xs xs1 ds wLs Cs Gs : ℝ}
+    (h52 : Bs1 - Bs + Vs * xs1 - Vp * xs =
+      r * Bs + ds * xs + (Vs - Vp) * xs + wLs - Cs - Gs)
+    (harb : (1 + r) * Vp = ds + Vs) :
+    (Bs1 + Vs * xs1) - (Bs + Vp * xs) = r * (Bs + Vp * xs) + wLs - Cs - Gs := by
+  linear_combination h52 - xs * harb
+
+/-- Initial financial wealth, O&R p. 101: at the initial date the finance constraint (2.52)
+reads `Q_{t+1} = (1 + r)B_t + d_t x_t + V_t x_t + w_tL − C_t − G_t`; no arbitrage condition is
+used, since an unanticipated shock may have occurred between `t − 1` and `t`. -/
+theorem initial_financial_wealth {r B0 B1 Vm V0 x0 x1 d0 wL0 C0 G0 : ℝ}
+    (h52 : B1 - B0 + V0 * x1 - Vm * x0 =
+      r * B0 + d0 * x0 + (V0 - Vm) * x0 + wL0 - C0 - G0) :
+    B1 + V0 * x1 = (1 + r) * B0 + d0 * x0 + V0 * x0 + wL0 - C0 - G0 := by
+  linear_combination h52
+
+/-- **The consumer's intertemporal budget constraint**, O&R (2.55), pp. 101–102. Let `Q (s+1)`
+be financial wealth at the end of date `s`, `H_s = w_sL − G_s` after-tax labour income and
+`W₀ = (1 + r)B_t + d_t x_t + V_t x_t`. If `Q_1 = W₀ + H_0 − C_0` and
+`Q_{s+2} = (1 + r)Q_{s+1} + H_{s+1} − C_{s+1}`, then the transversality condition
+`(1 + r)^{-T} Q_{T+1} → 0` holds iff `PV(C) = W₀ + PV(H)`. -/
+theorem ibc_iff_transversality {r W0 : ℝ} (hr : 0 < 1 + r) {Q C H : ℕ → ℝ}
+    (hQ1 : Q 1 = W0 + (H 0 - C 0))
+    (hQ : ∀ s, Q (s + 2) = (1 + r) * Q (s + 1) + (H (s + 1) - C (s + 1)))
+    (hC : Summable fun s => disc r ^ s * C s) (hH : Summable fun s => disc r ^ s * H s) :
+    Tendsto (fun T => disc r ^ T * Q (T + 1)) atTop (𝓝 0) ↔ pv r C = W0 + pv r H := by
+  have hHC : Summable fun s => disc r ^ s * (H s - C s) := by
+    simpa [mul_sub] using hH.sub hC
+  have hs : Summable fun s => disc r ^ (s + 1) * (H (s + 1) - C (s + 1)) :=
+    (summable_nat_add_iff 1).mpr hHC
+  rw [discounted_tendsto_zero_iff hr (A := fun s => Q (s + 1))
+    (N := fun s => H (s + 1) - C (s + 1)) hQ hs]
+  have hsplit : ∑' s, disc r ^ s * (H s - C s) =
+      (H 0 - C 0) + ∑' s, disc r ^ (s + 1) * (H (s + 1) - C (s + 1)) := by
+    rw [hHC.tsum_eq_zero_add]
+    simp
+  have hpv : ∑' s, disc r ^ s * (H s - C s) = pv r H - pv r C := by
+    have := pv_sub hH hC
+    unfold pv at this ⊢
+    exact this
+  rw [hQ1]
+  constructor <;> intro e <;> linarith
+
+/-- **The share price is the present value of dividends iff there is no bubble**,
+O&R (2.56)–(2.57), p. 102, stated from the consumer's two Euler equations: with the bond Euler
+equation `u'(C_s) = β(1 + r)u'(C_{s+1})` and the share Euler equation at every date,
+`V_0 = Σ_{s≥1} (1 + r)^{-s} d_s` iff `(1 + r)^{-T} V_T → 0`. -/
+theorem share_price_eq_pv_dividends_iff {r β : ℝ} (hr : 0 < 1 + r) (hβ : 0 < β)
+    {u V d : ℕ → ℝ} (hu : ∀ s, 0 < u s)
+    (hbond : ∀ s, u s = β * (1 + r) * u (s + 1))
+    (hshare : ∀ s, V s * u s = (V (s + 1) + d (s + 1)) * β * u (s + 1))
+    (hsum : Summable fun s => disc r ^ (s + 1) * d (s + 1)) :
+    V 0 = ∑' s, disc r ^ (s + 1) * d (s + 1) ↔
+      Tendsto (fun n => disc r ^ n * V n) atTop (𝓝 0) :=
+  forward_solution_iff hr
+    (fun s => (share_arbitrage_iff hβ (hu (s + 1)) (hbond s)).1 (hshare s)) hsum
+
+/-! ## The firm -/
+
+/-- The firm's dividend at date `s`, O&R p. 102: output less wages less investment,
+`d_s = A_sF(K_s, L_s) − w_sL_s − (K_{s+1} − K_s)`. -/
+def firmDividend (A w : ℕ → ℝ) (F : ℝ × ℝ → ℝ) (K L : ℕ → ℝ) (s : ℕ) : ℝ :=
+  A s * F (K s, L s) - w s * L s - (K (s + 1) - K s)
+
+/-- The firm's cum-dividend value `d_t + V_t = Σ_{s≥t} (1 + r)^{-(s-t)} d_s`, O&R p. 103, the
+objective of the firm's hiring and investment decisions. -/
+noncomputable def firmValue (r : ℝ) (A w : ℕ → ℝ) (F : ℝ × ℝ → ℝ) (K L : ℕ → ℝ) : ℝ :=
+  ∑' s, disc r ^ s * firmDividend A w F K L s
+
+/-- **The labour first-order condition** `A_sF_L(K_s, L_s) = w_s`, O&R p. 103, for every date
+`s ≥ t`. Hypotheses: the plan's discounted dividends are summable, `F` has partial derivative
+`F_L` in labour at `(K_s, L_s)`, and no change in date-`s` hiring raises the firm's value. -/
+theorem labor_foc {r : ℝ} (hr : 0 < 1 + r) {A w K L : ℕ → ℝ} {F : ℝ × ℝ → ℝ}
+    (hsum : Summable fun n => disc r ^ n * firmDividend A w F K L n) (s : ℕ) {FL : ℝ}
+    (hFL : HasDerivAt (fun l => F (K s, l)) FL (L s))
+    (hopt : ∀ l, firmValue r A w F K (Function.update L s l) ≤ firmValue r A w F K L) :
+    A s * FL = w s := by
+  set φ : ℝ → ℝ := fun l =>
+    disc r ^ s * (A s * (F (K s, l) - F (K s, L s)) - w s * (l - L s)) with hφdef
+  have hval : ∀ l, firmValue r A w F K (Function.update L s l) =
+      firmValue r A w F K L + φ l := by
+    intro l
+    have hpt : (fun n => disc r ^ n * firmDividend A w F K (Function.update L s l) n) =
+        fun n => disc r ^ n * firmDividend A w F K L n + if n = s then φ l else 0 := by
+      funext n
+      by_cases hn : n = s
+      · subst hn
+        simp [firmDividend, hφdef]
+        ring
+      · simp [firmDividend, hn]
+    unfold firmValue
+    rw [hpt, hsum.tsum_add (hasSum_ite_eq s (φ l)).summable, tsum_ite_eq]
+  have hmax : IsLocalMax φ (L s) := by
+    refine Filter.Eventually.of_forall fun l => ?_
+    have h1 := hopt l
+    rw [hval l] at h1
+    simp [hφdef]
+    linarith
+  have hderiv : HasDerivAt φ (disc r ^ s * (A s * FL - w s * 1)) (L s) := by
+    have h1 : HasDerivAt (fun l => A s * (F (K s, l) - F (K s, L s))) (A s * FL) (L s) :=
+      HasDerivAt.const_mul (A s) (HasDerivAt.sub_const (F (K s, L s)) hFL)
+    have h2 : HasDerivAt (fun l : ℝ => w s * (l - L s)) (w s * 1) (L s) :=
+      HasDerivAt.const_mul (w s) (HasDerivAt.sub_const (L s) (hasDerivAt_id (L s)))
+    exact HasDerivAt.const_mul (disc r ^ s) (HasDerivAt.sub h1 h2)
+  have h0 := hmax.hasDerivAt_eq_zero hderiv
+  have hd : disc r ^ s ≠ 0 := pow_ne_zero _ (disc_pos hr).ne'
+  have := (mul_eq_zero.1 h0).resolve_left hd
+  linarith
+
+/-- **The capital first-order condition** `A_{s+1}F_K(K_{s+1}, L_{s+1}) = r`, O&R p. 103, for
+every date after the first (capital `K_t` is predetermined). Hypotheses: the plan's
+discounted dividends are summable, `F` has partial derivative `F_K` in capital at
+`(K_{s+1}, L_{s+1})`, and no change in the capital stock chosen for date `s + 1` raises the
+firm's value. -/
+theorem capital_foc {r : ℝ} (hr : 0 < 1 + r) {A w K L : ℕ → ℝ} {F : ℝ × ℝ → ℝ}
+    (hsum : Summable fun n => disc r ^ n * firmDividend A w F K L n) (s : ℕ) {FK : ℝ}
+    (hFK : HasDerivAt (fun k => F (k, L (s + 1))) FK (K (s + 1)))
+    (hopt : ∀ k, firmValue r A w F (Function.update K (s + 1) k) L ≤ firmValue r A w F K L) :
+    A (s + 1) * FK = r := by
+  set a : ℝ → ℝ := fun k => disc r ^ s * (-(k - K (s + 1))) with hadef
+  set b : ℝ → ℝ := fun k => disc r ^ (s + 1) *
+    (A (s + 1) * (F (k, L (s + 1)) - F (K (s + 1), L (s + 1))) + (k - K (s + 1))) with hbdef
+  have hval : ∀ k, firmValue r A w F (Function.update K (s + 1) k) L =
+      firmValue r A w F K L + a k + b k := by
+    intro k
+    have hpt : (fun n => disc r ^ n * firmDividend A w F (Function.update K (s + 1) k) L n) =
+        fun n => (disc r ^ n * firmDividend A w F K L n + if n = s then a k else 0) +
+          if n = s + 1 then b k else 0 := by
+      funext n
+      simp only [firmDividend, Function.update_apply, hadef, hbdef]
+      by_cases h1 : n = s
+      · subst h1
+        simp
+        ring
+      · by_cases h2 : n = s + 1
+        · subst h2
+          simp
+          ring
+        · have h3 : n + 1 ≠ s + 1 := fun h => h1 (by omega)
+          simp [h1, h2]
+    unfold firmValue
+    rw [hpt, (hsum.add (hasSum_ite_eq s (a k)).summable).tsum_add
+      (hasSum_ite_eq (s + 1) (b k)).summable, hsum.tsum_add (hasSum_ite_eq s (a k)).summable,
+      tsum_ite_eq, tsum_ite_eq]
+  have hmax : IsLocalMax (fun k => a k + b k) (K (s + 1)) := by
+    refine Filter.Eventually.of_forall fun k => ?_
+    have h1 := hopt k
+    rw [hval k] at h1
+    simp [hadef, hbdef]
+    linarith
+  have hderiv : HasDerivAt (fun k => a k + b k)
+      (disc r ^ s * (-1) + disc r ^ (s + 1) * (A (s + 1) * FK + 1)) (K (s + 1)) := by
+    have ha : HasDerivAt a (disc r ^ s * (-1)) (K (s + 1)) :=
+      HasDerivAt.const_mul (disc r ^ s)
+        (HasDerivAt.neg (HasDerivAt.sub_const (K (s + 1)) (hasDerivAt_id (K (s + 1)))))
+    have hb : HasDerivAt b (disc r ^ (s + 1) * (A (s + 1) * FK + 1)) (K (s + 1)) :=
+      HasDerivAt.const_mul (disc r ^ (s + 1))
+        (HasDerivAt.add
+          (HasDerivAt.const_mul (A (s + 1))
+            (HasDerivAt.sub_const (F (K (s + 1), L (s + 1))) hFK))
+          (HasDerivAt.sub_const (K (s + 1)) (hasDerivAt_id (K (s + 1)))))
+    exact HasDerivAt.add ha hb
+  have h0 := hmax.hasDerivAt_eq_zero hderiv
+  have hd : disc r ^ s ≠ 0 := pow_ne_zero _ (disc_pos hr).ne'
+  have h1 : disc r * (A (s + 1) * FK + 1) = 1 := by
+    have : disc r ^ s * (disc r * (A (s + 1) * FK + 1) - 1) = 0 := by
+      rw [pow_succ] at h0
+      linear_combination h0
+    have := (mul_eq_zero.1 this).resolve_left hd
+    linarith
+  have h2 := one_add_mul_disc hr
+  have : A (s + 1) * FK + 1 = 1 + r := by
+    linear_combination (1 + r) * h1 - (A (s + 1) * FK + 1) * h2
+  linarith
+
+/-- **Euler's theorem for constant returns**, O&R p. 103 (via §1.5.1): if `F` is homogeneous
+of degree one, `F(λK, λL) = λF(K, L)` for `λ > 0`, and differentiable at `(K, L)` with
+derivative `D`, then `F(K, L) = K F_K + L F_L`, where `F_K = D(1, 0)` and `F_L = D(0, 1)`. -/
+theorem euler_homogeneous {F : ℝ × ℝ → ℝ} {D : ℝ × ℝ →L[ℝ] ℝ} {K L : ℝ}
+    (hF : HasFDerivAt F D (K, L))
+    (hhom : ∀ c : ℝ, 0 < c → F (c * K, c * L) = c * F (K, L)) :
+    F (K, L) = K * D (1, 0) + L * D (0, 1) := by
+  have hγ : HasDerivAt (fun c : ℝ => c • ((K, L) : ℝ × ℝ)) ((1 : ℝ) • ((K, L) : ℝ × ℝ)) 1 :=
+    HasDerivAt.smul_const (hasDerivAt_id (1 : ℝ)) ((K, L) : ℝ × ℝ)
+  have hF' : HasFDerivAt F D ((fun c : ℝ => c • ((K, L) : ℝ × ℝ)) 1) := by
+    simpa using hF
+  have h1 := hF'.comp_hasDerivAt (1 : ℝ) hγ
+  have h2 : HasDerivAt (fun c : ℝ => c * F (K, L)) (1 * F (K, L)) 1 :=
+    HasDerivAt.mul_const (hasDerivAt_id (1 : ℝ)) (F (K, L))
+  have hev : (fun c : ℝ => c * F (K, L)) =ᶠ[𝓝 1]
+      (F ∘ fun c : ℝ => c • ((K, L) : ℝ × ℝ)) := by
+    filter_upwards [lt_mem_nhds (show (0 : ℝ) < 1 by norm_num)] with c hc
+    simp [hhom c hc]
+  have h3 := h1.unique (h2.congr_of_eventuallyEq hev.symm)
+  have hKL : ((K, L) : ℝ × ℝ) = K • ((1, 0) : ℝ × ℝ) + L • ((0, 1) : ℝ × ℝ) := by
+    ext <;> simp
+  have hD : D (K, L) = K * D (1, 0) + L * D (0, 1) := by
+    rw [hKL, map_add, map_smul, map_smul, smul_eq_mul, smul_eq_mul]
+  rw [one_smul] at h3
+  linarith
+
+/-- The Fréchet derivative's value `D(1, 0)` is the partial derivative `F_K` of O&R (2.58),
+so `euler_homogeneous` and `capital_foc` refer to the same number. -/
+theorem hasDerivAt_capital_partial {F : ℝ × ℝ → ℝ} {D : ℝ × ℝ →L[ℝ] ℝ} {K L : ℝ}
+    (hF : HasFDerivAt F D (K, L)) : HasDerivAt (fun k => F (k, L)) (D (1, 0)) K := by
+  have hc : HasDerivAt (fun k : ℝ => ((k, L) : ℝ × ℝ)) ((1, 0) : ℝ × ℝ) K :=
+    HasDerivAt.prodMk (hasDerivAt_id K) (hasDerivAt_const K L)
+  exact hF.comp_hasDerivAt K hc
+
+/-- The Fréchet derivative's value `D(0, 1)` is the partial derivative `F_L` of O&R (2.58). -/
+theorem hasDerivAt_labor_partial {F : ℝ × ℝ → ℝ} {D : ℝ × ℝ →L[ℝ] ℝ} {K L : ℝ}
+    (hF : HasFDerivAt F D (K, L)) : HasDerivAt (fun l => F (K, l)) (D (0, 1)) L := by
+  have hc : HasDerivAt (fun l : ℝ => ((K, l) : ℝ × ℝ)) ((0, 1) : ℝ × ℝ) L :=
+    HasDerivAt.prodMk (hasDerivAt_const L K) (hasDerivAt_id L)
+  exact hF.comp_hasDerivAt L hc
+
+/-- **Dividends under the first-order conditions**, O&R p. 104: with Euler's theorem
+`F = KF_K + LF_L` and `AF_K = r`, `AF_L = w`, the dividend is
+`d_s = rK_s − (K_{s+1} − K_s) = (1 + r)K_s − K_{s+1}`. -/
+theorem dividend_eq_of_foc {r A w F FK FL K L K' : ℝ} (heuler : F = K * FK + L * FL)
+    (hK : A * FK = r) (hL : A * FL = w) :
+    A * F - w * L - (K' - K) = (1 + r) * K - K' := by
+  rw [heuler]
+  linear_combination K * hK + L * hL
+
+/-- **The present value of dividends is next period's capital**, O&R (2.59), p. 104: if
+`d_{s+1} = (1 + r)K_{s+1} − K_{s+2}` and `(1 + r)^{-n}K_{n+1} → 0`, the partial sums of
+`Σ_{s≥1} (1 + r)^{-s} d_s` converge to `K_1`. (The telescoping partial sums converge without
+any summability hypothesis.) -/
+theorem tendsto_pv_capital_dividends {r : ℝ} (hr : 0 < 1 + r) {K d : ℕ → ℝ}
+    (hd : ∀ s, d (s + 1) = (1 + r) * K (s + 1) - K (s + 2))
+    (hK : Tendsto (fun n => disc r ^ n * K (n + 1)) atTop (𝓝 0)) :
+    Tendsto (fun n => ∑ s ∈ range n, disc r ^ (s + 1) * d (s + 1)) atTop (𝓝 (K 1)) := by
+  have hc := one_add_mul_disc hr
+  have hpart : ∀ n, ∑ s ∈ range n, disc r ^ (s + 1) * d (s + 1) =
+      K 1 - disc r ^ n * K (n + 1) := by
+    intro n
+    have : ∀ s ∈ range n, disc r ^ (s + 1) * d (s + 1) =
+        disc r ^ s * K (s + 1) - disc r ^ (s + 1) * K (s + 1 + 1) := by
+      intro s _
+      rw [hd s, pow_succ]
+      linear_combination disc r ^ s * K (s + 1) * hc
+    rw [sum_congr rfl this, sum_range_sub' (fun s => disc r ^ s * K (s + 1))]
+    simp
+  simp_rw [hpart]
+  simpa using tendsto_const_nhds.sub hK
+
+/-- O&R (2.59) with an explicit summability hypothesis: the present value of dividends
+`Σ_{s≥1} (1 + r)^{-s} d_s` equals `K_1`. -/
+theorem pv_capital_dividends {r : ℝ} (hr : 0 < 1 + r) {K d : ℕ → ℝ}
+    (hd : ∀ s, d (s + 1) = (1 + r) * K (s + 1) - K (s + 2))
+    (hK : Tendsto (fun n => disc r ^ n * K (n + 1)) atTop (𝓝 0))
+    (hsum : Summable fun s => disc r ^ (s + 1) * d (s + 1)) :
+    ∑' s, disc r ^ (s + 1) * d (s + 1) = K 1 :=
+  tendsto_nhds_unique hsum.hasSum.tendsto_sum_nat (tendsto_pv_capital_dividends hr hd hK)
+
+/-- **The firm's bubble term**, O&R pp. 102–104: under the arbitrage condition (2.53) and
+dividends `d_{s+1} = (1 + r)K_{s+1} − K_{s+2}`, the gap `V_s − K_{s+1}` grows at exactly the
+rate of interest: `V_s − K_{s+1} = (1 + r)^s (V_0 − K_1)`. -/
+theorem firm_value_sub_capital {r : ℝ} {V K d : ℕ → ℝ}
+    (harb : ∀ s, (1 + r) * V s = d (s + 1) + V (s + 1))
+    (hd : ∀ s, d (s + 1) = (1 + r) * K (s + 1) - K (s + 2)) (s : ℕ) :
+    V s - K (s + 1) = (1 + r) ^ s * (V 0 - K 1) := by
+  induction s with
+  | zero => simp
+  | succ n ih =>
+    have h1 := harb n
+    rw [hd n] at h1
+    rw [pow_succ]
+    linear_combination -h1 + (1 + r) * ih
+
+/-- The discounted firm value converges to the gap between price and capital:
+`(1 + r)^{-n}V_n → V_0 − K_1`, given `(1 + r)^{-n}K_{n+1} → 0`. -/
+theorem tendsto_firm_bubble {r : ℝ} (hr : 0 < 1 + r) {V K d : ℕ → ℝ}
+    (harb : ∀ s, (1 + r) * V s = d (s + 1) + V (s + 1))
+    (hd : ∀ s, d (s + 1) = (1 + r) * K (s + 1) - K (s + 2))
+    (hK : Tendsto (fun n => disc r ^ n * K (n + 1)) atTop (𝓝 0)) :
+    Tendsto (fun n => disc r ^ n * V n) atTop (𝓝 (V 0 - K 1)) := by
+  have hc := one_add_mul_disc hr
+  have heq : ∀ n, disc r ^ n * V n = (V 0 - K 1) + disc r ^ n * K (n + 1) := by
+    intro n
+    have h := firm_value_sub_capital harb hd n
+    have hp : disc r ^ n * (1 + r) ^ n = 1 := by rw [← mul_pow, mul_comm, hc, one_pow]
+    linear_combination disc r ^ n * h + (V 0 - K 1) * hp
+  simp_rw [heq]
+  simpa using tendsto_const_nhds.add hK
+
+/-- **The firm's value equals its capital**, O&R (2.59), p. 104: given (2.53), the dividend
+formula implied by the first-order conditions, and `(1 + r)^{-n}K_{n+1} → 0`, the firm's
+ex-dividend value is `V_0 = K_1` iff the no-bubble condition (2.57) holds. -/
+theorem firm_value_eq_capital_iff {r : ℝ} (hr : 0 < 1 + r) {V K d : ℕ → ℝ}
+    (harb : ∀ s, (1 + r) * V s = d (s + 1) + V (s + 1))
+    (hd : ∀ s, d (s + 1) = (1 + r) * K (s + 1) - K (s + 2))
+    (hK : Tendsto (fun n => disc r ^ n * K (n + 1)) atTop (𝓝 0)) :
+    V 0 = K 1 ↔ Tendsto (fun n => disc r ^ n * V n) atTop (𝓝 0) := by
+  have h := tendsto_firm_bubble hr harb hd hK
+  constructor
+  · intro e
+    simpa [e] using h
+  · intro e
+    have := tendsto_nhds_unique h e
+    linarith
+
+/-- O&R (2.59) at every date: without a bubble, `V_s = K_{s+1}` for all `s`. -/
+theorem firm_value_eq_capital {r : ℝ} (hr : 0 < 1 + r) {V K d : ℕ → ℝ}
+    (harb : ∀ s, (1 + r) * V s = d (s + 1) + V (s + 1))
+    (hd : ∀ s, d (s + 1) = (1 + r) * K (s + 1) - K (s + 2))
+    (hK : Tendsto (fun n => disc r ^ n * K (n + 1)) atTop (𝓝 0))
+    (hnb : Tendsto (fun n => disc r ^ n * V n) atTop (𝓝 0)) (s : ℕ) :
+    V s = K (s + 1) := by
+  have h0 := (firm_value_eq_capital_iff hr harb hd hK).2 hnb
+  have := firm_value_sub_capital harb hd s
+  rw [h0, sub_self, mul_zero] at this
+  linarith
+
+/-! ## Financial and human wealth -/
+
+/-- **Financial wealth is net foreign assets plus capital**, O&R p. 104: with `x = 1` and
+`V_s = K_{s+1}`, `Q_{s+1} = B_{s+1} + V_s x_{s+1} = B_{s+1} + K_{s+1}`. -/
+theorem financial_wealth_eq_bonds_add_capital {B1 V0 K1 : ℝ} (hV : V0 = K1) :
+    B1 + V0 * 1 = B1 + K1 := by
+  rw [hV, mul_one]
+
+/-- **The budget constraint in financial and human wealth**, O&R (2.60) with footnote 38,
+p. 104: if `PV(C) = (1 + r)B_t + d_t + V_t + PV(wL − G)` (the constraint (2.55) with `x = 1`),
+`d_t = Y_t − w_tL − (K_{t+1} − K_t)` and `V_t = K_{t+1}`, then
+`PV(C) = (1 + r)B_t + K_t + (Y_t − w_tL) + PV(wL − G)`. -/
+theorem ibc_financial_human_wealth {r B0 K0 K1 Y0 wL0 d0 V0 : ℝ} {C H : ℕ → ℝ}
+    (hibc : pv r C = (1 + r) * B0 + d0 + V0 + pv r H)
+    (hd0 : d0 = Y0 - wL0 - (K1 - K0)) (hV0 : V0 = K1) :
+    pv r C = (1 + r) * B0 + K0 + (Y0 - wL0) + pv r H := by
+  rw [hibc, hd0, hV0]
+  ring
+
+/-- **O&R (2.60)**, p. 104: if in addition the ex post return to capital between `t − 1` and
+`t` was `r`, i.e. `Y_t − w_tL = rK_t`, then `PV(C) = (1 + r)Q_t + PV(wL − G)` with
+`Q_t = B_t + K_t`. -/
+theorem ibc_financial_human_wealth_expost {r B0 K0 K1 Y0 wL0 d0 V0 : ℝ} {C H : ℕ → ℝ}
+    (hibc : pv r C = (1 + r) * B0 + d0 + V0 + pv r H)
+    (hd0 : d0 = Y0 - wL0 - (K1 - K0)) (hV0 : V0 = K1) (hY : Y0 - wL0 = r * K0) :
+    pv r C = (1 + r) * (B0 + K0) + pv r H := by
+  rw [ibc_financial_human_wealth hibc hd0 hV0, hY]
+  ring
+
+/-- **The consumption function in financial and human wealth**, O&R (2.61), p. 104: with
+`β = 1/(1 + r)` consumption is flat; if the constant level `C̄` satisfies
+`PV(C̄) = (1 + r)Q_t + PV(H)`, then
+`C̄ = rQ_t + (r/(1 + r)) Σ (1 + r)^{-(s-t)} H_s = rQ_t + H̃`. -/
+theorem consumption_financial_human {r Q0 Cbar : ℝ} (hr : 0 < r) {H : ℕ → ℝ}
+    (hibc : pv r (fun _ => Cbar) = (1 + r) * Q0 + pv r H) :
+    Cbar = r * Q0 + permanent r H := by
+  rw [pv_const hr] at hibc
+  unfold permanent
+  have h1 : (1 : ℝ) + r ≠ 0 := by linarith
+  have h2 : Cbar = r / (1 + r) * ((1 + r) / r * Cbar) := by field_simp
+  rw [h2, hibc]
+  field_simp
+
+/-- National saving in financial wealth, O&R p. 104: with `Y_t = rK_t + w_tL` (from
+Euler's theorem plus the first-order conditions), saving `S_t = Y_t + rB_t − C_t − G_t` equals
+`rQ_t + w_tL − G_t − C_t` with `Q_t = B_t + K_t`. -/
+theorem saving_eq_financial {r B0 K0 Y0 wL0 C0 G0 : ℝ} (hY : Y0 = r * K0 + wL0) :
+    Y0 + r * B0 - C0 - G0 = r * (B0 + K0) + wL0 - G0 - C0 := by
+  rw [hY]
+  ring
+
+/-- **The permanent-income saving function**, O&R p. 105: if `S_t = rQ_t + w_tL_t − G_t − C_t`
+and consumption follows (2.61), `C_t = rQ_t + (wL − G)~`, then
+`S_t = [w_tL_t − (wL)~_t] − (G_t − G̃_t)`. -/
+theorem saving_permanent {r Q0 S0 C0 : ℝ} {wL G : ℕ → ℝ}
+    (hwL : Summable fun s => disc r ^ s * wL s) (hG : Summable fun s => disc r ^ s * G s)
+    (hS : S0 = r * Q0 + wL 0 - G 0 - C0)
+    (hC : C0 = r * Q0 + permanent r (fun s => wL s - G s)) :
+    S0 = (wL 0 - permanent r wL) - (G 0 - permanent r G) := by
+  rw [hS, hC, permanent_sub hwL hG]
+  ring
+
+/-- **The current account in terms of labour income**, O&R p. 104: with `CA_t = S_t − I_t`
+and the saving function above, `CA_t = [w_tL_t − (wL)~_t] − (G_t − G̃_t) − I_t`. -/
+theorem current_account_permanent {r Q0 S0 C0 I0 : ℝ} {wL G : ℕ → ℝ}
+    (hwL : Summable fun s => disc r ^ s * wL s) (hG : Summable fun s => disc r ^ s * G s)
+    (hS : S0 = r * Q0 + wL 0 - G 0 - C0)
+    (hC : C0 = r * Q0 + permanent r (fun s => wL s - G s)) :
+    S0 - I0 = (wL 0 - permanent r wL) - (G 0 - permanent r G) - I0 := by
+  rw [saving_permanent hwL hG hS hC]
+
+/-! ## Modigliani–Miller (footnote 36) -/
+
+/-- **Modigliani–Miller**, O&R footnote 36, p. 102. Let the firm issue one-period debt
+`D_{s+1}` at the end of date `s`, repaying `(1 + r)D_s` at date `s`, so equity holders receive
+`d'_s = d_s + D_{s+1} − (1 + r)D_s`. If the unlevered value `V` and the equity value `V'` both
+satisfy the arbitrage condition (2.53) with their dividends and the no-bubble condition
+(2.57), and the firm's debt satisfies `(1 + r)^{-n}D_{n+1} → 0`, then equity plus debt equals
+the unlevered value at every date: `V'_s + D_{s+1} = V_s`. -/
+theorem modigliani_miller {r : ℝ} (hr : 0 < 1 + r) {V V' d d' D : ℕ → ℝ}
+    (harb : ∀ s, (1 + r) * V s = d (s + 1) + V (s + 1))
+    (harb' : ∀ s, (1 + r) * V' s = d' (s + 1) + V' (s + 1))
+    (hd' : ∀ s, d' s = d s + D (s + 1) - (1 + r) * D s)
+    (hnb : Tendsto (fun n => disc r ^ n * V n) atTop (𝓝 0))
+    (hnb' : Tendsto (fun n => disc r ^ n * V' n) atTop (𝓝 0))
+    (hD : Tendsto (fun n => disc r ^ n * D (n + 1)) atTop (𝓝 0)) (s : ℕ) :
+    V' s + D (s + 1) = V s := by
+  have hc := one_add_mul_disc hr
+  set Δ : ℕ → ℝ := fun n => V n - (V' n + D (n + 1)) with hΔ
+  have hstep : ∀ n, Δ (n + 1) = (1 + r) * Δ n := by
+    intro n
+    simp only [hΔ]
+    have h1 := harb n
+    have h2 := harb' n
+    rw [hd' (n + 1)] at h2
+    linear_combination -h1 + h2
+  have hconst : ∀ n, disc r ^ n * Δ n = Δ 0 := by
+    intro n
+    induction n with
+    | zero => simp
+    | succ n ih =>
+      rw [hstep n, pow_succ, ← ih]
+      linear_combination disc r ^ n * Δ n * hc
+  have hlim : Tendsto (fun n => disc r ^ n * Δ n) atTop (𝓝 0) := by
+    have := hnb.sub (hnb'.add hD)
+    simp only [sub_self, add_zero] at this
+    refine this.congr fun n => ?_
+    simp only [hΔ]
+    ring
+  simp_rw [hconst] at hlim
+  have h0 : Δ 0 = 0 := tendsto_nhds_unique tendsto_const_nhds hlim
+  have hd : disc r ^ s ≠ 0 := pow_ne_zero _ (disc_pos hr).ne'
+  have hs : Δ s = 0 := by
+    have := hconst s
+    rw [h0] at this
+    exact (mul_eq_zero.1 this).resolve_left hd
+  simp only [hΔ] at hs
+  linarith
+
+/-- **Modigliani–Miller for the consumer**, O&R footnote 36: a consumer holding all shares and
+the firm's maturing debt receives `d'_t + V'_t + (1 + r)D_t = d_t + V_t` at date `t` when
+`V'_t + D_{t+1} = V_t`, so the initial wealth in (2.55) is unchanged by the firm's financing. -/
+theorem modigliani_miller_consumer_wealth {r d0 d0' V0 V0' D0 D1 : ℝ}
+    (hd' : d0' = d0 + D1 - (1 + r) * D0) (hV : V0' + D1 = V0) :
+    d0' + V0' + (1 + r) * D0 = d0 + V0 := by
+  rw [hd']
+  linarith
+
+/-! ## Appendix 2B.1: ruling out asset-price bubbles -/
+
+/-- **The iterated asset Euler equation**, O&R Appendix 2B.1, p. 122: iterating
+`V_s u'(C_s) = β(d_{s+1} + V_{s+1})u'(C_{s+1})` gives
+`V_0 u'(C_0) = Σ_{s<n} β^{s+1}u'(C_{s+1})d_{s+1} + β^n u'(C_n)V_n`. -/
+theorem iterated_asset_euler {β : ℝ} {u V d : ℕ → ℝ}
+    (h : ∀ s, V s * u s = β * (d (s + 1) + V (s + 1)) * u (s + 1)) (n : ℕ) :
+    V 0 * u 0 = ∑ s ∈ range n, β ^ (s + 1) * u (s + 1) * d (s + 1) + β ^ n * u n * V n := by
+  induction n with
+  | zero => simp [mul_comm]
+  | succ n ih =>
+    rw [sum_range_succ, ih, pow_succ]
+    linear_combination β ^ n * h n
+
+/-- **O&R (2.78)**, p. 122: if the discounted utility value of dividends is summable, the
+limit `lim β^T u'(C_T)V_T` exists and
+`V_0 u'(C_0) = Σ_{s≥1} β^s u'(C_s)d_s + lim β^T u'(C_T)V_T`. -/
+theorem tendsto_iterated_asset_euler {β : ℝ} {u V d : ℕ → ℝ}
+    (h : ∀ s, V s * u s = β * (d (s + 1) + V (s + 1)) * u (s + 1))
+    (hsum : Summable fun s => β ^ (s + 1) * u (s + 1) * d (s + 1)) :
+    Tendsto (fun n => β ^ n * u n * V n) atTop
+      (𝓝 (V 0 * u 0 - ∑' s, β ^ (s + 1) * u (s + 1) * d (s + 1))) := by
+  have heq : ∀ n, β ^ n * u n * V n =
+      V 0 * u 0 - ∑ s ∈ range n, β ^ (s + 1) * u (s + 1) * d (s + 1) := by
+    intro n
+    linarith [iterated_asset_euler h n]
+  simp_rw [heq]
+  exact tendsto_const_nhds.sub hsum.hasSum.tendsto_sum_nat
+
+/-- Discounted marginal utility under the bond Euler equation, O&R p. 123:
+`u'(C_s) = β(1 + r)u'(C_{s+1})` for all `s` implies `β^T u'(C_T) = u'(C_0)(1 + r)^{-T}`. -/
+theorem discounted_marginal_utility {r β : ℝ} (hr : 0 < 1 + r) {u : ℕ → ℝ}
+    (hbond : ∀ s, u s = β * (1 + r) * u (s + 1)) (n : ℕ) :
+    β ^ n * u n = u 0 * disc r ^ n := by
+  have hc := one_add_mul_disc hr
+  induction n with
+  | zero => simp
+  | succ n ih =>
+    have h1 : β * u (n + 1) = disc r * u n := by
+      rw [hbond n]
+      linear_combination -(β * u (n + 1)) * hc
+    rw [pow_succ, pow_succ, mul_assoc, h1]
+    linear_combination disc r * ih
+
+/-- **The utility-weighted no-bubble condition is (2.57)**, O&R p. 123: under the bond Euler
+equation and `u'(C_0) > 0`, `β^T u'(C_T)V_T → 0` iff `(1 + r)^{-T}V_T → 0`. -/
+theorem utility_bubble_iff {r β : ℝ} (hr : 0 < 1 + r) {u V : ℕ → ℝ} (hu0 : 0 < u 0)
+    (hbond : ∀ s, u s = β * (1 + r) * u (s + 1)) :
+    Tendsto (fun n => β ^ n * u n * V n) atTop (𝓝 0) ↔
+      Tendsto (fun n => disc r ^ n * V n) atTop (𝓝 0) := by
+  have heq : (fun n => β ^ n * u n * V n) = fun n => u 0 * (disc r ^ n * V n) := by
+    funext n
+    rw [discounted_marginal_utility hr hbond n]
+    ring
+  rw [heq]
+  constructor
+  · intro h
+    have := h.const_mul (u 0)⁻¹
+    simp only [mul_zero, ← mul_assoc, inv_mul_cancel₀ hu0.ne', one_mul] at this
+    exact this
+  · intro h
+    simpa using h.const_mul (u 0)
+
+/-- A **positive bubble term means the price exceeds fundamentals**, O&R p. 123: under (2.53),
+`lim (1 + r)^{-T}V_T > 0` iff `V_0 > Σ_{s≥1} (1 + r)^{-s} d_s`. This is the provable content of
+the book's informal argument that such a path cannot be an equilibrium. -/
+theorem bubble_pos_iff_price_gt_pv {r : ℝ} (hr : 0 < 1 + r) {V d : ℕ → ℝ}
+    (harb : ∀ s, (1 + r) * V s = d (s + 1) + V (s + 1))
+    (hsum : Summable fun s => disc r ^ (s + 1) * d (s + 1)) {b : ℝ}
+    (hb : Tendsto (fun n => disc r ^ n * V n) atTop (𝓝 b)) :
+    0 < b ↔ ∑' s, disc r ^ (s + 1) * d (s + 1) < V 0 := by
+  have := tendsto_nhds_unique hb (tendsto_bubble hr harb hsum)
+  rw [this, sub_pos]
+
+/-- **Free disposal excludes a negative bubble**, O&R footnote 54, p. 123: if the asset price
+is never negative, any limit of `(1 + r)^{-T}V_T` is nonnegative, so
+`V_0 ≥ Σ_{s≥1} (1 + r)^{-s} d_s`. -/
+theorem price_ge_pv_of_nonneg {r : ℝ} (hr : 0 < 1 + r) {V d : ℕ → ℝ}
+    (harb : ∀ s, (1 + r) * V s = d (s + 1) + V (s + 1))
+    (hsum : Summable fun s => disc r ^ (s + 1) * d (s + 1)) (hV : ∀ s, 0 ≤ V s) :
+    ∑' s, disc r ^ (s + 1) * d (s + 1) ≤ V 0 := by
+  have h := tendsto_bubble hr harb hsum
+  have : 0 ≤ V 0 - ∑' s, disc r ^ (s + 1) * d (s + 1) :=
+    ge_of_tendsto' h fun n => mul_nonneg (pow_nonneg (disc_pos hr).le n) (hV n)
+  linarith
+
+end ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth
+
+/-
+Copyright (c) 2026 Robert Kirkby. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Robert Kirkby
+-/
+
+/-!
 # Solving systems of linear difference equations
 
 Obstfeld and Rogoff (1996), *Foundations of International Macroeconomics*,
@@ -4096,6 +6608,340 @@ theorem ex9_counterexample :
 
 end ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ
 
+/-
+Copyright (c) 2026 Robert Kirkby. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Robert Kirkby
+-/
+
+/-!
+# Trend productivity growth and the debt–output ratio
+
+Obstfeld and Rogoff (1996), *Foundations of International Macroeconomics*,
+Appendix 2A, pp. 116–120, and Supplement B (steady-state condition), pp. 722–726.
+
+Output is `Y = A K^α` with `0 < α < 1` and productivity growing so that output
+grows at rate `g`, with `0 < g < r`. Investment is `I = (αg/r)Y` and government
+spending is `G = ςY`, so net output `Y − I − G = nY` with
+`n = 1 − αg/r − ς`. Consumption grows at the gross rate
+`γ = (1 + r)^σ β^σ = 1 − ϑ`.
+
+* **The current account (2.74)**: `CA_t = −ϑB_t − ((g + ϑ)/(r − g)) n Y_t`, from the
+  tilted fundamental equation (2.20).
+* **The debt–output ratio (2.75)** `b = B/Y` obeys the linear difference equation
+  `b_{s+1} = (γ/(1 + g)) b_s − ((1 + g − γ)/((1 + g)(r − g))) n`. Its fixed point is
+  **(2.76)** `b̄ = −n/(r − g)`. The ratio converges to `b̄` if `γ < 1 + g` and diverges
+  from it if `γ > 1 + g`.
+* **Below `b̄` consumption would be negative** (p. 119): `C/Y = (r + ϑ)(b − b̄)`.
+* **The book's numbers** (p. 119): `r = 0.08`, `g = 0.05`, `α = 0.4`, `ς = 0.3` give
+  `b̄ = −15` and a steady-state trade surplus of 45 percent of GDP.
+* **The world interest rate (2.77)** `1 + r = (1 + g*)^{1/σ}/β` in a world growing at
+  `g*`. With `β = 0.96`, `σ = 1`, `r = 0.08`, this gives `g* = 0.0368`. A fraction
+  `(g − g*)/(1 + g) ≈ 1.26%` of the gap to `b̄` closes each year, and the half-life
+  is 55 years (p. 120).
+* **Supplement B**: with an endogenous discount factor `β(C)`, a steady state
+  requires `β(C̄)(1 + r) = 1`. With constant `β` this forces `β(1 + r) = 1`.
+-/
+
+namespace ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth
+
+open PresentValue FundamentalCurrentAccount Filter Topology
+
+/-! ### Technology (O&R pp. 116–117) -/
+
+/-- With the marginal product of capital equal to `r`, `αY = rK`: the capital–output ratio is
+`α/r` (O&R p. 116). -/
+theorem capital_output {α A K r : ℝ} (hK : 0 < K) (hmpk : α * A * K ^ (α - 1) = r) :
+    α * (A * K ^ α) = r * K := by
+  rw [← hmpk, Real.rpow_sub hK, Real.rpow_one]
+  field_simp
+
+/-- **Investment is a constant share of output**, O&R p. 117: if capital grows at rate `g`
+(`K_{s+1} = (1 + g)K_s`) and `αY_s = rK_s`, then `I_s = K_{s+1} − K_s = (αg/r)Y_s`. -/
+theorem investment_share {α g r K K' Y : ℝ} (hr : r ≠ 0) (hK' : K' = (1 + g) * K)
+    (hY : α * Y = r * K) : K' - K = α * g / r * Y := by
+  rw [hK', show α * g / r * Y = g * (α * Y) / r by ring, hY]
+  field_simp
+  ring
+
+/-- **Capital grows at the rate of output growth**: if `αA_sK_s^{α−1} = r` at both dates and
+`A_{s+1} = (1 + g)^{1−α}A_s`, then `K_{s+1} = (1 + g)K_s` (O&R p. 116). -/
+theorem capital_growth {α g r A A' K K' : ℝ} (hα : α < 1) (hg : -1 < g) (hK : 0 < K)
+    (hK' : 0 < K') (hA : 0 < A) (hαpos : 0 < α) (hmpk : α * A * K ^ (α - 1) = r)
+    (hmpk' : α * A' * K' ^ (α - 1) = r) (hA' : A' = (1 + g) ^ (1 - α) * A) :
+    K' = (1 + g) * K := by
+  have h1g : 0 < 1 + g := by linarith
+  have hne : α - 1 ≠ 0 := by linarith
+  -- both sides have the same (α − 1)-th power
+  have e : K' ^ (α - 1) = ((1 + g) * K) ^ (α - 1) := by
+    rw [Real.mul_rpow h1g.le hK.le]
+    have hpow : (1 + g) ^ (α - 1) * (1 + g) ^ (1 - α) = 1 := by
+      rw [← Real.rpow_add h1g, show α - 1 + (1 - α) = 0 by ring, Real.rpow_zero]
+    have h2 : α * A * ((1 + g) ^ (1 - α) * K' ^ (α - 1)) = α * A * K ^ (α - 1) := by
+      rw [hmpk, ← hmpk', hA']; ring
+    have h3 : (1 + g) ^ (1 - α) * K' ^ (α - 1) = K ^ (α - 1) := by
+      have hαA : α * A ≠ 0 := (mul_pos hαpos hA).ne'
+      exact mul_left_cancel₀ hαA (by linarith [h2])
+    calc K' ^ (α - 1) = (1 + g) ^ (α - 1) * ((1 + g) ^ (1 - α) * K' ^ (α - 1)) := by
+          rw [← mul_assoc, hpow, one_mul]
+      _ = (1 + g) ^ (α - 1) * K ^ (α - 1) := by rw [h3]
+  have := congrArg (fun x : ℝ => x ^ (α - 1)⁻¹) e
+  rwa [← Real.rpow_mul hK'.le, ← Real.rpow_mul (mul_pos h1g hK).le, mul_inv_cancel₀ hne,
+    Real.rpow_one, Real.rpow_one] at this
+
+/-! ### The current account and the debt–output ratio -/
+
+/-- **The current account with trend growth**, O&R (2.74), p. 117. Output grows at rate `g < r`,
+investment is `(αg/r)Y` and government spending `ςY`. If consumption follows the tilted rule
+(2.16), then `CA₀ = −ϑB₀ − ((g + ϑ)/(r − g)) (1 − αg/r − ς) Y₀`. -/
+theorem current_account_trend {r g α ς ϑ B0 Y0 C0 : ℝ} (hr : 0 < r) (hg : -1 < g) (hgr : g < r)
+    (hC : C0 = (r + ϑ) / (1 + r) *
+      wealth r B0 (fun s => (1 + g) ^ s * Y0) (fun s => ς * ((1 + g) ^ s * Y0))
+        (fun s => α * g / r * ((1 + g) ^ s * Y0))) :
+    currentAccount r B0 C0 (fun s => (1 + g) ^ s * Y0) (fun s => ς * ((1 + g) ^ s * Y0))
+        (fun s => α * g / r * ((1 + g) ^ s * Y0)) =
+      -ϑ * B0 - (g + ϑ) / (r - g) * (1 - α * g / r - ς) * Y0 := by
+  have hr1 : (1 : ℝ) + r ≠ 0 := by linarith
+  have hrg : r - g ≠ 0 := by linarith
+  have hrne : r ≠ 0 := hr.ne'
+  have hnet : (fun s : ℕ => (1 + g) ^ s * Y0 - ς * ((1 + g) ^ s * Y0) -
+      α * g / r * ((1 + g) ^ s * Y0)) = fun s => (1 + g) ^ s * ((1 - α * g / r - ς) * Y0) := by
+    funext s; ring
+  have hW : wealth r B0 (fun s => (1 + g) ^ s * Y0) (fun s => ς * ((1 + g) ^ s * Y0))
+      (fun s => α * g / r * ((1 + g) ^ s * Y0)) =
+      (1 + r) * B0 + (1 + r) / (r - g) * ((1 - α * g / r - ς) * Y0) := by
+    unfold wealth
+    rw [hnet, pv_geometric hg hgr]
+  unfold currentAccount
+  rw [hC, hW]
+  simp only [pow_zero, one_mul]
+  field_simp
+  ring
+
+/-- **The debt–output ratio difference equation**, O&R (2.75), p. 117: if at every date
+`B_{s+1} − B_s = −ϑB_s − ((g + ϑ)/(r − g)) n Y_s` (eq. (2.74) applied at date `s`) and
+`Y_{s+1} = (1 + g)Y_s`, then with `γ = 1 − ϑ`,
+`B_{s+1}/Y_{s+1} = (γ/(1 + g)) B_s/Y_s − ((1 + g − γ)/((1 + g)(r − g))) n`. -/
+theorem debt_ratio_recursion {r g ϑ n : ℝ} (hg : -1 < g) (hgr : g < r) {B Y : ℕ → ℝ}
+    (hY0 : ∀ s, 0 < Y s) (hY : ∀ s, Y (s + 1) = (1 + g) * Y s)
+    (hCA : ∀ s, B (s + 1) - B s = -ϑ * B s - (g + ϑ) / (r - g) * n * Y s) (s : ℕ) :
+    B (s + 1) / Y (s + 1) =
+      (1 - ϑ) / (1 + g) * (B s / Y s) - (1 + g - (1 - ϑ)) / ((1 + g) * (r - g)) * n := by
+  have h1g : (1 : ℝ) + g ≠ 0 := by linarith
+  have hrg : r - g ≠ 0 := by linarith
+  have hYs := (hY0 s).ne'
+  have hB : B (s + 1) = (1 - ϑ) * B s - (g + ϑ) / (r - g) * n * Y s := by linarith [hCA s]
+  rw [hB, hY s]
+  field_simp
+  ring
+
+/-- **The steady-state debt–output ratio**, O&R (2.76), p. 117: `b̄ = −(1 − ς − αg/r)/(r − g)` is a
+fixed point of (2.75), and the only one when `γ ≠ 1 + g`. -/
+theorem steady_debt_ratio {r g γ n b : ℝ} (hg : -1 < g) (hgr : g < r) (hγ : γ ≠ 1 + g) :
+    b = γ / (1 + g) * b - (1 + g - γ) / ((1 + g) * (r - g)) * n ↔ b = -n / (r - g) := by
+  have h1g : (1 : ℝ) + g ≠ 0 := by linarith
+  have hrg : r - g ≠ 0 := by linarith
+  have hγ' : 1 + g - γ ≠ 0 := sub_ne_zero.2 (Ne.symm hγ)
+  constructor
+  · intro h
+    field_simp at h ⊢
+    have : (1 + g - γ) * (b * (r - g) + n) = 0 := by linear_combination h
+    have := (mul_eq_zero.1 this).resolve_left hγ'
+    linarith
+  · intro h
+    rw [h]
+    field_simp
+    ring
+
+/-- **Deviations from the steady state decay geometrically**: if `b` obeys (2.75), then
+`b_s − b̄ = (γ/(1 + g))^s (b₀ − b̄)` (O&R p. 120 and Figure 2.12). -/
+theorem debt_ratio_deviation {r g γ n : ℝ} (hg : -1 < g) (hgr : g < r) {b : ℕ → ℝ}
+    (hb : ∀ s, b (s + 1) = γ / (1 + g) * b s - (1 + g - γ) / ((1 + g) * (r - g)) * n)
+    (s : ℕ) : b s - (-n / (r - g)) = (γ / (1 + g)) ^ s * (b 0 - (-n / (r - g))) := by
+  have h1g : (1 : ℝ) + g ≠ 0 := by linarith
+  have hrg : r - g ≠ 0 := by linarith
+  induction s with
+  | zero => simp
+  | succ s ih =>
+    rw [hb s, pow_succ]
+    have e : γ / (1 + g) * b s - (1 + g - γ) / ((1 + g) * (r - g)) * n - -n / (r - g) =
+        γ / (1 + g) * (b s - -n / (r - g)) := by
+      field_simp
+      ring
+    rw [e, ih]
+    ring
+
+/-- **Stability** (O&R p. 117): if `0 ≤ γ < 1 + g`, the debt–output ratio converges to `b̄` from
+any initial value. -/
+theorem debt_ratio_tendsto {r g γ n : ℝ} (hg : -1 < g) (hgr : g < r) (hγ0 : 0 ≤ γ)
+    (hγ : γ < 1 + g) {b : ℕ → ℝ}
+    (hb : ∀ s, b (s + 1) = γ / (1 + g) * b s - (1 + g - γ) / ((1 + g) * (r - g)) * n) :
+    Tendsto b atTop (𝓝 (-n / (r - g))) := by
+  have h1g : (0 : ℝ) < 1 + g := by linarith
+  have hq0 : 0 ≤ γ / (1 + g) := div_nonneg hγ0 h1g.le
+  have hq1 : γ / (1 + g) < 1 := (div_lt_one h1g).2 hγ
+  have hdev : Tendsto (fun s => (γ / (1 + g)) ^ s * (b 0 - -n / (r - g))) atTop (𝓝 0) := by
+    simpa using (tendsto_pow_atTop_nhds_zero_of_lt_one hq0 hq1).mul_const (b 0 - -n / (r - g))
+  have e : b = fun s => -n / (r - g) + (γ / (1 + g)) ^ s * (b 0 - -n / (r - g)) := by
+    funext s
+    linarith [debt_ratio_deviation hg hgr hb s]
+  rw [e]
+  simpa using tendsto_const_nhds.add hdev
+
+/-- **Instability** (O&R p. 119): if `γ > 1 + g`, any initial ratio other than `b̄` diverges from
+it. -/
+theorem debt_ratio_diverges {r g γ n : ℝ} (hg : -1 < g) (hgr : g < r) (hγ : 1 + g < γ)
+    {b : ℕ → ℝ}
+    (hb : ∀ s, b (s + 1) = γ / (1 + g) * b s - (1 + g - γ) / ((1 + g) * (r - g)) * n)
+    (h0 : b 0 ≠ -n / (r - g)) :
+    Tendsto (fun s => |b s - (-n / (r - g))|) atTop atTop := by
+  have h1g : (0 : ℝ) < 1 + g := by linarith
+  have hq1 : 1 < γ / (1 + g) := (one_lt_div h1g).2 hγ
+  have hd : 0 < |b 0 - -n / (r - g)| := abs_pos.2 (sub_ne_zero.2 h0)
+  have e : (fun s => |b s - (-n / (r - g))|) =
+      fun s => (γ / (1 + g)) ^ s * |b 0 - -n / (r - g)| := by
+    funext s
+    rw [debt_ratio_deviation hg hgr hb s, abs_mul, abs_pow,
+      abs_of_pos (by linarith : (0 : ℝ) < γ / (1 + g))]
+  rw [e]
+  exact (tendsto_pow_atTop_atTop_of_one_lt hq1).atTop_mul_const hd
+
+/-- **Knife edge** (O&R p. 119): if `γ = 1 + g`, the debt–output ratio stays at its initial
+value. -/
+theorem debt_ratio_constant {r g n : ℝ} (hg : -1 < g) {b : ℕ → ℝ}
+    (hb : ∀ s, b (s + 1) = (1 + g) / (1 + g) * b s -
+      (1 + g - (1 + g)) / ((1 + g) * (r - g)) * n) (s : ℕ) : b s = b 0 := by
+  have h1g : (1 : ℝ) + g ≠ 0 := by linarith
+  induction s with
+  | zero => rfl
+  | succ s ih => rw [hb s, div_self h1g, sub_self, zero_div, zero_mul, sub_zero, one_mul, ih]
+
+/-- **Consumption–output ratio**, O&R p. 118: under (2.16) with net output `nY` growing at `g`,
+`C/Y = (r + ϑ)[B/Y + n/(r − g)] = (r + ϑ)(b − b̄)`. -/
+theorem consumption_output_ratio {r g α ς ϑ B0 Y0 C0 : ℝ} (hr : 0 < r) (hg : -1 < g)
+    (hgr : g < r) (hY0 : 0 < Y0)
+    (hC : C0 = (r + ϑ) / (1 + r) *
+      wealth r B0 (fun s => (1 + g) ^ s * Y0) (fun s => ς * ((1 + g) ^ s * Y0))
+        (fun s => α * g / r * ((1 + g) ^ s * Y0))) :
+    C0 / Y0 = (r + ϑ) * (B0 / Y0 - (-(1 - α * g / r - ς) / (r - g))) := by
+  have hr1 : (1 : ℝ) + r ≠ 0 := by linarith
+  have hrg : r - g ≠ 0 := by linarith
+  have hnet : (fun s : ℕ => (1 + g) ^ s * Y0 - ς * ((1 + g) ^ s * Y0) -
+      α * g / r * ((1 + g) ^ s * Y0)) = fun s => (1 + g) ^ s * ((1 - α * g / r - ς) * Y0) := by
+    funext s; ring
+  rw [hC]
+  unfold wealth
+  rw [hnet, pv_geometric hg hgr]
+  have := hY0.ne'
+  field_simp
+  ring
+
+/-- **Debt below `b̄` is infeasible**, O&R p. 119: if `r + ϑ > 0` (i.e. `γ < 1 + r`), an
+asset–output ratio below `b̄` would require negative consumption. -/
+theorem consumption_neg_below_steady {r g α ς ϑ B0 Y0 C0 : ℝ} (hr : 0 < r) (hg : -1 < g)
+    (hgr : g < r) (hY0 : 0 < Y0) (hrϑ : 0 < r + ϑ)
+    (hC : C0 = (r + ϑ) / (1 + r) *
+      wealth r B0 (fun s => (1 + g) ^ s * Y0) (fun s => ς * ((1 + g) ^ s * Y0))
+        (fun s => α * g / r * ((1 + g) ^ s * Y0)))
+    (hbelow : B0 / Y0 < -(1 - α * g / r - ς) / (r - g)) : C0 < 0 := by
+  have h := consumption_output_ratio hr hg hgr hY0 hC
+  have hneg : C0 / Y0 < 0 := by rw [h]; exact mul_neg_of_pos_of_neg hrϑ (by linarith)
+  by_contra hc
+  push Not at hc
+  linarith [div_nonneg hc hY0.le]
+
+/-- The steady-state ratio is minus the present value of net output relative to current output:
+`−b̄ = (1/((1 + r)Y_t)) Σ ((1 + g)/(1 + r))^{s−t} n Y_t = n/(r − g)` (O&R p. 118). -/
+theorem steady_ratio_eq_pv {r g n Y0 : ℝ} (hg : -1 < g) (hgr : g < r) (hY0 : 0 < Y0) :
+    pv r (fun s => (1 + g) ^ s * (n * Y0)) / ((1 + r) * Y0) = n / (r - g) := by
+  rw [pv_geometric hg hgr]
+  have : (1 : ℝ) + r ≠ 0 := by linarith
+  have : r - g ≠ 0 := by linarith
+  have := hY0.ne'
+  field_simp
+
+/-- **The consumption–output ratio vanishes** (O&R p. 118): if consumption grows at gross rate
+`γ < 1 + g`, then `C_s/Y_s → 0`. -/
+theorem consumption_output_tendsto_zero {g γ C0 Y0 : ℝ} (hg : -1 < g) (hγ0 : 0 ≤ γ)
+    (hγ : γ < 1 + g) (hY0 : 0 < Y0) :
+    Tendsto (fun s : ℕ => γ ^ s * C0 / ((1 + g) ^ s * Y0)) atTop (𝓝 0) := by
+  have h1g : (0 : ℝ) < 1 + g := by linarith
+  have hq0 : 0 ≤ γ / (1 + g) := div_nonneg hγ0 h1g.le
+  have hq1 : γ / (1 + g) < 1 := (div_lt_one h1g).2 hγ
+  have e : (fun s : ℕ => γ ^ s * C0 / ((1 + g) ^ s * Y0)) =
+      fun s => (γ / (1 + g)) ^ s * (C0 / Y0) := by
+    funext s
+    rw [div_pow]
+    have := hY0.ne'
+    have : (1 + g) ^ s ≠ 0 := pow_ne_zero _ h1g.ne'
+    field_simp
+  rw [e]
+  simpa using (tendsto_pow_atTop_nhds_zero_of_lt_one hq0 hq1).mul_const (C0 / Y0)
+
+/-! ### The book's numbers (O&R pp. 119–120) -/
+
+/-- **The steady-state debt–output ratio is −15**, O&R p. 119: `r = 0.08`, `g = 0.05`, `α = 0.4`,
+`ς = 0.3`. -/
+theorem numerical_steady_ratio :
+    -(1 - (0.4 : ℝ) * 0.05 / 0.08 - 0.3) / (0.08 - 0.05) = -15 := by norm_num
+
+/-- **The steady-state trade surplus is 45 percent of GDP**, O&R p. 119: `TB/Y = −(r − g) b̄`. -/
+theorem numerical_trade_surplus : -((0.08 : ℝ) - 0.05) * (-15) = 0.45 := by norm_num
+
+/-- In a steady state with a constant asset–output ratio, `CA = gB` and the trade balance is
+`TB = CA − rB = −(r − g)B` (O&R p. 119). -/
+theorem steady_trade_balance {r g B : ℝ} : g * B - r * B = -(r - g) * B := by ring
+
+/-- **The world interest rate**, O&R (2.77), p. 119: if the world is a closed economy growing at
+`g*`, consumption grows at the rate of output, `(1 + r)^σ β^σ = 1 + g*`, so
+`1 + r = (1 + g*)^{1/σ}/β`. -/
+theorem world_interest_rate {r β σ gs : ℝ} (hr : 0 < 1 + r) (hβ : 0 < β) (hσ : 0 < σ)
+    (h : (1 + r) ^ σ * β ^ σ = 1 + gs) :
+    1 + r = (1 + gs) ^ (1 / σ) / β := by
+  rw [← h, ← Real.mul_rpow hr.le hβ.le, ← Real.rpow_mul (mul_pos hr hβ).le,
+    mul_one_div_cancel hσ.ne', Real.rpow_one]
+  field_simp
+
+/-- **World growth `g* = 3.68%`**, O&R p. 119: with `β = 0.96`, `σ = 1` and `r = 0.08`,
+`1 + g* = β(1 + r)`. -/
+theorem numerical_world_growth : (0.96 : ℝ) * (1 + 0.08) - 1 = 0.0368 := by norm_num
+
+/-- **Convergence at the world growth rate**, O&R p. 120: with `γ = 1 + g*`, each period closes the
+fraction `1 − (1 + g*)/(1 + g) = (g − g*)/(1 + g)` of the gap to `b̄`. -/
+theorem fraction_closed {g gs : ℝ} (hg : -1 < g) : 1 - (1 + gs) / (1 + g) = (g - gs) / (1 + g) := by
+  have : (1 : ℝ) + g ≠ 0 := by linarith
+  field_simp
+  ring
+
+/-- **1.26 percent a year**, O&R p. 120: with `g = 0.05` and `g* = 0.0368` the fraction closed each
+year is `0.0132/1.05 ≈ 0.01257`. -/
+theorem numerical_fraction_closed :
+    (0.0125 : ℝ) < (0.05 - 0.0368) / (1 + 0.05) ∧
+      ((0.05 : ℝ) - 0.0368) / (1 + 0.05) < 0.0126 := by
+  constructor
+  · rw [lt_div_iff₀ (by norm_num)]; norm_num
+  · rw [div_lt_iff₀ (by norm_num)]; norm_num
+
+/-- **A half-life of 55 years**, O&R p. 120: after 54 years more than half the gap remains, after 55
+years less than half. -/
+theorem numerical_half_life :
+    (1 / 2 : ℝ) < ((1 + 0.0368) / (1 + 0.05)) ^ 54 ∧
+      ((1 + 0.0368) / (1 + 0.05)) ^ 55 < (1 / 2 : ℝ) := by
+  norm_num
+
+/-! ### Supplement B: endogenous discounting (O&R pp. 722–726) -/
+
+/-- **The Uzawa steady-state condition**, O&R SB(3)–(4), p. 724: if the marginal value of wealth
+obeys `J'(W_t) = β(C_t)(1 + r) J'(W_{t+1})` and wealth is constant with `J'(W̄) ≠ 0`, then
+`β(C̄)(1 + r) = 1`. -/
+theorem uzawa_steady_state {βC r dJ : ℝ} (hdJ : dJ ≠ 0) (h : dJ = βC * (1 + r) * dJ) :
+    βC * (1 + r) = 1 := by
+  have : (βC * (1 + r) - 1) * dJ = 0 := by linarith
+  have := (mul_eq_zero.1 this).resolve_right hdJ
+  linarith
+
+end ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth
+
 set_option linter.style.longLine false
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Economy
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.mk
@@ -4252,6 +7098,154 @@ set_option linter.style.longLine false
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.hasSum_survival_weights
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.uncertain_lifetime_sum
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.ConsumptionFunctions.expected_utility_uncertain_lifetime
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.quadU
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.quadMU
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.hasDerivAt_quadU
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.hall_random_walk
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.hall_martingale
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.hall_condExp_future
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.condExp_budget_step
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.certainty_equivalence
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.certainty_equivalence_quadratic
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.ar1_condExp_step
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.ar1_forecast
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.output_forecast
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.ar1_moving_average
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.hasSum_disc_mul_pow
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.one_add_sub_ne_zero
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.consumption_ar1
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.consumption_innovation_form
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.current_account_ar1
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.current_account_ar1_ae
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.temporary_shock_effects
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.permanent_shock_effects
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.expected_current_account
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.deaton_consumption_response
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.nonstationary_forecast
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.nonstationary_revision
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.revision_weight_closed_form
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.consumption_change_revisions
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.hasSum_revision_weights
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.consumption_innovation_from_revisions
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.consumption_nonstationary
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.consumption_innovation_nonstationary
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.consumption_innovation_nonstationary_ae
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.current_account_nonstationary
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.consumption_more_volatile
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.condCov
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.condExp_mul_eq_add_condCov
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.condCov_const_add
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.risky_capital_return
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.convexOn_of_third_deriv_nonneg
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.crra_third_derivative
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.crra_marginal_utility_convex
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.condExp_marginal_utility_ge
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.mps_raises_expected_marginal_utility
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.precautionary_saving_two_period
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.lognormal_consumption_drift
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.lognormal_random_walk_drift
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.StochasticConsumption.euler_of_bellman
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.one_sub_disc_eq
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.sum_disc_diff_eq
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.campbell_finite_horizon
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.tail_tendsto_zero
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.summable_disc_diff
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.campbell_deterministic
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.campbell_of_tail
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.forecastPermanent
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.campbellPV
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.campbellResidual
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.tsum_lintegral_ne_top
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.ae_summable_of_integral
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.condExp_tsum_of_integral
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.integral_abs_mul_condExp_le
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.summable_integral_diff_forecast
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.summable_integral_diff
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.ae_summable_forecast
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.ae_condExp_diff
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.campbell_eq_43
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.condExp_residual_ae
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.ae_forecast_recursion
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.ae_summable_diff_forecast
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.condExp_residual_eq_zero
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.ae_campbell_iff_noBubble
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.campbell_of_residual
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.campbell_iff_residual
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.residual_orthogonality_insufficient
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.condExp_coarser_info
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.pvChanges
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.forecastSum_ae_eq_condExp
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.campbell_coarser_information
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.tsum_pow_succ_eq_mul_inv
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.summable_pow_of_rowSum_lt_one
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.summable_disc_smul_pow
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.condExp_var_pow
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.condExp_coord
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.var_forecast_sum
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.var_predicted_current_account
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.PresentValueTest.Stochastic.var_null_restriction
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.prevStock
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.userCost
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durableAssets
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durableWealth
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durable_perturbation_feasible
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.hasDerivAt_durable_perturbation
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durable_euler_of_isLocalMax
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.hasDerivAt_bond_perturbation
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.consumption_euler_of_isLocalMax
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.user_cost_of_euler
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.user_cost_of_euler_const
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durableAssets_succ
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durables_ibc_iff
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durableAssets_transversality
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.flat_nondurables
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.nondurables_consumption
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durables_consumption
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.userCost_const
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.price_of_consumption_ratio
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durables_stock_const
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durables_purchases_after_t
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durables_lump_sum
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.currentAccountDurables
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durables_current_account
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.userCost_full_depreciation
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.userCost_tendsto_price
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.Durables.durables_current_account_full_depreciation
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.share_arbitrage_iff
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.dividend_capital_gain_eq
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.wealth_accumulation
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.initial_financial_wealth
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.ibc_iff_transversality
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.share_price_eq_pv_dividends_iff
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.firmDividend
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.firmValue
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.labor_foc
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.capital_foc
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.euler_homogeneous
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.hasDerivAt_capital_partial
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.hasDerivAt_labor_partial
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.dividend_eq_of_foc
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.tendsto_pv_capital_dividends
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.pv_capital_dividends
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.firm_value_sub_capital
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.tendsto_firm_bubble
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.firm_value_eq_capital_iff
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.firm_value_eq_capital
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.financial_wealth_eq_bonds_add_capital
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.ibc_financial_human_wealth
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.ibc_financial_human_wealth_expost
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.consumption_financial_human
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.saving_eq_financial
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.saving_permanent
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.current_account_permanent
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.modigliani_miller
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.modigliani_miller_consumer_wealth
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.iterated_asset_euler
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.tendsto_iterated_asset_euler
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.discounted_marginal_utility
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.utility_bubble_iff
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.bubble_pos_iff_price_gt_pv
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.FirmsAndWealth.price_ge_pv_of_nonneg
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.ScalarSolves
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.SeqBounded
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.LinearDifferenceEquations.scalar_general_solution
@@ -4367,3 +7361,26 @@ set_option linter.style.longLine false
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_step
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_average_q_gap
 #print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TobinQ.ex9_counterexample
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.capital_output
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.investment_share
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.capital_growth
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.current_account_trend
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.debt_ratio_recursion
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.steady_debt_ratio
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.debt_ratio_deviation
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.debt_ratio_tendsto
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.debt_ratio_diverges
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.debt_ratio_constant
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.consumption_output_ratio
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.consumption_neg_below_steady
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.steady_ratio_eq_pv
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.consumption_output_tendsto_zero
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.numerical_steady_ratio
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.numerical_trade_surplus
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.steady_trade_balance
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.world_interest_rate
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.numerical_world_growth
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.fraction_closed
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.numerical_fraction_closed
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.numerical_half_life
+#print axioms ObstfeldRogoff.SmallOpenEconomyDynamics.TrendGrowth.uzawa_steady_state

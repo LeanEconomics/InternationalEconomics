@@ -7,8 +7,13 @@
     "SmallOpenEconomyDynamics/ConsumptionOptimality.lean",
     "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean",
     "SmallOpenEconomyDynamics/ConsumptionFunctions.lean",
+    "SmallOpenEconomyDynamics/StochasticConsumption.lean",
+    "SmallOpenEconomyDynamics/PresentValueTest.lean",
+    "SmallOpenEconomyDynamics/Durables.lean",
+    "SmallOpenEconomyDynamics/FirmsAndWealth.lean",
     "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean",
-    "SmallOpenEconomyDynamics/TobinQ.lean"
+    "SmallOpenEconomyDynamics/TobinQ.lean",
+    "SmallOpenEconomyDynamics/TrendGrowth.lean"
   ],
   "theorem_counts": {
     "SmallOpenEconomyDynamics/Model.lean": 1,
@@ -17,9 +22,14 @@
     "SmallOpenEconomyDynamics/ConsumptionOptimality.lean": 15,
     "SmallOpenEconomyDynamics/FundamentalCurrentAccount.lean": 12,
     "SmallOpenEconomyDynamics/ConsumptionFunctions.lean": 30,
+    "SmallOpenEconomyDynamics/StochasticConsumption.lean": 44,
+    "SmallOpenEconomyDynamics/PresentValueTest.lean": 35,
+    "SmallOpenEconomyDynamics/Durables.lean": 22,
+    "SmallOpenEconomyDynamics/FirmsAndWealth.lean": 33,
     "SmallOpenEconomyDynamics/LinearDifferenceEquations.lean": 56,
-    "SmallOpenEconomyDynamics/TobinQ.lean": 45
+    "SmallOpenEconomyDynamics/TobinQ.lean": 45,
+    "SmallOpenEconomyDynamics/TrendGrowth.lean": 23
   },
-  "scope": "Obstfeld and Rogoff (1996), Chapter 2 and Supplements A-C: dynamics of small open economies. Phase 2a (deterministic core): present values and discounted telescoping; the period budget constraints plus transversality are equivalent to the intertemporal budget constraint, no-Ponzi, solvency and debt limits; sufficiency and necessity of the Euler equation, binding budget, tilt, dynamic consistency, Strotz; finite and infinite-horizon consumption functions, CRRA optimality and non-existence, the CRRA Bellman fixed point, endogenous labour; the fundamental current-account equation in flat, tilted and variable-rate forms; Tobin's q with the corrected forward solution, saddle-path theorem and marginal = average q; linear difference equations (Supplement C); Exercises 1, 2 and 9.",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 2 and Supplements A-C: dynamics of small open economies. present values and discounted telescoping; the period budget constraints plus transversality are equivalent to the intertemporal budget constraint, no-Ponzi, solvency and debt limits; sufficiency and necessity of the Euler equation, binding budget, tilt, dynamic consistency, Strotz; finite and infinite-horizon consumption functions, CRRA optimality and non-existence, the CRRA Bellman fixed point, endogenous labour; the fundamental current-account equation in flat, tilted and variable-rate forms; Tobin's q with the corrected forward solution, saddle-path theorem and marginal = average q; linear difference equations (Supplement C); Exercises 1, 2 and 9; the stochastic model (Hall martingale, certainty equivalence, AR(1) and nonstationary output, risky capital, precautionary saving), the Campbell present-value test with the corrected Ex 5 and the VAR forecast (2.45), durables and the user cost, firms, share prices and V = K, Modigliani-Miller, bubbles (Appendix 2B), trend growth and the debt-output ratio (Appendix 2A) with the book's numbers, and Supplement B's steady-state condition; Exercises 1-6 and 9.",
   "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 2, pp. 59-128, and Supplements to Chapter 2, pp. 715-741."
 }

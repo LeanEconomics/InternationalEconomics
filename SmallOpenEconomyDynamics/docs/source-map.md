@@ -8,9 +8,11 @@ for the supplements); page numbers are book pages. Lean names are relative to
 the Lean statements. Where a statement adds a hypothesis the book leaves
 implicit or departs from the printed claim, see [corrections](corrections.md).
 
-Phase 2a covers the deterministic core. The stochastic model (§2.3), the
-present-value test, durables, firms and asset pricing (§2.4–2.5 except Tobin's
-q), and Appendices 2A–2B are phase 2b.
+The whole chapter is covered: the deterministic core (phase 2a) and the
+stochastic model, durables, firms and the appendices (phase 2b). Probability
+uses Mathlib's conditional expectation `μ[X|ℱ t]` with respect to a filtration;
+the book's Euler equations under uncertainty (2.28)–(2.29) enter as hypotheses
+in conditional-expectation form.
 
 ## §2.1 A small economy with many periods (pp. 60–73)
 
@@ -69,6 +71,82 @@ q), and Appendices 2A–2B are phase 2b.
 | p. 113 | Rate-of-return form of (2.64) | `TobinQ.rate_of_return_form` |
 | App. 2B.2, p. 124 | Bubble identity: `q_t − PV = lim (1 + r)^{−T} q_{t+T}` | `TobinQ.bubble_identity`, `TobinQ.bubble_overvalues` |
 
+## §2.3 A stochastic current account model (pp. 79–96)
+
+| Book | Claim | Lean |
+| --- | --- | --- |
+| (2.30)–(2.31), p. 81; fn 18 | **Hall**: quadratic utility and `(1 + r)β = 1` make consumption a martingale; `E_t C_s = C_t` | `StochasticConsumption.quadU`, `hasDerivAt_quadU`, `hall_random_walk`, `hall_martingale`, `hall_condExp_future` |
+| (2.32), p. 81 | Certainty-equivalent consumption, from the expected budget recursion and named limit hypotheses | `StochasticConsumption.condExp_budget_step`, `certainty_equivalence`, `certainty_equivalence_quadratic` |
+| (2.33)–(2.34), p. 82 | AR(1) output forecasts `E_t(Y_{t+k} − Ȳ) = ρ^k(Y_t − Ȳ)` | `StochasticConsumption.ar1_condExp_step`, `ar1_forecast`, `output_forecast` |
+| (2.36), p. 83 | Moving-average form (finite horizon) | `StochasticConsumption.ar1_moving_average` |
+| (2.35), (2.37), p. 83 | Consumption and the current account under AR(1) output, for `|ρ| < 1 + r` | `StochasticConsumption.hasSum_disc_mul_pow`, `consumption_ar1`, `consumption_innovation_form`, `current_account_ar1`, `current_account_ar1_ae` |
+| pp. 83–84 | Temporary shocks raise the current account, permanent ones do not; the predictable component | `StochasticConsumption.temporary_shock_effects`, `permanent_shock_effects`, `expected_current_account` |
+| p. 85 | Deaton's numbers: a consumption response of 0.5 | `StochasticConsumption.deaton_consumption_response` |
+| (2.38), p. 84 | Nonstationary output: forecasts, consumption, current-account deficit after a positive innovation | `StochasticConsumption.nonstationary_forecast`, `nonstationary_revision`, `consumption_nonstationary`, `current_account_nonstationary`, `consumption_more_volatile` |
+| (2.40), p. 86; fn 23 | Risky capital: `E_t[AF'] = r − Cov_t(AF', u'(C_{t+1})/u'(C_t))` | `StochasticConsumption.condCov`, `condExp_mul_eq_add_condCov`, `condCov_const_add`, `risky_capital_return` |
+| pp. 94–95; fn 32 | Precautionary saving: `u''' ≥ 0` makes `u'` convex; Jensen; a mean-preserving spread lowers current consumption; CRRA has `u''' > 0` | `StochasticConsumption.convexOn_of_third_deriv_nonneg`, `condExp_marginal_utility_ge`, `mps_raises_expected_marginal_utility`, `precautionary_saving_two_period`, `crra_third_derivative`, `crra_marginal_utility_convex` |
+| SA.3, p. 722 | First-order and envelope conditions give the stochastic Euler equation | `StochasticConsumption.euler_of_bellman` |
+### §2.3.5 The present-value test of the current account (pp. 90–93)
+
+| Book | Claim | Lean |
+| --- | --- | --- |
+| (2.42), p. 90 | `CA_t = Z_t − E_t Z̃_t` with `Z = Y − I − G` | `PresentValueTest.Stochastic.forecastPermanent`, `PresentValueTest.one_sub_disc_eq` |
+| (2.43), p. 90 | Summation by parts: deterministic finite, infinite and tail-only forms | `PresentValueTest.sum_disc_diff_eq`, `campbell_finite_horizon`, `tail_tendsto_zero`, `summable_disc_diff`, `campbell_deterministic`, `campbell_of_tail` |
+| (2.43), p. 90 | **Campbell**: `CA_t = −Σ_{s>t} (1 + r)^{−(s−t)} E_t ΔZ_s`, with the expectation–sum interchange proved | `PresentValueTest.Stochastic.campbellPV`, `condExp_tsum_of_integral`, `ae_condExp_diff`, `campbell_eq_43` |
+| fn 28, p. 91 | Matrix geometric series | `PresentValueTest.Stochastic.tsum_pow_succ_eq_mul_inv`, `summable_pow_of_rowSum_lt_one`, `summable_disc_smul_pow` |
+| (2.45), p. 91 | VAR-predicted current account; the tested restriction | `PresentValueTest.Stochastic.condExp_var_pow`, `condExp_coord`, `var_forecast_sum`, `var_predicted_current_account`, `var_null_restriction` |
+| fn 29, p. 92 | (2.43) holds on any coarser information set for which `CA_t` is known | `PresentValueTest.Stochastic.condExp_coarser_info`, `forecastSum_ae_eq_condExp`, `campbell_coarser_information` |
+
+## §2.4 Consumer durables and the current account (pp. 96–99)
+
+| Book | Claim | Lean |
+| --- | --- | --- |
+| p. 97 | Euler equations for durables and bonds, from one-period perturbations | `Durables.durable_perturbation_feasible`, `hasDerivAt_durable_perturbation`, `durable_euler_of_isLocalMax`, `hasDerivAt_bond_perturbation`, `consumption_euler_of_isLocalMax` |
+| (2.47), p. 97 | User cost `ι_s = p_s − (1 − δ)p_{s+1}/(1 + r_{s+1})` | `Durables.userCost`, `user_cost_of_euler`, `user_cost_of_euler_const` |
+| (2.48), p. 97 | Durables intertemporal budget constraint ⇔ transversality | `Durables.durableAssets`, `durableAssets_succ`, `durables_ibc_iff`, `durableAssets_transversality` |
+| (2.49)–(2.50), p. 98 | Consumption of nondurables and durables; `ι = p(r + δ)/(1 + r)` | `Durables.flat_nondurables`, `nondurables_consumption`, `durables_consumption`, `userCost_const`, `price_of_consumption_ratio` |
+| p. 98 | With constant `p`, the durables stock is constant and later purchases are replacement only (zero if `δ = 0`) | `Durables.durables_stock_const`, `durables_purchases_after_t`, `durables_lump_sum` |
+| (2.51), p. 99 | Modified fundamental equation; `ι → p` as `δ → 1` | `Durables.durables_current_account`, `userCost_full_depreciation`, `userCost_tendsto_price`, `durables_current_account_full_depreciation` |
+
+## §2.5.1 Firms, the labour market and investment (pp. 99–105)
+
+| Book | Claim | Lean |
+| --- | --- | --- |
+| (2.53)–(2.54), p. 101 | Share arbitrage `1 + r = (d + V')/V` | `FirmsAndWealth.share_arbitrage_iff`, `dividend_capital_gain_eq` |
+| p. 101; (2.55) | Financial wealth accumulation; the budget constraint ⇔ transversality on `Q` | `FirmsAndWealth.wealth_accumulation`, `initial_financial_wealth`, `ibc_iff_transversality` |
+| (2.56)–(2.57), p. 102 | Share price = PV of dividends ⇔ no bubble | `FirmsAndWealth.share_price_eq_pv_dividends_iff` |
+| (2.58), p. 103 | Firm first-order conditions `AF_L = w`, `AF_K = r`; Euler's theorem | `FirmsAndWealth.labor_foc`, `capital_foc`, `euler_homogeneous`, `hasDerivAt_capital_partial`, `hasDerivAt_labor_partial` |
+| (2.59), p. 104 | **Firm value equals the capital stock**; any gap grows at rate `r` | `FirmsAndWealth.firmDividend`, `dividend_eq_of_foc`, `tendsto_pv_capital_dividends`, `pv_capital_dividends`, `firm_value_sub_capital`, `firm_value_eq_capital_iff`, `firm_value_eq_capital` |
+| (2.60)–(2.61), p. 104 | `Q = B + K`; consumption out of financial and human wealth | `FirmsAndWealth.financial_wealth_eq_bonds_add_capital`, `ibc_financial_human_wealth`, `ibc_financial_human_wealth_expost`, `consumption_financial_human` |
+| pp. 104–105 | Saving and the current account in permanent-value form | `FirmsAndWealth.saving_eq_financial`, `saving_permanent`, `current_account_permanent` |
+| fn 36, p. 102 | Modigliani–Miller | `FirmsAndWealth.modigliani_miller`, `modigliani_miller_consumer_wealth` |
+
+## Appendix 2A Trend productivity growth (pp. 116–120)
+
+| Book | Claim | Lean |
+| --- | --- | --- |
+| pp. 116–117 | `K/Y = α/r`; capital grows at `g`; `I = (αg/r)Y` | `TrendGrowth.capital_output`, `capital_growth`, `investment_share` |
+| (2.74), p. 117 | The current account with trend growth | `TrendGrowth.current_account_trend` |
+| (2.75)–(2.76), p. 117 | Debt–output recursion and its steady state `b̄ = −(1 − ς − αg/r)/(r − g)` | `TrendGrowth.debt_ratio_recursion`, `steady_debt_ratio`, `debt_ratio_deviation` |
+| pp. 117–119, Fig. 2.12 | Convergence if `γ < 1 + g`, divergence if `γ > 1 + g`, constancy at the knife edge | `TrendGrowth.debt_ratio_tendsto`, `debt_ratio_diverges`, `debt_ratio_constant` |
+| pp. 118–119 | `C/Y = (r + ϑ)(b − b̄)`: debt beyond `−b̄` needs negative consumption; `C/Y → 0`; `−b̄` is the PV of net output | `TrendGrowth.consumption_output_ratio`, `consumption_neg_below_steady`, `consumption_output_tendsto_zero`, `steady_ratio_eq_pv` |
+| p. 119 | `b̄ = −15`, trade surplus 45% of GDP | `TrendGrowth.numerical_steady_ratio`, `numerical_trade_surplus`, `steady_trade_balance` |
+| (2.77), pp. 119–120 | `1 + r = (1 + g*)^{1/σ}/β`; `g* = 3.68%`; 1.26% of the gap closed a year; half-life 55 years | `TrendGrowth.world_interest_rate`, `numerical_world_growth`, `fraction_closed`, `numerical_fraction_closed`, `numerical_half_life` |
+
+## Appendix 2B Bubbles, Ponzi games and transversality (pp. 121–124)
+
+| Book | Claim | Lean |
+| --- | --- | --- |
+| (2.78), p. 122 | Iterated asset Euler equation | `FirmsAndWealth.iterated_asset_euler`, `tendsto_iterated_asset_euler` |
+| p. 123 | `β^T u'(C_T) = u'(C_0)(1 + r)^{−T}`; the limit condition ⇔ (2.57) | `FirmsAndWealth.discounted_marginal_utility`, `utility_bubble_iff` |
+| p. 123; fn 54 | A positive limit ⇔ price above fundamentals; nonnegative prices rule out a negative one | `FirmsAndWealth.bubble_pos_iff_price_gt_pv`, `price_ge_pv_of_nonneg` |
+
+## Supplement B Intertemporally nonadditive preferences (pp. 722–726)
+
+| Book | Claim | Lean |
+| --- | --- | --- |
+| SB(3)–(4), p. 724 | A steady state requires `β(C̄)(1 + r) = 1` | `TrendGrowth.uzawa_steady_state` |
+
 ## Supplement C: linear difference equations (pp. 726–741)
 
 | Book | Claim | Lean |
@@ -93,6 +171,10 @@ q), and Appendices 2A–2B are phase 2b.
 | Ex 1(a) | `B_{s+1} = [1 + (1 − ξ)r]B_s` | `BudgetConstraint.ex1_recursion`, `BudgetConstraint.ex1_path` |
 | Ex 1(b) | The budget constraint holds, **for `0 < ξ < 2 + 2/r` only** | `BudgetConstraint.ex1_discounted_tb`, `ex1_ibc`, `ex1_transversality`, `ex1_not_summable` |
 | Ex 1(c) | The budget constraint holds yet consumption eventually turns negative | `BudgetConstraint.ex1_consumption`, `ex1_debt_unbounded`, `ex1_eventually_infeasible` |
+| Ex 3 | Lognormal consumption: the drift is `v_t/(2σ)`, constant only with constant conditional variance | `StochasticConsumption.lognormal_consumption_drift`, `lognormal_random_walk_drift` |
+| Ex 4 | Nonstationary output: revisions, `ΔC = (1 + r)ε/(1 + r − ρ)`, current-account response `−ρ/(1 + r − ρ)` | `StochasticConsumption.nonstationary_revision`, `revision_weight_closed_form`, `consumption_change_revisions`, `hasSum_revision_weights`, `consumption_innovation_from_revisions`, `consumption_innovation_nonstationary`, `consumption_innovation_nonstationary_ae`, `current_account_nonstationary` |
+| Ex 5 | Campbell test: residual orthogonality **plus a no-bubble condition** ⇔ (2.43); orthogonality alone is not enough | `PresentValueTest.Stochastic.campbellResidual`, `condExp_residual_eq_zero`, `campbell_of_residual`, `campbell_iff_residual`, `residual_orthogonality_insufficient` |
+| Ex 6 | Derive (2.43) from `CA_t = Z_t − E_t Z̃_t` | `PresentValueTest.Stochastic.campbell_eq_43`, `PresentValueTest.campbell_deterministic` |
 | Ex 9(a)–(c) | Simplified q model: first-order conditions; steady state independent of `χ` | `TobinQ.ex9_hasDerivAt_investment`, `ex9_hasDerivAt_capital`, `ex9_system`, `ex9_steady_state_iff` |
 | Ex 9(f) | Marginal q ≠ average q when the cost is not homogeneous of degree one | `TobinQ.text_cost_homogeneous`, `ex9_cost_not_homogeneous`, `ex9_step`, `ex9_average_q_gap`, `ex9_counterexample` |
 | Ex 2 | Uncertain lifetimes: survival probability `φ` multiplies the discount factor | `ConsumptionFunctions.hasSum_survival_weights`, `uncertain_lifetime_sum`, `expected_utility_uncertain_lifetime` |
