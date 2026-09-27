@@ -1,11 +1,39 @@
 {
   "library": "RealExchangeRate",
   "modules": [
-    "RealExchangeRate/Model.lean"
+    "RealExchangeRate/Model.lean",
+    "RealExchangeRate/PriceLevels.lean",
+    "RealExchangeRate/CRSProduction.lean",
+    "RealExchangeRate/BalassaSamuelson.lean",
+    "RealExchangeRate/BSExtensions.lean",
+    "RealExchangeRate/LongRunGDPGNP.lean",
+    "RealExchangeRate/ManufacturingEmployment.lean",
+    "RealExchangeRate/CESIndex.lean",
+    "RealExchangeRate/ConsumptionDynamics.lean",
+    "RealExchangeRate/EndogenousLabour.lean",
+    "RealExchangeRate/CostlyCapital.lean",
+    "RealExchangeRate/DFSStatic.lean",
+    "RealExchangeRate/DFSCurrentAccount.lean",
+    "RealExchangeRate/DFSTransportCosts.lean",
+    "RealExchangeRate/DFSPriceIndex.lean"
   ],
   "theorem_counts": {
-    "RealExchangeRate/Model.lean": 2
+    "RealExchangeRate/Model.lean": 2,
+    "RealExchangeRate/PriceLevels.lean": 6,
+    "RealExchangeRate/CRSProduction.lean": 33,
+    "RealExchangeRate/BalassaSamuelson.lean": 36,
+    "RealExchangeRate/BSExtensions.lean": 23,
+    "RealExchangeRate/LongRunGDPGNP.lean": 9,
+    "RealExchangeRate/ManufacturingEmployment.lean": 7,
+    "RealExchangeRate/CESIndex.lean": 25,
+    "RealExchangeRate/ConsumptionDynamics.lean": 34,
+    "RealExchangeRate/EndogenousLabour.lean": 6,
+    "RealExchangeRate/CostlyCapital.lean": 13,
+    "RealExchangeRate/DFSStatic.lean": 22,
+    "RealExchangeRate/DFSCurrentAccount.lean": 31,
+    "RealExchangeRate/DFSTransportCosts.lean": 26,
+    "RealExchangeRate/DFSPriceIndex.lean": 8
   },
-  "scope": "Obstfeld and Rogoff (1996), Chapter 4: the real exchange rate and the terms of trade. Scaffold: the Cobb-Douglas price index over traded and nontraded goods.",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 4: the real exchange rate and the terms of trade. Price levels, PPP and the law of one price; CRS production and the factor-price frontier; the Balassa-Samuelson model with exact log-derivative results and corrected sign claims; extensions (three factors, immobile capital); the long-run GDP and GNP lines; productivity growth and nontradables employment; the CES price index with duality and Cobb-Douglas limits; consumption dynamics with the consumption-based real interest rate; endogenous labour supply (Appendix 4A); costly capital mobility with a saddle-point theorem (Appendix 4B); the Dornbusch-Fischer-Samuelson continuum model: cutoff existence, comparative statics, real wages, current-account dynamics, transport costs and the price index. Exercises 1-8.",
   "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 4, pp. 199-268."
 }
