@@ -1,0 +1,112 @@
+{
+  "checked_at_utc": "2026-09-27T20:38:35.119502+00:00",
+  "theorems": 2,
+  "module_theorems": {
+    "RealExchangeRate/Model.lean": 2
+  },
+  "audited_declarations": 8,
+  "declarations": [
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex",
+      "kind": "structure",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.mk",
+      "kind": "constructor",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3",
+      "kind": "projection",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3_pos",
+      "kind": "projection",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3_lt_one",
+      "kind": "projection",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price",
+      "kind": "def",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price_homogeneous",
+      "kind": "theorem",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price_numeraire",
+      "kind": "theorem",
+      "module": "RealExchangeRate/Model.lean"
+    }
+  ],
+  "full_build": "passed",
+  "fresh_source_compilation": "passed",
+  "fresh_source_lint_options": [
+    "-Dlinter.mathlibStandardSet=true",
+    "-Dlinter.style.header=false"
+  ],
+  "axioms": {
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3_lt_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price_homogeneous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price_numeraire": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "RealExchangeRate/Model.lean": "072c8e322e97c7d51a80d26d39ec8a81741d84f2112d4819241f8b2f2edf13db",
+    "RealExchangeRate.lean": "1e51f9477811847ec5c467fc0ace2b03f91007a29d681b9c9c0a122313bfd34d",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "lakefile.toml": "d3ea7f0442ba9c242882a53e3eb4542b79611de014ba1343667a1453ee2ae6d4",
+    "lake-manifest.json": "41f9b93713ddc357dcf642b42466fafc537f4251ef4412bde035e322e94ae600",
+    "proof-manifest.json": "15ee0b1ed5e48c7c58bd0f16a1be66e5228fa9030cbbbc4fc1657f59b5e31e40",
+    "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "fresh_audit_sha256": "aa98080c3ee0493de26acad4968646e0f7bdf9c1fa307b2d8a6803acc5fe13d3",
+  "lean_toolchain": "leanprover/lean4:v4.34.0",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 4: the real exchange rate and the terms of trade. Scaffold: the Cobb-Douglas price index over traded and nontraded goods.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 4, pp. 199-268."
+}

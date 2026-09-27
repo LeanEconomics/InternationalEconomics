@@ -1,0 +1,11 @@
+{
+  "library": "InternationalFinancialMarkets",
+  "modules": [
+    "InternationalFinancialMarkets/Model.lean"
+  ],
+  "theorem_counts": {
+    "InternationalFinancialMarkets/Model.lean": 2
+  },
+  "scope": "Obstfeld and Rogoff (1996), Chapter 5: uncertainty and international financial markets. Scaffold: a finite state space with probabilities and expectations.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 5, pp. 269-348, and the Supplement to Chapter 5, pp. 742-744."
+}

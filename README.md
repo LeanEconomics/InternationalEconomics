@@ -10,6 +10,8 @@ source map to the book's equations and pages, and reproducible proof checks.
 | [IntertemporalTrade](IntertemporalTrade/README.md) | 1. Intertemporal Trade and the Current Account Balance | 272 theorems: gains from trade and the trade pattern by revealed preference, world equilibrium existence and efficiency, Fisher separation, the optimal tax on borrowing, labour mobility, Marshall–Lerner | [Chapter overview](IntertemporalTrade/README.md) |
 | [SmallOpenEconomyDynamics](SmallOpenEconomyDynamics/README.md) | 2. Dynamics of Small Open Economies, with Supplements A–C | 379 theorems: transversality ⇔ intertemporal budget constraint, Euler sufficiency and necessity, the fundamental current-account equation, Hall's martingale, Campbell's present-value test, Tobin's q saddle path, firm value = capital, trend growth and the debt–output ratio | [Chapter overview](SmallOpenEconomyDynamics/README.md) |
 | [LifeCycleFiscalPolicy](LifeCycleFiscalPolicy/README.md) | 3. The Life Cycle, Tax Policy, and the Current Account | 288 theorems: Ricardian equivalence and its failure, Barro altruism, the debt-financed transfer, the small open Diamond economy, global stability of the two-country OLG model, Weil's perpetual youth, dynamic inefficiency, tax smoothing | [Chapter overview](LifeCycleFiscalPolicy/README.md) |
+| [RealExchangeRate](RealExchangeRate/README.md) | 4. The Real Exchange Rate and the Terms of Trade | in progress | [Chapter overview](RealExchangeRate/README.md) |
+| [InternationalFinancialMarkets](InternationalFinancialMarkets/README.md) | 5. Uncertainty and International Financial Markets | in progress | [Chapter overview](InternationalFinancialMarkets/README.md) |
 
 ## Scope
 

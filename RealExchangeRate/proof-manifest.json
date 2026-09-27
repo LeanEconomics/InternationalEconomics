@@ -1,0 +1,11 @@
+{
+  "library": "RealExchangeRate",
+  "modules": [
+    "RealExchangeRate/Model.lean"
+  ],
+  "theorem_counts": {
+    "RealExchangeRate/Model.lean": 2
+  },
+  "scope": "Obstfeld and Rogoff (1996), Chapter 4: the real exchange rate and the terms of trade. Scaffold: the Cobb-Douglas price index over traded and nontraded goods.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 4, pp. 199-268."
+}

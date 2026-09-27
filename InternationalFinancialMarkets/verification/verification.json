@@ -1,0 +1,112 @@
+{
+  "checked_at_utc": "2026-09-27T20:38:38.961694+00:00",
+  "theorems": 2,
+  "module_theorems": {
+    "InternationalFinancialMarkets/Model.lean": 2
+  },
+  "audited_declarations": 8,
+  "declarations": [
+    {
+      "name": "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace",
+      "kind": "structure",
+      "module": "InternationalFinancialMarkets/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.mk",
+      "kind": "constructor",
+      "module": "InternationalFinancialMarkets/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.prob",
+      "kind": "projection",
+      "module": "InternationalFinancialMarkets/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.prob_nonneg",
+      "kind": "projection",
+      "module": "InternationalFinancialMarkets/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.prob_sum",
+      "kind": "projection",
+      "module": "InternationalFinancialMarkets/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.expect",
+      "kind": "def",
+      "module": "InternationalFinancialMarkets/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.expect_const",
+      "kind": "theorem",
+      "module": "InternationalFinancialMarkets/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.expect_add",
+      "kind": "theorem",
+      "module": "InternationalFinancialMarkets/Model.lean"
+    }
+  ],
+  "full_build": "passed",
+  "fresh_source_compilation": "passed",
+  "fresh_source_lint_options": [
+    "-Dlinter.mathlibStandardSet=true",
+    "-Dlinter.style.header=false"
+  ],
+  "axioms": {
+    "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.prob": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.prob_nonneg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.prob_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.expect": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.expect_const": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.InternationalFinancialMarkets.StateSpace.expect_add": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "InternationalFinancialMarkets/Model.lean": "d8ec755c0b5ff3af72b553e76621c7941eb9c7dce44b202b868b2bc56536b13e",
+    "InternationalFinancialMarkets.lean": "ad594da403a1ed0ece405a854b21e074aa604243a7ffc415d42e1e7244f09169",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "lakefile.toml": "7a2c0168af782f5808b58aaa9a1931c7b74bb89a3909e713221a5f7121672d1a",
+    "lake-manifest.json": "4895c3283e0b221e74ed3b8a940c63351a03169a62146c7bd5a95ed77bc0e9a5",
+    "proof-manifest.json": "640736194a3f86fab6c5ec19e24f3073b09c589b371aaf1864c06fb3bd19ff48",
+    "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "fresh_audit_sha256": "71bab77b8b0bec6d5a748b26836dd3bec4871d90668ff96e2055ad0be13211f5",
+  "lean_toolchain": "leanprover/lean4:v4.34.0",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 5: uncertainty and international financial markets. Scaffold: a finite state space with probabilities and expectations.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 5, pp. 269-348, and the Supplement to Chapter 5, pp. 742-744."
+}
