@@ -1,0 +1,142 @@
+{
+  "checked_at_utc": "2026-09-27T06:39:58.443240+00:00",
+  "theorems": 2,
+  "module_theorems": {
+    "IntertemporalTrade/Model.lean": 2
+  },
+  "audited_declarations": 11,
+  "declarations": [
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Economy",
+      "kind": "structure",
+      "module": "IntertemporalTrade/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Economy.mk",
+      "kind": "constructor",
+      "module": "IntertemporalTrade/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Economy.r",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Economy.Y1",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Economy.Y2",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Economy.one_add_r_pos",
+      "kind": "projection",
+      "module": "IntertemporalTrade/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Economy.Budget",
+      "kind": "def",
+      "module": "IntertemporalTrade/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Economy.ca1",
+      "kind": "def",
+      "module": "IntertemporalTrade/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Economy.ca2",
+      "kind": "def",
+      "module": "IntertemporalTrade/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Economy.budget_iff",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.IntertemporalTrade.Economy.ca1_add_ca2",
+      "kind": "theorem",
+      "module": "IntertemporalTrade/Model.lean"
+    }
+  ],
+  "full_build": "passed",
+  "fresh_source_compilation": "passed",
+  "fresh_source_lint_options": [
+    "-Dlinter.mathlibStandardSet=true",
+    "-Dlinter.style.header=false"
+  ],
+  "axioms": {
+    "ObstfeldRogoff.IntertemporalTrade.Economy": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Economy.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Economy.r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Economy.Y1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Economy.Y2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Economy.one_add_r_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Economy.Budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Economy.ca1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Economy.ca2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Economy.budget_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.IntertemporalTrade.Economy.ca1_add_ca2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "IntertemporalTrade/Model.lean": "16b4e897c6b517a264f76b569029bcef299be373f68fa721b90d6a376997366b",
+    "IntertemporalTrade.lean": "5f6b0be1692638649bc67250cb5f675da0812f8d370705e7a9c6fa3de274d198",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "lakefile.toml": "bd0f845eaa77095d765cefc395f7e083f51caf9cefc5cdeb7d95e576cb65ef1f",
+    "lake-manifest.json": "f05f09426146790c0fb5d98293cd45bae68f0d25ca0342d98de866f28b179e14",
+    "proof-manifest.json": "80c8114205f16bfe795e65d7db5fe53acb58b7ea34f1ff2669487c3188164147",
+    "scripts/verify.py": "f652c465ee7e08a89b7367246e0954f242d2b4b9d873ad704df05e0d36db6353",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "fresh_audit_sha256": "23b7a1a31ce0bc34bd6caa38de82e42ef77498ab25451d83b281ca770cf12e62",
+  "lean_toolchain": "leanprover/lean4:v4.34.0",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 1: intertemporal trade and the current account balance. Phase 0 scaffold: the two-period small open endowment economy, its budget constraint, and the two-period current-account identity.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 1, pp. 1-58."
+}

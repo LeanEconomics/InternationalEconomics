@@ -1,0 +1,132 @@
+{
+  "checked_at_utc": "2026-09-27T06:40:05.062200+00:00",
+  "theorems": 2,
+  "module_theorems": {
+    "LifeCycleFiscalPolicy/Model.lean": 2
+  },
+  "audited_declarations": 10,
+  "declarations": [
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG",
+      "kind": "structure",
+      "module": "LifeCycleFiscalPolicy/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.mk",
+      "kind": "constructor",
+      "module": "LifeCycleFiscalPolicy/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.\u03b2",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.r",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.\u03b2_pos",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.one_add_r_pos",
+      "kind": "projection",
+      "module": "LifeCycleFiscalPolicy/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.youngC",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.oldC",
+      "kind": "def",
+      "module": "LifeCycleFiscalPolicy/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.budget",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.euler",
+      "kind": "theorem",
+      "module": "LifeCycleFiscalPolicy/Model.lean"
+    }
+  ],
+  "full_build": "passed",
+  "fresh_source_compilation": "passed",
+  "fresh_source_lint_options": [
+    "-Dlinter.mathlibStandardSet=true",
+    "-Dlinter.style.header=false"
+  ],
+  "axioms": {
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.\u03b2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.\u03b2_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.one_add_r_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.youngC": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.oldC": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.LifeCycleFiscalPolicy.LogOLG.euler": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "LifeCycleFiscalPolicy/Model.lean": "8a466f413db85e62f938de89b890b55f1f055127816bda77a029406cfdc4c6cc",
+    "LifeCycleFiscalPolicy.lean": "5785657ddc507596a1b7e097d74e6a498a00847711a572812becb9e30ded8334",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "lakefile.toml": "d3d5153df01461dd3016ad81505a6f33831abd1e7e9b3b6c917b36664ebab1ed",
+    "lake-manifest.json": "79fe6e8024b23ebea6c91618735d42735913dc21938187839c3709297b634ddc",
+    "proof-manifest.json": "1a07476990f2d44429cd6a35b796bdc69d24b1acfe63747bb281e7508e2bdb68",
+    "scripts/verify.py": "f652c465ee7e08a89b7367246e0954f242d2b4b9d873ad704df05e0d36db6353",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "fresh_audit_sha256": "0874d3408f05d21377de067f3f89d21ae87bfa14970951b34807c913d9f9cb3e",
+  "lean_toolchain": "leanprover/lean4:v4.34.0",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 3: the life cycle, tax policy, and the current account. Phase 0 scaffold: the two-period log-utility OLG household, its consumption demands, budget exhaustion and Euler equation.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 3, pp. 129-197."
+}

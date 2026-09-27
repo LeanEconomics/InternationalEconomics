@@ -1,0 +1,11 @@
+{
+  "library": "LifeCycleFiscalPolicy",
+  "modules": [
+    "LifeCycleFiscalPolicy/Model.lean"
+  ],
+  "theorem_counts": {
+    "LifeCycleFiscalPolicy/Model.lean": 2
+  },
+  "scope": "Obstfeld and Rogoff (1996), Chapter 3: the life cycle, tax policy, and the current account. Phase 0 scaffold: the two-period log-utility OLG household, its consumption demands, budget exhaustion and Euler equation.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 3, pp. 129-197."
+}

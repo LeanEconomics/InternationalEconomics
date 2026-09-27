@@ -1,0 +1,172 @@
+{
+  "checked_at_utc": "2026-09-27T06:40:01.833561+00:00",
+  "theorems": 1,
+  "module_theorems": {
+    "SmallOpenEconomyDynamics/Model.lean": 1
+  },
+  "audited_declarations": 14,
+  "declarations": [
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy",
+      "kind": "structure",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.mk",
+      "kind": "constructor",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.r",
+      "kind": "projection",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.r_pos",
+      "kind": "projection",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths",
+      "kind": "structure",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.mk",
+      "kind": "constructor",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.B",
+      "kind": "projection",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.Y",
+      "kind": "projection",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.C",
+      "kind": "projection",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.G",
+      "kind": "projection",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.I",
+      "kind": "projection",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.ca",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.Flow",
+      "kind": "def",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.flow_iff",
+      "kind": "theorem",
+      "module": "SmallOpenEconomyDynamics/Model.lean"
+    }
+  ],
+  "full_build": "passed",
+  "fresh_source_compilation": "passed",
+  "fresh_source_lint_options": [
+    "-Dlinter.mathlibStandardSet=true",
+    "-Dlinter.style.header=false"
+  ],
+  "axioms": {
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.r_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.B": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.Y": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.C": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.G": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Paths.I": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.ca": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.Flow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.SmallOpenEconomyDynamics.Economy.flow_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "SmallOpenEconomyDynamics/Model.lean": "d9c8691588a2874d7d2368aae22eb926ce5c390a04ea3d789c934422020bb17a",
+    "SmallOpenEconomyDynamics.lean": "5e19f092910b1d5396b0717fb5e4d0aae8fca9c432d0889cdcca26f54be8b239",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "lakefile.toml": "d69da63c22028765b9c1b0c8afe0014f822a6fb4dd7f85677e3fb4c33fe2cb0e",
+    "lake-manifest.json": "225eb85930596c04d2ea1da05e8c9d6f293784d023952699e871f2c9fe453d53",
+    "proof-manifest.json": "31b26ff9ca6f7fe5301e475ea363ba5a7ebb192735424eb3a48cdf2063409fb8",
+    "scripts/verify.py": "f652c465ee7e08a89b7367246e0954f242d2b4b9d873ad704df05e0d36db6353",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "fresh_audit_sha256": "e2239ed074ae17440f2cac838027c176572142c2d08227d2d23c8cee38463ad6",
+  "lean_toolchain": "leanprover/lean4:v4.34.0",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 2 and its Supplements A-C: dynamics of small open economies. Phase 0 scaffold: the many-period small open economy, its current account, and the two forms of the period budget constraint.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 2, pp. 59-128, and Supplements to Chapter 2, pp. 715-741."
+}
