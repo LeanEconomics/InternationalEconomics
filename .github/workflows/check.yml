@@ -11,7 +11,8 @@ jobs:
       fail-fast: false
       matrix:
         project: [IntertemporalTrade, SmallOpenEconomyDynamics, LifeCycleFiscalPolicy, RealExchangeRate,
-                  InternationalFinancialMarkets]
+                  InternationalFinancialMarkets,
+                  CapitalMarketImperfections, GlobalGrowth]
     defaults:
       run:
         working-directory: ${{ matrix.project }}

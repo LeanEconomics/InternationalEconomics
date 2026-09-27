@@ -1,0 +1,11 @@
+{
+  "library": "GlobalGrowth",
+  "modules": [
+    "GlobalGrowth/Model.lean"
+  ],
+  "theorem_counts": {
+    "GlobalGrowth/Model.lean": 2
+  },
+  "scope": "Obstfeld and Rogoff (1996), Chapter 7: global linkages and economic growth. Scaffold: Cobb-Douglas production in intensive form.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 7, pp. 429-512."
+}

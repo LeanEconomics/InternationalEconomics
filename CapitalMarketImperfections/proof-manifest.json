@@ -1,0 +1,11 @@
+{
+  "library": "CapitalMarketImperfections",
+  "modules": [
+    "CapitalMarketImperfections/Model.lean"
+  ],
+  "theorem_counts": {
+    "CapitalMarketImperfections/Model.lean": 2
+  },
+  "scope": "Obstfeld and Rogoff (1996), Chapter 6: imperfections in international capital markets. Scaffold: a finite state space with probabilities and expectations.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 6, pp. 349-428."
+}

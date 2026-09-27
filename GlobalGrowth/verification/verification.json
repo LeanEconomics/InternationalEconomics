@@ -1,0 +1,62 @@
+{
+  "checked_at_utc": "2026-09-27T23:08:03.332076+00:00",
+  "theorems": 2,
+  "module_theorems": {
+    "GlobalGrowth/Model.lean": 2
+  },
+  "audited_declarations": 3,
+  "declarations": [
+    {
+      "name": "ObstfeldRogoff.GlobalGrowth.cobbDouglas",
+      "kind": "def",
+      "module": "GlobalGrowth/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.GlobalGrowth.cobbDouglas_pos",
+      "kind": "theorem",
+      "module": "GlobalGrowth/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.GlobalGrowth.cobbDouglas_intensive",
+      "kind": "theorem",
+      "module": "GlobalGrowth/Model.lean"
+    }
+  ],
+  "full_build": "passed",
+  "fresh_source_compilation": "passed",
+  "fresh_source_lint_options": [
+    "-Dlinter.mathlibStandardSet=true",
+    "-Dlinter.style.header=false"
+  ],
+  "axioms": {
+    "ObstfeldRogoff.GlobalGrowth.cobbDouglas": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.GlobalGrowth.cobbDouglas_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.GlobalGrowth.cobbDouglas_intensive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "GlobalGrowth/Model.lean": "8c5504f233d37ffa7cc928dfde0ad9cc5d6701b0c32702b6301df0f3890f21d3",
+    "GlobalGrowth.lean": "0789166ddd83eef4883018f78fbc5913aea2f26938668a4055c454633f034da6",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "lakefile.toml": "ccc32198511e2c4cf645a5ffe29838238196a7af65e0f0f86ff6e3554fdb0865",
+    "lake-manifest.json": "f71f3028b63ff75b1d0ef9a67b63df6dfe453ebcbf25989301916fd9c462cf1f",
+    "proof-manifest.json": "dc23682b636b06d0a1e914aa3563d94d6023e50a358aaed5f3eec7f7664e213f",
+    "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "fresh_audit_sha256": "40bd7345ccf3d6429a960d9439e62b696cc0befe62d804a1ae6df7d519c8941a",
+  "lean_toolchain": "leanprover/lean4:v4.34.0",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 7: global linkages and economic growth. Scaffold: Cobb-Douglas production in intensive form.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 7, pp. 429-512."
+}

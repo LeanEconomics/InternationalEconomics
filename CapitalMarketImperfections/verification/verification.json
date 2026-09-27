@@ -1,0 +1,112 @@
+{
+  "checked_at_utc": "2026-09-27T23:07:45.698680+00:00",
+  "theorems": 2,
+  "module_theorems": {
+    "CapitalMarketImperfections/Model.lean": 2
+  },
+  "audited_declarations": 8,
+  "declarations": [
+    {
+      "name": "ObstfeldRogoff.CapitalMarketImperfections.StateSpace",
+      "kind": "structure",
+      "module": "CapitalMarketImperfections/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.mk",
+      "kind": "constructor",
+      "module": "CapitalMarketImperfections/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.prob",
+      "kind": "projection",
+      "module": "CapitalMarketImperfections/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.prob_nonneg",
+      "kind": "projection",
+      "module": "CapitalMarketImperfections/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.prob_sum",
+      "kind": "projection",
+      "module": "CapitalMarketImperfections/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.expect",
+      "kind": "def",
+      "module": "CapitalMarketImperfections/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.expect_const",
+      "kind": "theorem",
+      "module": "CapitalMarketImperfections/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.expect_add",
+      "kind": "theorem",
+      "module": "CapitalMarketImperfections/Model.lean"
+    }
+  ],
+  "full_build": "passed",
+  "fresh_source_compilation": "passed",
+  "fresh_source_lint_options": [
+    "-Dlinter.mathlibStandardSet=true",
+    "-Dlinter.style.header=false"
+  ],
+  "axioms": {
+    "ObstfeldRogoff.CapitalMarketImperfections.StateSpace": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.prob": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.prob_nonneg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.prob_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.expect": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.expect_const": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.CapitalMarketImperfections.StateSpace.expect_add": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "CapitalMarketImperfections/Model.lean": "53c16a58c38806a5277d8a92f76bca513ec66ac8ae65b7940938ad45ec502394",
+    "CapitalMarketImperfections.lean": "ffc5f7ec4dbb06b66cbca5dd96c6932a0a481bc210b6a8a94e4676a0c25338b6",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "lakefile.toml": "be950181ae5a7ecede897fc63044149b5721dd3d8c199c2f8a169afbd4a4680d",
+    "lake-manifest.json": "a870b34b7bd45d3e790fe53225e1242a63ea4bed3563e0c90bff720065b62c6b",
+    "proof-manifest.json": "8f607468d616bca6bb56da550578ea249f4c98209496826ce118d9fbbdcfbff7",
+    "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "fresh_audit_sha256": "1fdd0c4d17e2067abe8bb38f30afff8748378e770dd448a88f7e61194928afbf",
+  "lean_toolchain": "leanprover/lean4:v4.34.0",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 6: imperfections in international capital markets. Scaffold: a finite state space with probabilities and expectations.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 6, pp. 349-428."
+}
