@@ -1,0 +1,62 @@
+{
+  "checked_at_utc": "2026-09-28T22:11:51.674541+00:00",
+  "theorems": 2,
+  "module_theorems": {
+    "NominalRigidities/Model.lean": 2
+  },
+  "audited_declarations": 3,
+  "declarations": [
+    {
+      "name": "ObstfeldRogoff.NominalRigidities.loss",
+      "kind": "def",
+      "module": "NominalRigidities/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.NominalRigidities.loss_nonneg",
+      "kind": "theorem",
+      "module": "NominalRigidities/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.NominalRigidities.loss_at_target",
+      "kind": "theorem",
+      "module": "NominalRigidities/Model.lean"
+    }
+  ],
+  "full_build": "passed",
+  "fresh_source_compilation": "passed",
+  "fresh_source_lint_options": [
+    "-Dlinter.mathlibStandardSet=true",
+    "-Dlinter.style.header=false"
+  ],
+  "axioms": {
+    "ObstfeldRogoff.NominalRigidities.loss": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.NominalRigidities.loss_nonneg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.NominalRigidities.loss_at_target": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "NominalRigidities/Model.lean": "9389c96e93059d5dc1e03d73bc251d2d435b3eea3f7b2d5affe8a141e4499088",
+    "NominalRigidities.lean": "540ab704d84605450cd87482f903799455f35bedcd59ff05c9288ba2e1d3f85d",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "lakefile.toml": "f674f22538be5c64d74fd408de170f6e71349c8df7ddff8542ae9819f659767e",
+    "lake-manifest.json": "718f9090827c7e9ff6916270d3d3a5d76801220126d6e1bd6f6cc1c7d40e2931",
+    "proof-manifest.json": "e5d5984cacc5c135d3a217d50c1daf35e7ca02c7af88ec9dabad34053f12c9d4",
+    "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "fresh_audit_sha256": "75f954098c5380fa1949c07525da26309457193c682780252a837fc82d4dc6e2",
+  "lean_toolchain": "leanprover/lean4:v4.34.0",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 9: nominal price rigidities and basic open-economy models. Scaffold: the Barro-Gordon loss function.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 9, pp. 605-658."
+}

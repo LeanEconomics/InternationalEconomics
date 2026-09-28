@@ -1,0 +1,11 @@
+{
+  "library": "NominalRigidities",
+  "modules": [
+    "NominalRigidities/Model.lean"
+  ],
+  "theorem_counts": {
+    "NominalRigidities/Model.lean": 2
+  },
+  "scope": "Obstfeld and Rogoff (1996), Chapter 9: nominal price rigidities and basic open-economy models. Scaffold: the Barro-Gordon loss function.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 9, pp. 605-658."
+}

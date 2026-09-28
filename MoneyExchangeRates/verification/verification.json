@@ -1,0 +1,62 @@
+{
+  "checked_at_utc": "2026-09-28T22:12:04.274850+00:00",
+  "theorems": 2,
+  "module_theorems": {
+    "MoneyExchangeRates/Model.lean": 2
+  },
+  "audited_declarations": 3,
+  "declarations": [
+    {
+      "name": "ObstfeldRogoff.MoneyExchangeRates.caganResidual",
+      "kind": "def",
+      "module": "MoneyExchangeRates/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.MoneyExchangeRates.cagan_price_iff",
+      "kind": "theorem",
+      "module": "MoneyExchangeRates/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.MoneyExchangeRates.cagan_steady",
+      "kind": "theorem",
+      "module": "MoneyExchangeRates/Model.lean"
+    }
+  ],
+  "full_build": "passed",
+  "fresh_source_compilation": "passed",
+  "fresh_source_lint_options": [
+    "-Dlinter.mathlibStandardSet=true",
+    "-Dlinter.style.header=false"
+  ],
+  "axioms": {
+    "ObstfeldRogoff.MoneyExchangeRates.caganResidual": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.MoneyExchangeRates.cagan_price_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.MoneyExchangeRates.cagan_steady": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "MoneyExchangeRates/Model.lean": "30269b5aee56e689f372cc6dbdc7f316be092889b57cd542976e2f088529b4bd",
+    "MoneyExchangeRates.lean": "7079d3b71f7b959cece8f8e4beb7f034f80bab665c5c8d28d5d43dfa3d995fcd",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "lakefile.toml": "c119b0fac0d92333026a7d938e023414367987732e629b59fd8edd40eae4fe59",
+    "lake-manifest.json": "9527bf5ab5defb91ddc7daa3450dd4b1d316ad8df6026f67131cf0510e428876",
+    "proof-manifest.json": "ad04504a8d60998ef58b00924421afe94ec3ca1b882f9e937abe73057a013f74",
+    "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "fresh_audit_sha256": "c18358fab43b1ef7b850001de7eab5a70c1da51389a0aa4130dcc6c6ac2d6d15",
+  "lean_toolchain": "leanprover/lean4:v4.34.0",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 8: money and exchange rates under flexible prices, with the Supplement to Chapter 8. Scaffold: the Cagan money-demand equation.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 8, pp. 513-604, and the Supplement to Chapter 8, pp. 745-754."
+}

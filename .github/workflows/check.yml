@@ -12,7 +12,8 @@ jobs:
       matrix:
         project: [IntertemporalTrade, SmallOpenEconomyDynamics, LifeCycleFiscalPolicy, RealExchangeRate,
                   InternationalFinancialMarkets,
-                  CapitalMarketImperfections, GlobalGrowth]
+                  CapitalMarketImperfections, GlobalGrowth,
+                  MoneyExchangeRates, NominalRigidities]
     defaults:
       run:
         working-directory: ${{ matrix.project }}

@@ -1,0 +1,11 @@
+{
+  "library": "MoneyExchangeRates",
+  "modules": [
+    "MoneyExchangeRates/Model.lean"
+  ],
+  "theorem_counts": {
+    "MoneyExchangeRates/Model.lean": 2
+  },
+  "scope": "Obstfeld and Rogoff (1996), Chapter 8: money and exchange rates under flexible prices, with the Supplement to Chapter 8. Scaffold: the Cagan money-demand equation.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 8, pp. 513-604, and the Supplement to Chapter 8, pp. 745-754."
+}
