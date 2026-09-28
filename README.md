@@ -12,22 +12,24 @@ source map to the book's equations and pages, and reproducible proof checks.
 | [LifeCycleFiscalPolicy](LifeCycleFiscalPolicy/README.md) | 3. The Life Cycle, Tax Policy, and the Current Account | 288 theorems: Ricardian equivalence and its failure, Barro altruism, the debt-financed transfer, the small open Diamond economy, global stability of the two-country OLG model, Weil's perpetual youth, dynamic inefficiency, tax smoothing | [Chapter overview](LifeCycleFiscalPolicy/README.md) |
 | [RealExchangeRate](RealExchangeRate/README.md) | 4. The Real Exchange Rate and the Terms of Trade | 281 theorems: Balassa–Samuelson with exact log-derivatives and corrected signs, the CES price index and duality, consumption dynamics, the Dornbusch–Fischer–Samuelson model with transport costs, costly capital and a saddle-point theorem | [Chapter overview](RealExchangeRate/README.md) |
 | [InternationalFinancialMarkets](InternationalFinancialMarkets/README.md) | 5. Uncertainty and International Financial Markets | 503 theorems: full insurance iff fair prices, first-order conditions necessary and sufficient, Epstein–Zin, comparative advantage for arbitrary preferences, global risk sharing and the planner, spanning iff full rank (correcting the book's `S ≤ N+1`), the consumption CAPM and Hansen–Jagannathan, Lucas's welfare cost in exact form, stochastic infinite-horizon pricing and bubbles, infinite event trees, the consumption–portfolio problem with a verification theorem | [Chapter overview](InternationalFinancialMarkets/README.md) |
-| [CapitalMarketImperfections](CapitalMarketImperfections/README.md) | 6. Imperfections in International Capital Markets | in progress | [Chapter overview](CapitalMarketImperfections/README.md) |
+| [CapitalMarketImperfections](CapitalMarketImperfections/README.md) | 6. Imperfections in International Capital Markets | 738 theorems: optimal contracts under sovereign risk for every utility, reputation and trigger strategies as an infinite-horizon game, Bulow–Rogoff on an event tree, Worrall convergence, the debt ceiling and debt overhang, a declining Laffer curve, Rubinstein bargaining, hidden information and moral hazard with equilibrium existence and uniqueness | [Chapter overview](CapitalMarketImperfections/README.md) |
 | [GlobalGrowth](GlobalGrowth/README.md) | 7. Global Linkages and Economic Growth | in progress | [Chapter overview](GlobalGrowth/README.md) |
 
 ## Scope
 
-The five projects formalise the book's first five chapters: the two-period
+The projects formalise the book's chapters in order: the two-period
 Fisher economy and world equilibrium, the infinite-horizon small open economy
 (intertemporal budget constraint, permanent-income current account, Hall's
 random walk, Tobin's q), overlapping-generations fiscal policy (Ricardian
 equivalence and its failure, the Diamond model, Weil's perpetual youth, dynamic
 inefficiency), the real exchange rate with traded and nontraded goods
-(Balassa–Samuelson, the Dornbusch–Fischer–Samuelson continuum), and
+(Balassa–Samuelson, the Dornbusch–Fischer–Samuelson continuum),
 international financial markets under uncertainty (complete markets, risk
-sharing, portfolio diversification, asset pricing), with uncertainty as a
-finite set of states. Provable end-of-chapter exercises are included. The five
-projects together check 1723 theorems.
+sharing, portfolio diversification, asset pricing), and imperfections in
+international capital markets (sovereign risk, reputation, debt overhang,
+bargaining, hidden information, moral hazard), with uncertainty as a finite set
+of states or a tree of histories. Provable end-of-chapter exercises are included. The
+projects together check 2461 theorems.
 
 Where the book argues from a diagram, the Lean statement is a theorem with
 explicit hypotheses. Where the book leaves a hypothesis implicit (interiority,
