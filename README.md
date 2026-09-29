@@ -14,7 +14,7 @@ source map to the book's equations and pages, and reproducible proof checks.
 | [InternationalFinancialMarkets](InternationalFinancialMarkets/README.md) | 5. Uncertainty and International Financial Markets | 503 theorems: full insurance iff fair prices, first-order conditions necessary and sufficient, Epstein–Zin, comparative advantage for arbitrary preferences, global risk sharing and the planner, spanning iff full rank (correcting the book's `S ≤ N+1`), the consumption CAPM and Hansen–Jagannathan, Lucas's welfare cost in exact form, stochastic infinite-horizon pricing and bubbles, infinite event trees, the consumption–portfolio problem with a verification theorem | [Chapter overview](InternationalFinancialMarkets/README.md) |
 | [CapitalMarketImperfections](CapitalMarketImperfections/README.md) | 6. Imperfections in International Capital Markets | 738 theorems: optimal contracts under sovereign risk for every utility, reputation and trigger strategies as an infinite-horizon game, Bulow–Rogoff on an event tree, Worrall convergence, the debt ceiling and debt overhang, a declining Laffer curve, Rubinstein bargaining, hidden information and moral hazard with equilibrium existence and uniqueness | [Chapter overview](CapitalMarketImperfections/README.md) |
 | [GlobalGrowth](GlobalGrowth/README.md) | 7. Global Linkages and Economic Growth | 927 theorems: global convergence of Solow and its extensions, Ramsey–Cass–Koopmans existence, uniqueness and convergence with Euler plus transversality, the global OLG saddle path, AK and Romer growth with transition dynamics, borrowing-constrained OLG, immigration, Brock–Mirman on a Markov chain, the two-country RBC share, portfolio diversification and growth | [Chapter overview](GlobalGrowth/README.md) |
-| [MoneyExchangeRates](MoneyExchangeRates/README.md) | 8. Money and Exchange Rates under Flexible Prices | in progress | [Chapter overview](MoneyExchangeRates/README.md) |
+| [MoneyExchangeRates](MoneyExchangeRates/README.md) | 8. Money and Exchange Rates under Flexible Prices | 820 theorems: the Cagan model with bubbles and the unique no-bubble solution (deterministic, stochastic, continuous time), seignorage, speculative attacks, target zones with smooth pasting and a lattice limit, money in utility and the dichotomy, deflationary bubbles and hyperinflations, dollarization, cash in advance, nominal asset pricing with whole-plan optimality, Siegel and Fama, and the maximum principle | [Chapter overview](MoneyExchangeRates/README.md) |
 | [NominalRigidities](NominalRigidities/README.md) | 9. Nominal Price Rigidities: Empirical Facts and Basic Open-Economy Models | in progress | [Chapter overview](NominalRigidities/README.md) |
 
 ## Scope
@@ -29,10 +29,12 @@ inefficiency), the real exchange rate with traded and nontraded goods
 international financial markets under uncertainty (complete markets, risk
 sharing, portfolio diversification, asset pricing), and imperfections in
 international capital markets (sovereign risk, reputation, debt overhang,
-bargaining, hidden information, moral hazard), and growth (Solow,
-Ramsey–Cass–Koopmans, OLG, endogenous and stochastic growth), with uncertainty as a finite set
+bargaining, hidden information, moral hazard), growth (Solow,
+Ramsey–Cass–Koopmans, OLG, endogenous and stochastic growth), and money and
+exchange rates under flexible prices (Cagan, speculative attacks, target zones,
+money in utility, nominal asset pricing), with uncertainty as a finite set
 of states or a tree of histories. Provable end-of-chapter exercises are included. The
-projects together check 3388 theorems.
+projects together check 4208 theorems.
 
 Where the book argues from a diagram, the Lean statement is a theorem with
 explicit hypotheses. Where the book leaves a hypothesis implicit (interiority,

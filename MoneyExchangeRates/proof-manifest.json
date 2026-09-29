@@ -1,11 +1,31 @@
 {
   "library": "MoneyExchangeRates",
   "modules": [
-    "MoneyExchangeRates/Model.lean"
+    "MoneyExchangeRates/Model.lean",
+    "MoneyExchangeRates/CaganModel.lean",
+    "MoneyExchangeRates/CaganContinuous.lean",
+    "MoneyExchangeRates/SpeculativeAttack.lean",
+    "MoneyExchangeRates/TargetZone.lean",
+    "MoneyExchangeRates/MoneyInUtility.lean",
+    "MoneyExchangeRates/MonetaryBubbles.lean",
+    "MoneyExchangeRates/CashInAdvance.lean",
+    "MoneyExchangeRates/MaximumPrinciple.lean",
+    "MoneyExchangeRates/NominalAssetPricing.lean",
+    "MoneyExchangeRates/ForwardPremium.lean"
   ],
   "theorem_counts": {
-    "MoneyExchangeRates/Model.lean": 2
+    "MoneyExchangeRates/Model.lean": 2,
+    "MoneyExchangeRates/CaganModel.lean": 120,
+    "MoneyExchangeRates/CaganContinuous.lean": 43,
+    "MoneyExchangeRates/SpeculativeAttack.lean": 38,
+    "MoneyExchangeRates/TargetZone.lean": 111,
+    "MoneyExchangeRates/MoneyInUtility.lean": 125,
+    "MoneyExchangeRates/MonetaryBubbles.lean": 72,
+    "MoneyExchangeRates/CashInAdvance.lean": 32,
+    "MoneyExchangeRates/MaximumPrinciple.lean": 59,
+    "MoneyExchangeRates/NominalAssetPricing.lean": 146,
+    "MoneyExchangeRates/ForwardPremium.lean": 72
   },
-  "scope": "Obstfeld and Rogoff (1996), Chapter 8: money and exchange rates under flexible prices, with the Supplement to Chapter 8. Scaffold: the Cagan money-demand equation.",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 8, and the Supplement to Chapter 8: money and exchange rates under flexible prices. The Cagan model in discrete and continuous time (no-bubble solutions and bubbles, stochastic versions), seignorage, the monetary model of the exchange rate, pegs, speculative attacks, target zones (smooth pasting, lattice version and its limit), money in the utility function (optimality, the dichotomy, bubbles and hyperinflations, dollarization), cash in advance, the maximum principle, and the stochastic general equilibrium model with nominal assets (whole-plan optimality, Siegel, Fama, forward premia), with Appendices 8A-8B and the exercises.",
   "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 8, pp. 513-604, and the Supplement to Chapter 8, pp. 745-754."
 }
