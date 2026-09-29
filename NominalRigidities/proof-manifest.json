@@ -1,11 +1,33 @@
 {
   "library": "NominalRigidities",
   "modules": [
-    "NominalRigidities/Model.lean"
+    "NominalRigidities/Model.lean",
+    "NominalRigidities/DornbuschModel.lean",
+    "NominalRigidities/DornbuschShocks.lean",
+    "NominalRigidities/DornbuschExtensions.lean",
+    "NominalRigidities/DornbuschContinuousTime.lean",
+    "NominalRigidities/BarroGordon.lean",
+    "NominalRigidities/ReputationEquilibria.lean",
+    "NominalRigidities/CentralBankDelegation.lean",
+    "NominalRigidities/EscapeClausePeg.lean",
+    "NominalRigidities/PooleRegimeChoice.lean",
+    "NominalRigidities/PolicyCoordination.lean",
+    "NominalRigidities/ExchangeRateFacts.lean"
   ],
   "theorem_counts": {
-    "NominalRigidities/Model.lean": 2
+    "NominalRigidities/Model.lean": 2,
+    "NominalRigidities/DornbuschModel.lean": 71,
+    "NominalRigidities/DornbuschShocks.lean": 45,
+    "NominalRigidities/DornbuschExtensions.lean": 55,
+    "NominalRigidities/DornbuschContinuousTime.lean": 29,
+    "NominalRigidities/BarroGordon.lean": 56,
+    "NominalRigidities/ReputationEquilibria.lean": 69,
+    "NominalRigidities/CentralBankDelegation.lean": 35,
+    "NominalRigidities/EscapeClausePeg.lean": 46,
+    "NominalRigidities/PooleRegimeChoice.lean": 91,
+    "NominalRigidities/PolicyCoordination.lean": 30,
+    "NominalRigidities/ExchangeRateFacts.lean": 38
   },
-  "scope": "Obstfeld and Rogoff (1996), Chapter 9: nominal price rigidities and basic open-economy models. Scaffold: the Barro-Gordon loss function.",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 9: nominal price rigidities and basic open-economy models. The Mundell-Fleming-Dornbusch model (exact global saddle path, overshooting, shocks, stochastic and continuous-time versions), Barro-Gordon credibility (one-shot, commitment, reputation as an infinite-horizon repeated game, conservative central bankers, Walsh contracts, the escape-clause peg), Poole's comparison and the optimal feedback rule, policy coordination, and the empirical facts, with the exercises.",
   "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 9, pp. 605-658."
 }
