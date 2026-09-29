@@ -16,11 +16,11 @@ source map to the book's equations and pages, and reproducible proof checks.
 | [GlobalGrowth](GlobalGrowth/README.md) | 7. Global Linkages and Economic Growth | 927 theorems: global convergence of Solow and its extensions, Ramsey–Cass–Koopmans existence, uniqueness and convergence with Euler plus transversality, the global OLG saddle path, AK and Romer growth with transition dynamics, borrowing-constrained OLG, immigration, Brock–Mirman on a Markov chain, the two-country RBC share, portfolio diversification and growth | [Chapter overview](GlobalGrowth/README.md) |
 | [MoneyExchangeRates](MoneyExchangeRates/README.md) | 8. Money and Exchange Rates under Flexible Prices | 820 theorems: the Cagan model with bubbles and the unique no-bubble solution (deterministic, stochastic, continuous time), seignorage, speculative attacks, target zones with smooth pasting and a lattice limit, money in utility and the dichotomy, deflationary bubbles and hyperinflations, dollarization, cash in advance, nominal asset pricing with whole-plan optimality, Siegel and Fama, and the maximum principle | [Chapter overview](MoneyExchangeRates/README.md) |
 | [NominalRigidities](NominalRigidities/README.md) | 9. Nominal Price Rigidities: Empirical Facts and Basic Open-Economy Models | 567 theorems: the Dornbusch model with an exact global saddle path, overshooting, stochastic and continuous-time versions, Barro–Gordon credibility, reputation as an infinite-horizon repeated game, Rogoff's conservative central banker and Walsh contracts, the escape-clause peg, Poole's comparison with the optimal feedback rule and exact determinacy, policy coordination | [Chapter overview](NominalRigidities/README.md) |
-| [StickyPriceModels](StickyPriceModels/README.md) | 10. Sticky-Price Models of Output, the Exchange Rate, and the Current Account | in progress | [Chapter overview](StickyPriceModels/README.md) |
+| [StickyPriceModels](StickyPriceModels/README.md) | 10. Sticky-Price Models of Output, the Exchange Rate, and the Current Account | 597 theorems: the two-country redux model with household optimality, steady-state existence and uniqueness, the log-linear system as an exact derivative, exact no-overshooting and welfare, fiscal and productivity shocks, preset wages, exact overshooting with nontradables, pricing to market and pass-through | [Chapter overview](StickyPriceModels/README.md) |
 
 ## Scope
 
-The projects formalise the book's chapters in order: the two-period
+The projects formalise all ten chapters of the book, in order: the two-period
 Fisher economy and world equilibrium, the infinite-horizon small open economy
 (intertemporal budget constraint, permanent-income current account, Hall's
 random walk, Tobin's q), overlapping-generations fiscal policy (Ricardian
@@ -34,9 +34,11 @@ bargaining, hidden information, moral hazard), growth (Solow,
 Ramsey–Cass–Koopmans, OLG, endogenous and stochastic growth), and money and
 exchange rates under flexible prices (Cagan, speculative attacks, target zones,
 money in utility, nominal asset pricing), and nominal rigidities (Dornbusch
-overshooting, credibility of monetary policy, regime choice), with uncertainty as a finite set
+overshooting, credibility of monetary policy, regime choice), and the
+sticky-price two-country model (the redux model, nontradables, pass-through), with
+uncertainty as a finite set
 of states or a tree of histories. Provable end-of-chapter exercises are included. The
-projects together check 4775 theorems.
+projects together check 5372 theorems.
 
 Where the book argues from a diagram, the Lean statement is a theorem with
 explicit hypotheses. Where the book leaves a hypothesis implicit (interiority,

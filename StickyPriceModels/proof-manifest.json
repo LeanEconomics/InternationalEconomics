@@ -1,11 +1,39 @@
 {
   "library": "StickyPriceModels",
   "modules": [
-    "StickyPriceModels/Model.lean"
+    "StickyPriceModels/Model.lean",
+    "StickyPriceModels/ReduxPrimitives.lean",
+    "StickyPriceModels/ReduxSteadyState.lean",
+    "StickyPriceModels/ReduxLogLinear.lean",
+    "StickyPriceModels/ReduxMoneyShocks.lean",
+    "StickyPriceModels/ReduxWelfare.lean",
+    "StickyPriceModels/ReduxFiscalProductivity.lean",
+    "StickyPriceModels/ReduxPresetWages.lean",
+    "StickyPriceModels/ReduxLinearisationLink.lean",
+    "StickyPriceModels/NontradablesModel.lean",
+    "StickyPriceModels/NontradablesOvershooting.lean",
+    "StickyPriceModels/PresetWagesSmallCountry.lean",
+    "StickyPriceModels/CashInAdvanceCredibility.lean",
+    "StickyPriceModels/PassThrough.lean",
+    "StickyPriceModels/StickyPriceEvidence.lean"
   ],
   "theorem_counts": {
-    "StickyPriceModels/Model.lean": 2
+    "StickyPriceModels/Model.lean": 2,
+    "StickyPriceModels/ReduxPrimitives.lean": 77,
+    "StickyPriceModels/ReduxSteadyState.lean": 59,
+    "StickyPriceModels/ReduxLogLinear.lean": 24,
+    "StickyPriceModels/ReduxMoneyShocks.lean": 47,
+    "StickyPriceModels/ReduxWelfare.lean": 49,
+    "StickyPriceModels/ReduxFiscalProductivity.lean": 32,
+    "StickyPriceModels/ReduxPresetWages.lean": 20,
+    "StickyPriceModels/ReduxLinearisationLink.lean": 32,
+    "StickyPriceModels/NontradablesModel.lean": 59,
+    "StickyPriceModels/NontradablesOvershooting.lean": 56,
+    "StickyPriceModels/PresetWagesSmallCountry.lean": 21,
+    "StickyPriceModels/CashInAdvanceCredibility.lean": 27,
+    "StickyPriceModels/PassThrough.lean": 58,
+    "StickyPriceModels/StickyPriceEvidence.lean": 34
   },
-  "scope": "Obstfeld and Rogoff (1996), Chapter 10: sticky-price models of output, the exchange rate and the current account. Scaffold: the CES demand curve for a differentiated good.",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 10: sticky-price models of output, the exchange rate and the current account. The two-country redux model (household optimality with a genuine infinite horizon, steady-state existence and uniqueness for every asset position, the log-linear system as an exact derivative, money shocks, exact no-overshooting, welfare, fiscal and productivity shocks, preset wages), the small open economy with nontradables (exact overshooting iff epsilon > 1, welfare, preset wages, cash-in-advance credibility), and pricing to market and pass-through, with the evidence and the exercises.",
   "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 10, pp. 659-713."
 }
