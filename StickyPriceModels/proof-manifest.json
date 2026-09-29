@@ -1,0 +1,11 @@
+{
+  "library": "StickyPriceModels",
+  "modules": [
+    "StickyPriceModels/Model.lean"
+  ],
+  "theorem_counts": {
+    "StickyPriceModels/Model.lean": 2
+  },
+  "scope": "Obstfeld and Rogoff (1996), Chapter 10: sticky-price models of output, the exchange rate and the current account. Scaffold: the CES demand curve for a differentiated good.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 10, pp. 659-713."
+}

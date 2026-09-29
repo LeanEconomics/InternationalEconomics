@@ -1,0 +1,62 @@
+{
+  "checked_at_utc": "2026-09-29T03:40:49.976266+00:00",
+  "theorems": 2,
+  "module_theorems": {
+    "StickyPriceModels/Model.lean": 2
+  },
+  "audited_declarations": 3,
+  "declarations": [
+    {
+      "name": "ObstfeldRogoff.StickyPriceModels.cesDemand",
+      "kind": "def",
+      "module": "StickyPriceModels/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.StickyPriceModels.cesDemand_at_index",
+      "kind": "theorem",
+      "module": "StickyPriceModels/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.StickyPriceModels.cesDemand_pos",
+      "kind": "theorem",
+      "module": "StickyPriceModels/Model.lean"
+    }
+  ],
+  "full_build": "passed",
+  "fresh_source_compilation": "passed",
+  "fresh_source_lint_options": [
+    "-Dlinter.mathlibStandardSet=true",
+    "-Dlinter.style.header=false"
+  ],
+  "axioms": {
+    "ObstfeldRogoff.StickyPriceModels.cesDemand": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.StickyPriceModels.cesDemand_at_index": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.StickyPriceModels.cesDemand_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "StickyPriceModels/Model.lean": "5b56879b6ca176874ae7a4403fe918422824aa8faaee07b0b3f38d18599ef6a5",
+    "StickyPriceModels.lean": "fbb2eaf18403b5019cfd8a054fc3c5b8d2012825f3f828c75143d64324c0f4e5",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "lakefile.toml": "83f47f40c4825a34a4b8fc6242e685ddf2f3ef7e6da3569d6a062c14d4f04dc4",
+    "lake-manifest.json": "b95f12030a49d403e2223925e069f19f9a9713dfd5e3a2e651e673fc9b4a82d3",
+    "proof-manifest.json": "0c26a67e566b6fcf459408560a453a2c25ad36efd3bb1453f5d304b855c4ec2d",
+    "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "fresh_audit_sha256": "1dfda945029bd9f1a336d05b7b5f5dbbd454bf00bdfa6870f1e2dd805179fabd",
+  "lean_toolchain": "leanprover/lean4:v4.34.0",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 10: sticky-price models of output, the exchange rate and the current account. Scaffold: the CES demand curve for a differentiated good.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 10, pp. 659-713."
+}
