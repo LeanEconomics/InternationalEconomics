@@ -1,0 +1,35 @@
+{
+  "library": "CapitalMarketImperfections",
+  "modules": [
+    "CapitalMarketImperfections/Model.lean",
+    "CapitalMarketImperfections/SovereignRiskPrimitives.lean",
+    "CapitalMarketImperfections/DirectSanctionsInsurance.lean",
+    "CapitalMarketImperfections/SanctionsWithSaving.lean",
+    "CapitalMarketImperfections/ReputationTrigger.lean",
+    "CapitalMarketImperfections/BulowRogoff.lean",
+    "CapitalMarketImperfections/DebtCeiling.lean",
+    "CapitalMarketImperfections/PrecommitmentInvestment.lean",
+    "CapitalMarketImperfections/DebtOverhangLaffer.lean",
+    "CapitalMarketImperfections/SovereignBargaining.lean",
+    "CapitalMarketImperfections/HiddenInformation.lean",
+    "CapitalMarketImperfections/MoralHazardSmallCountry.lean",
+    "CapitalMarketImperfections/MoralHazardTwoCountry.lean"
+  ],
+  "theorem_counts": {
+    "CapitalMarketImperfections/Model.lean": 2,
+    "CapitalMarketImperfections/SovereignRiskPrimitives.lean": 33,
+    "CapitalMarketImperfections/DirectSanctionsInsurance.lean": 54,
+    "CapitalMarketImperfections/SanctionsWithSaving.lean": 38,
+    "CapitalMarketImperfections/ReputationTrigger.lean": 126,
+    "CapitalMarketImperfections/BulowRogoff.lean": 72,
+    "CapitalMarketImperfections/DebtCeiling.lean": 67,
+    "CapitalMarketImperfections/PrecommitmentInvestment.lean": 25,
+    "CapitalMarketImperfections/DebtOverhangLaffer.lean": 57,
+    "CapitalMarketImperfections/SovereignBargaining.lean": 43,
+    "CapitalMarketImperfections/HiddenInformation.lean": 68,
+    "CapitalMarketImperfections/MoralHazardSmallCountry.lean": 100,
+    "CapitalMarketImperfections/MoralHazardTwoCountry.lean": 53
+  },
+  "scope": "Obstfeld and Rogoff (1996), Chapter 6: imperfections in international capital markets. Sovereign risk with direct sanctions and with saving, reputation and trigger strategies over an infinite horizon, Bulow-Rogoff, Worrall convergence, debt ceilings, precommitment and investment, debt overhang and the debt Laffer curve, Rubinstein bargaining, hidden information and moral hazard, with Appendices 6A-6B and the provable exercises.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 6, pp. 349-428."
+}

@@ -10,7 +10,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: [IntertemporalTrade, SmallOpenEconomyDynamics, LifeCycleFiscalPolicy]
+        project: [IntertemporalTrade, SmallOpenEconomyDynamics, LifeCycleFiscalPolicy, RealExchangeRate,
+                  InternationalFinancialMarkets,
+                  CapitalMarketImperfections, GlobalGrowth,
+                  MoneyExchangeRates, NominalRigidities,
+                  StickyPriceModels]
     defaults:
       run:
         working-directory: ${{ matrix.project }}

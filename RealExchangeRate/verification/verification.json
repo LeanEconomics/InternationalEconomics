@@ -1,0 +1,3730 @@
+{
+  "checked_at_utc": "2026-09-27T21:11:02.165035+00:00",
+  "theorems": 281,
+  "module_theorems": {
+    "RealExchangeRate/Model.lean": 2,
+    "RealExchangeRate/PriceLevels.lean": 6,
+    "RealExchangeRate/CRSProduction.lean": 33,
+    "RealExchangeRate/BalassaSamuelson.lean": 36,
+    "RealExchangeRate/BSExtensions.lean": 23,
+    "RealExchangeRate/LongRunGDPGNP.lean": 9,
+    "RealExchangeRate/ManufacturingEmployment.lean": 7,
+    "RealExchangeRate/CESIndex.lean": 25,
+    "RealExchangeRate/ConsumptionDynamics.lean": 34,
+    "RealExchangeRate/EndogenousLabour.lean": 6,
+    "RealExchangeRate/CostlyCapital.lean": 13,
+    "RealExchangeRate/DFSStatic.lean": 22,
+    "RealExchangeRate/DFSCurrentAccount.lean": 31,
+    "RealExchangeRate/DFSTransportCosts.lean": 26,
+    "RealExchangeRate/DFSPriceIndex.lean": 8
+  },
+  "audited_declarations": 367,
+  "declarations": [
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex",
+      "kind": "structure",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.mk",
+      "kind": "constructor",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3",
+      "kind": "projection",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3_pos",
+      "kind": "projection",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3_lt_one",
+      "kind": "projection",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price",
+      "kind": "def",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price_homogeneous",
+      "kind": "theorem",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price_numeraire",
+      "kind": "theorem",
+      "module": "RealExchangeRate/Model.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.PriceLevels.realExchangeRate",
+      "kind": "def",
+      "module": "RealExchangeRate/PriceLevels.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.PriceLevels.absolute_ppp_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/PriceLevels.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.PriceLevels.relative_ppp_const",
+      "kind": "theorem",
+      "module": "RealExchangeRate/PriceLevels.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.PriceLevels.lop_ratio",
+      "kind": "theorem",
+      "module": "RealExchangeRate/PriceLevels.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.PriceLevels.price_level_ratio",
+      "kind": "theorem",
+      "module": "RealExchangeRate/PriceLevels.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.PriceLevels.log_price_level_ratio",
+      "kind": "theorem",
+      "module": "RealExchangeRate/PriceLevels.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.PriceLevels.price_level_gt_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/PriceLevels.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech",
+      "kind": "structure",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.mk",
+      "kind": "constructor",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.f",
+      "kind": "projection",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.fp",
+      "kind": "projection",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.f_cont",
+      "kind": "projection",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.hasDeriv",
+      "kind": "projection",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.fp_strictAnti",
+      "kind": "projection",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.fp_cont",
+      "kind": "projection",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.fp_pos",
+      "kind": "projection",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.f_zero_nonneg",
+      "kind": "projection",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.inada_zero",
+      "kind": "projection",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.inada_infty",
+      "kind": "projection",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.crs_intensive_form",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.hasDerivAt_of_between",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.mpl",
+      "kind": "def",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.tangent_lt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.tangent_le",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.mpl_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.f_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.mpl_strictMonoOn",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.zero_profit",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.crs_profit_le",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.crs_profit_eq_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.existsUnique_fp_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kinv",
+      "kind": "def",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kinv_spec",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kinv_continuousAt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar",
+      "kind": "def",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_foc",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_unique",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_strictAntiOn_r",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_continuousAt_r",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_continuousAt_A",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_hasDerivAt_r",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage",
+      "kind": "def",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_frontier",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_isMax",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_hasDerivAt_r",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_hasDerivAt_A",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_path_hasDerivAt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_strictAntiOn_r",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_strictMonoOn_A",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wageRental",
+      "kind": "def",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wageRental_strictMonoOn",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wageRental_continuousOn",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.existsUnique_wageRental_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wrInv",
+      "kind": "def",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wrInv_spec",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wrInv_continuousAt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wrInv_strictMonoOn",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CRSProduction.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.IsSupplyEqm",
+      "kind": "def",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.kN",
+      "kind": "def",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost",
+      "kind": "def",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqmPrice",
+      "kind": "def",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muLT",
+      "kind": "def",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muKT",
+      "kind": "def",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muLN",
+      "kind": "def",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muKN",
+      "kind": "def",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.kN_spec",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost_foc",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost_le",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost_zero_profit",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost_path_hasDerivAt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.supplyEqm_exists",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.supplyEqm_unique",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.supplyEqm_existsUnique",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqmPrice_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.kN_strictMonoOn_w",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost_strictMonoOn_w",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqmPrice_strictMonoOn_AT",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqm_kN_strictMonoOn_AT",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqm_AN_neutral",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muKT_add_muLT",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muKN_add_muLN",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muKN_sub_muKT",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muLT_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muLN_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muLN_div_muLT",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.logWage_path_hasDerivAt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.logPrice_path_hasDerivAt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.logPrice_hat_eq9",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.logPrice_hat_r",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.bs_price_growth_ge",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.bs_price_rises",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.bs_sign_counterexample",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqm_logPrice_deriv_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.price_falls_with_r",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.price_r_boundary",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.r_elasticity_neg_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.hbs_log_ratio",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.hbs_path_hasDerivAt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.hbs_common_shares",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.hbs_sign",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.cobbDouglas_labourShare",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BalassaSamuelson.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.threeFactor_solves",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.threeFactor_unique",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.threeFactor_price",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.threeFactor_hbs",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.immobileCapital_unique",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.immobileCapital_degenerate",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.immobileCapital_price",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex1_zero_max_profit",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex1_wage_hat",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.priceN_wage_path",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex1_labour_reallocation",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex2_rise_in_r",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex2_price_falls_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_lifetime_earnings",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_foc",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_optimal_schooling",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_relative_wage",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.skillWage",
+      "kind": "def",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_dlogw_dalpha",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_w_increasing_in_alpha_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_w_strictMono_A",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_w_strictAnti_pi",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_w_strictAnti_r",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6e_price_increasing_in_w",
+      "kind": "theorem",
+      "module": "RealExchangeRate/BSExtensions.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.gdp_line",
+      "kind": "theorem",
+      "module": "RealExchangeRate/LongRunGDPGNP.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.gdp_slope_gt_one_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/LongRunGDPGNP.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.gdp_eq_factor_income",
+      "kind": "theorem",
+      "module": "RealExchangeRate/LongRunGDPGNP.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.trade_balance_long_run",
+      "kind": "theorem",
+      "module": "RealExchangeRate/LongRunGDPGNP.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.foreign_asset_change",
+      "kind": "theorem",
+      "module": "RealExchangeRate/LongRunGDPGNP.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.wealth_rise_trade_balance",
+      "kind": "theorem",
+      "module": "RealExchangeRate/LongRunGDPGNP.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.tradables_output_falls",
+      "kind": "theorem",
+      "module": "RealExchangeRate/LongRunGDPGNP.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.autarky_frontier_inside_gnp",
+      "kind": "theorem",
+      "module": "RealExchangeRate/LongRunGDPGNP.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.autarky_frontier_eq_gnp_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/LongRunGDPGNP.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.employment_growth",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ManufacturingEmployment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.cesDemandN",
+      "kind": "def",
+      "module": "RealExchangeRate/ManufacturingEmployment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.hasDerivAt_log_cesDemandN",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ManufacturingEmployment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.wealth_growth",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ManufacturingEmployment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.employment_effect",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ManufacturingEmployment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.employment_effect_unit",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ManufacturingEmployment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.psi_lt_one_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ManufacturingEmployment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.employment_falls",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ManufacturingEmployment.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesIndex",
+      "kind": "def",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDenom",
+      "kind": "def",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice",
+      "kind": "def",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemandT",
+      "kind": "def",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemandN",
+      "kind": "def",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDenom_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_eq_denom_rpow",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_rpow_one_sub",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemand_budget",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemand_ratio",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemandT_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemandN_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesIndex_demand",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemand_eq_price_form",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.ces_rpow_le_tangent",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.ces_tangent_le_rpow",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemand_foc",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesIndex_le_div_price",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_isLeast_cost",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_strictMonoOn",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_logDeriv_at_one",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.ces_powerMean_tendsto",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.ces_tendsto_one_sub_punctured",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_tendsto_cobbDouglas",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_tendsto_model",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesIndex_tendsto_cobbDouglas",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemand_elasticity",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cobbDouglas_mrs",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CESIndex.cobbDouglas_price_exercise8a",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CESIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.grossRealRate",
+      "kind": "def",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.realDiscount",
+      "kind": "def",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.realDiscount_zero",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.grossRealRate_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.realDiscount_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.realDiscount_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.euler_real_rate",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.real_budget",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.consumption_path_of_euler",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.consumption_of_budget",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.consumption_function",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.consumption_function_price_form",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.real_wealth_independent_of_future_prices",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.capital_partial_sum",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.capital_eq_present_value",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.national_budget",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.tradables_budget",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.euler_isoelastic",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.euler_tradables",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.tradables_consumption_path",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.tradables_consumption_function",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.current_account_tradables",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.tradables_consumption_gt_constant_price",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.tradables_consumption_lt_constant_price",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex3_gross_rate_identity",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex3_alternative_budget",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex3_alternative_consumption",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex3_real_current_account",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4_price_div_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4_ratio_strictMonoOn",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4Invariant",
+      "kind": "def",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4Invariant_strictMonoOn",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4_invariant_step",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4a_constant",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4a_level",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4b_step",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4b_current_account_surplus",
+      "kind": "theorem",
+      "module": "RealExchangeRate/ConsumptionDynamics.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.wage_rpow_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/EndogenousLabour.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.leisure_demand",
+      "kind": "theorem",
+      "module": "RealExchangeRate/EndogenousLabour.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.labour_income_rewrite",
+      "kind": "theorem",
+      "module": "RealExchangeRate/EndogenousLabour.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.tradables_consumption_67",
+      "kind": "theorem",
+      "module": "RealExchangeRate/EndogenousLabour.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.tradables_consumption_68",
+      "kind": "theorem",
+      "module": "RealExchangeRate/EndogenousLabour.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.exercise5_tradables_consumption",
+      "kind": "theorem",
+      "module": "RealExchangeRate/EndogenousLabour.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.employment_nontradables",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.price_nontradables",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.price_strictAnti_capital",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.value_marginal_product",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.qDrift",
+      "kind": "def",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.steady_state_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.steady_capital_labour",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.hasDerivAt_qDrift_q",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.hasDerivAt_qDrift_K",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.charPolyJ",
+      "kind": "def",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.charPolyJ_eq_det",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.charPolyJ_disc_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.stable_root_mem",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.rootJ",
+      "kind": "def",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.rootJ_isRoot",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.CostlyCapital.saddle_point",
+      "kind": "theorem",
+      "module": "RealExchangeRate/CostlyCapital.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.relProductivity",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.relProductivity_strictAntiOn",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.home_cheaper_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.relWageSchedule",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.relWage_of_market_clearing",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.relWageSchedule_strictMonoOn",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.relWageSchedule_lt_of_lam_lt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.cutoffGap",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.cutoffGap_eq_zero_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.cutoffGap_strictAntiOn",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.cutoff_exists_unique",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.home_produces_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_statics",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.productivity_rise_statics",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.freeTradePrice",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.freeTradePrice_home",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.freeTradePrice_foreign",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.homeRealWage_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.foreignRealWage_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_home_realWage_own",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_home_realWage_other",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_foreign_realWage_homeGoods",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_foreign_realWage_own",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_foreign_realWage_relocated",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.productivity_rise_home_realWage",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSStatic.productivity_rise_foreign_realWage",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSStatic.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.steadyRate",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.currentAccount",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.currentAccount_home_eq_neg_foreign",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.euler_objective_hasDerivAt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.euler_foc_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.steady_rate_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.steady_consumption",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.steady_consumption_change",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.log_euler",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.log_one_add_rate_hasDerivAt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.steadyRate_div_one_add",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.symmetric_cutoff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.log_odds_hasDerivAt_half",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.log_relProductivity_hasDerivAt_half",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.shockPathUtility",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.shockPathUtility_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock",
+      "kind": "structure",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.mk",
+      "kind": "constructor",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.\u03b2",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.A1",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.\u03bd",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.C",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.CS",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.Cbar",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.CSbar",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.r",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.w",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.wS",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.P",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.dz",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.dB",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.\u03b2_pos",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.\u03b2_lt_one",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq50",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq50S",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq51",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq52",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq53",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq54",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.fn37",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.cutoffA",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.cutoff43",
+      "kind": "projection",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.one_add_steadyRate_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.world_consumption",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.rate_relation",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq55",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq56",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.cutoff_relation",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.cutoff_change",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq57",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq58_pre",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.bond_relation",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq58",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.current_account_deficit",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq59",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.half_annuity",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.home_welfare",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.home_welfare_pos_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.foreign_welfare",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.foreign_welfare_pos",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSCurrentAccount.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.homePrice",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.foreignPrice",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.home_produces_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.foreign_produces_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.cutoff_order",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.nontraded_band",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.relWage_transport",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.expA",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.expA_strictAnti",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.cutoff_link_exp",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.interior_cutoffs_bound",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.Btilde",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.relWage_eq_Btilde",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.Btilde_sub",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.Btilde_strictMonoOn_iff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.Btilde_lt_of_TB_lt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.transfer_effect",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.labour_rise_transport",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.productivity_rise_transport",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.homeRealWage_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.foreignRealWage_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.productivity_rise_home_realWage",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.productivity_rise_foreign_realWage",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.productivity_rise_termsOfTrade",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.priceRatio_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.priceRatio_mono",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.fifth_class_priceRatio",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.fifth_class_requires_large_shock",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.log_cif",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.logHomePriceIndex",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.logForeignPriceIndex",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.log_realExchangeRate",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSTransportCosts.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.priceIndex_le_cost",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSPriceIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.priceIndex_attained",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSPriceIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.expenditure_on_interval",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSPriceIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.logPriceIndex_hasDerivAt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSPriceIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.logRERInCutoff",
+      "kind": "def",
+      "module": "RealExchangeRate/DFSPriceIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.logRERInCutoff_hasDerivAt",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSPriceIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.logRERInCutoff_deriv_zero_at_cutoff",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSPriceIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.cutoff_integrand_eq",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSPriceIndex.lean"
+    },
+    {
+      "name": "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.logRERInCutoff_decreases",
+      "kind": "theorem",
+      "module": "RealExchangeRate/DFSPriceIndex.lean"
+    }
+  ],
+  "full_build": "passed",
+  "fresh_source_compilation": "passed",
+  "fresh_source_lint_options": [
+    "-Dlinter.mathlibStandardSet=true",
+    "-Dlinter.style.header=false"
+  ],
+  "axioms": {
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.\u03b3_lt_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price_homogeneous": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CobbDouglasIndex.price_numeraire": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.PriceLevels.realExchangeRate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.PriceLevels.absolute_ppp_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.PriceLevels.relative_ppp_const": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.PriceLevels.lop_ratio": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.PriceLevels.price_level_ratio": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.PriceLevels.log_price_level_ratio": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.PriceLevels.price_level_gt_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.f": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.fp": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.f_cont": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.hasDeriv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.fp_strictAnti": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.fp_cont": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.fp_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.f_zero_nonneg": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.inada_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.inada_infty": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.crs_intensive_form": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.hasDerivAt_of_between": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.mpl": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.tangent_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.tangent_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.mpl_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.f_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.mpl_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.zero_profit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.crs_profit_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.crs_profit_eq_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.existsUnique_fp_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kinv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kinv_spec": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kinv_continuousAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_foc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_strictAntiOn_r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_continuousAt_r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_continuousAt_A": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.kstar_hasDerivAt_r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_frontier": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_isMax": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_hasDerivAt_r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_hasDerivAt_A": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_path_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_strictAntiOn_r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wage_strictMonoOn_A": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wageRental": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wageRental_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wageRental_continuousOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.existsUnique_wageRental_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wrInv": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wrInv_spec": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wrInv_continuousAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CRSProduction.IntensiveTech.wrInv_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.IsSupplyEqm": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.kN": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqmPrice": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muLT": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muKT": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muLN": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muKN": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.kN_spec": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost_foc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost_zero_profit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost_path_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.supplyEqm_exists": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.supplyEqm_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.supplyEqm_existsUnique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqmPrice_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.kN_strictMonoOn_w": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.unitCost_strictMonoOn_w": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqmPrice_strictMonoOn_AT": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqm_kN_strictMonoOn_AT": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqm_AN_neutral": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muKT_add_muLT": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muKN_add_muLN": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muKN_sub_muKT": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muLT_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muLN_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.muLN_div_muLT": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.logWage_path_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.logPrice_path_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.logPrice_hat_eq9": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.logPrice_hat_r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.bs_price_growth_ge": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.bs_price_rises": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.bs_sign_counterexample": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.eqm_logPrice_deriv_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.price_falls_with_r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.price_r_boundary": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.r_elasticity_neg_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.hbs_log_ratio": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.hbs_path_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.hbs_common_shares": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.hbs_sign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BalassaSamuelson.cobbDouglas_labourShare": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.threeFactor_solves": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.threeFactor_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.threeFactor_price": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.threeFactor_hbs": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.immobileCapital_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.immobileCapital_degenerate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.immobileCapital_price": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex1_zero_max_profit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex1_wage_hat": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.priceN_wage_path": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex1_labour_reallocation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex2_rise_in_r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex2_price_falls_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_lifetime_earnings": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_foc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_optimal_schooling": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_relative_wage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.skillWage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_dlogw_dalpha": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_w_increasing_in_alpha_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_w_strictMono_A": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_w_strictAnti_pi": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6_w_strictAnti_r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.BSExtensions.ex6e_price_increasing_in_w": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.gdp_line": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.gdp_slope_gt_one_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.gdp_eq_factor_income": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.trade_balance_long_run": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.foreign_asset_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.wealth_rise_trade_balance": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.tradables_output_falls": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.autarky_frontier_inside_gnp": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.LongRunGDPGNP.autarky_frontier_eq_gnp_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.employment_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.cesDemandN": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.hasDerivAt_log_cesDemandN": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.wealth_growth": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.employment_effect": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.employment_effect_unit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.psi_lt_one_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ManufacturingEmployment.employment_falls": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesIndex": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDenom": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemandT": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemandN": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDenom_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_eq_denom_rpow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_rpow_one_sub": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemand_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemand_ratio": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemandT_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemandN_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesIndex_demand": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemand_eq_price_form": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.ces_rpow_le_tangent": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.ces_tangent_le_rpow": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemand_foc": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesIndex_le_div_price": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_isLeast_cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_logDeriv_at_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.ces_powerMean_tendsto": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.ces_tendsto_one_sub_punctured": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_tendsto_cobbDouglas": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesPrice_tendsto_model": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesIndex_tendsto_cobbDouglas": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cesDemand_elasticity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cobbDouglas_mrs": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CESIndex.cobbDouglas_price_exercise8a": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.grossRealRate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.realDiscount": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.realDiscount_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.grossRealRate_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.realDiscount_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.realDiscount_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.euler_real_rate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.real_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.consumption_path_of_euler": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.consumption_of_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.consumption_function": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.consumption_function_price_form": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.real_wealth_independent_of_future_prices": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.capital_partial_sum": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.capital_eq_present_value": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.national_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.tradables_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.euler_isoelastic": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.euler_tradables": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.tradables_consumption_path": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.tradables_consumption_function": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.current_account_tradables": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.tradables_consumption_gt_constant_price": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.tradables_consumption_lt_constant_price": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex3_gross_rate_identity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex3_alternative_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex3_alternative_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex3_real_current_account": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4_price_div_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4_ratio_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4Invariant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4Invariant_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4_invariant_step": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4a_constant": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4a_level": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4b_step": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.ConsumptionDynamics.ex4b_current_account_surplus": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.wage_rpow_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.leisure_demand": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.labour_income_rewrite": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.tradables_consumption_67": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.tradables_consumption_68": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.EndogenousLabour.exercise5_tradables_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.employment_nontradables": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.price_nontradables": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.price_strictAnti_capital": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.value_marginal_product": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.qDrift": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.steady_state_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.steady_capital_labour": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.hasDerivAt_qDrift_q": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.hasDerivAt_qDrift_K": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.charPolyJ": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.charPolyJ_eq_det": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.charPolyJ_disc_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.stable_root_mem": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.rootJ": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.rootJ_isRoot": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.CostlyCapital.saddle_point": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.relProductivity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.relProductivity_strictAntiOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.home_cheaper_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.relWageSchedule": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.relWage_of_market_clearing": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.relWageSchedule_strictMonoOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.relWageSchedule_lt_of_lam_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.cutoffGap": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.cutoffGap_eq_zero_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.cutoffGap_strictAntiOn": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.cutoff_exists_unique": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.home_produces_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_statics": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.productivity_rise_statics": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.freeTradePrice": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.freeTradePrice_home": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.freeTradePrice_foreign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.homeRealWage_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.foreignRealWage_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_home_realWage_own": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_home_realWage_other": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_foreign_realWage_homeGoods": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_foreign_realWage_own": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.labour_rise_foreign_realWage_relocated": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.productivity_rise_home_realWage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSStatic.productivity_rise_foreign_realWage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.steadyRate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.currentAccount": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.currentAccount_home_eq_neg_foreign": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.euler_objective_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.euler_foc_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.steady_rate_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.steady_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.steady_consumption_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.log_euler": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.log_one_add_rate_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.steadyRate_div_one_add": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.symmetric_cutoff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.log_odds_hasDerivAt_half": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.log_relProductivity_hasDerivAt_half": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.shockPathUtility": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.shockPathUtility_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.mk": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.\u03b2": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.A1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.\u03bd": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.C": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.CS": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.Cbar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.CSbar": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.r": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.w": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.wS": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.P": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.dz": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.dB": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.\u03b2_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.\u03b2_lt_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq50": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq50S": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq51": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq52": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq53": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq54": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.fn37": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.cutoffA": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.cutoff43": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.one_add_steadyRate_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.world_consumption": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.rate_relation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq55": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq56": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.cutoff_relation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.cutoff_change": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq57": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq58_pre": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.bond_relation": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq58": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.current_account_deficit": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.eq59": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.half_annuity": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.home_welfare": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.home_welfare_pos_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.foreign_welfare": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSCurrentAccount.TemporaryShock.foreign_welfare_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.homePrice": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.foreignPrice": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.home_produces_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.foreign_produces_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.cutoff_order": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.nontraded_band": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.relWage_transport": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.expA": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.expA_strictAnti": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.cutoff_link_exp": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.interior_cutoffs_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.Btilde": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.relWage_eq_Btilde": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.Btilde_sub": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.Btilde_strictMonoOn_iff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.Btilde_lt_of_TB_lt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.transfer_effect": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.labour_rise_transport": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.productivity_rise_transport": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.homeRealWage_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.foreignRealWage_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.productivity_rise_home_realWage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.productivity_rise_foreign_realWage": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.productivity_rise_termsOfTrade": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.priceRatio_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.priceRatio_mono": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.fifth_class_priceRatio": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.fifth_class_requires_large_shock": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.log_cif": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.logHomePriceIndex": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.logForeignPriceIndex": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSTransportCosts.log_realExchangeRate": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.priceIndex_le_cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.priceIndex_attained": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.expenditure_on_interval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.logPriceIndex_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.logRERInCutoff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.logRERInCutoff_hasDerivAt": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.logRERInCutoff_deriv_zero_at_cutoff": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.cutoff_integrand_eq": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ObstfeldRogoff.RealExchangeRate.DFSPriceIndex.logRERInCutoff_decreases": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "RealExchangeRate/Model.lean": "072c8e322e97c7d51a80d26d39ec8a81741d84f2112d4819241f8b2f2edf13db",
+    "RealExchangeRate/PriceLevels.lean": "7c5281320341ca3b29b120633ec237e42e66dc8c276b7b97addb8322dec17c2a",
+    "RealExchangeRate/CRSProduction.lean": "702fee2075d2c948d8c28b17005d38056ccbd17e3d3fc60d1a2328120d387697",
+    "RealExchangeRate/BalassaSamuelson.lean": "83535d2769519315e62e8c1ca451bbc6f05ad68455ec9e70169327ff46200f3b",
+    "RealExchangeRate/BSExtensions.lean": "68b1c2370505c1813342362327b01fa74413f8d6bca6e50eeefb583a92f718f4",
+    "RealExchangeRate/LongRunGDPGNP.lean": "dc3a1229aa8b9d27650adedf64a7e7e8488dfdab469d21910ed0abaae004ec0a",
+    "RealExchangeRate/ManufacturingEmployment.lean": "7390de5dab5187a47bd2f34f5fde1ffeeb5a712e60ab2aabd12c3acf708276a8",
+    "RealExchangeRate/CESIndex.lean": "6629a3513f4d7eea807bf0ab55b0ecfa6c89698b9ec48d0c9f802259b0cb7d3e",
+    "RealExchangeRate/ConsumptionDynamics.lean": "328138b01bd571302cbf4402bf156dc32a1641035dfbda12c029012af27f36af",
+    "RealExchangeRate/EndogenousLabour.lean": "12cb6d9e90981316ca824052fc6503091374bcd20c5578949c6e71ba13231c6f",
+    "RealExchangeRate/CostlyCapital.lean": "47d02f79134e196f667f95d1bca7c1329969bba1a875946793e4843f7d4c7cfb",
+    "RealExchangeRate/DFSStatic.lean": "3b1b5662e8daf8dcdff793b9ba82011cc8784be3380f2476162bc69dadc96363",
+    "RealExchangeRate/DFSCurrentAccount.lean": "d9e6161e90f12ec74429e872ae4f22b9607b21d4dbf833ffbda4a8e12a1b4735",
+    "RealExchangeRate/DFSTransportCosts.lean": "56f7bfa81db2cb88fedfe40d65cb7da4e5b0d6035db0b30bcc9d7fa553293b19",
+    "RealExchangeRate/DFSPriceIndex.lean": "050ba6487d8638079123a5edc38bcee7dbb5586df9c6a87c6b6d5d170ca1e7fc",
+    "RealExchangeRate.lean": "d1817deaa9cc7f3cef4bac51bf18dcec389bf98c4f2a03da0ae07184e8214dfa",
+    "lean-toolchain": "8733782dc070a99b312039cda424f601b80f3be6f6f512627da5ba25adc27632",
+    "lakefile.toml": "d3ea7f0442ba9c242882a53e3eb4542b79611de014ba1343667a1453ee2ae6d4",
+    "lake-manifest.json": "41f9b93713ddc357dcf642b42466fafc537f4251ef4412bde035e322e94ae600",
+    "proof-manifest.json": "570bb484aaa369802ec6c74cda44f4ac2a87a733e9c5e493da4961e13afbb8fe",
+    "scripts/verify.py": "a70b1fa704dd590f937f8b37682afa88a9d85a9150065acb935c7d2c9589da3b",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "fresh_audit_sha256": "d011ccbba623b65e1588bdd7f2c5c53061520030c3d7e65e2ecaff3bda207df1",
+  "lean_toolchain": "leanprover/lean4:v4.34.0",
+  "scope": "Obstfeld and Rogoff (1996), Chapter 4: the real exchange rate and the terms of trade. Price levels, PPP and the law of one price; CRS production and the factor-price frontier; the Balassa-Samuelson model with exact log-derivative results and corrected sign claims; extensions (three factors, immobile capital); the long-run GDP and GNP lines; productivity growth and nontradables employment; the CES price index with duality and Cobb-Douglas limits; consumption dynamics with the consumption-based real interest rate; endogenous labour supply (Appendix 4A); costly capital mobility with a saddle-point theorem (Appendix 4B); the Dornbusch-Fischer-Samuelson continuum model: cutoff existence, comparative statics, real wages, current-account dynamics, transport costs and the price index. Exercises 1-8.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 4, pp. 199-268."
+}

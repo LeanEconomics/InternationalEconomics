@@ -1,0 +1,37 @@
+{
+  "library": "GlobalGrowth",
+  "modules": [
+    "GlobalGrowth/Model.lean",
+    "GlobalGrowth/SolowModel.lean",
+    "GlobalGrowth/SolowExtensions.lean",
+    "GlobalGrowth/RamseyCassKoopmans.lean",
+    "GlobalGrowth/OLGGrowth.lean",
+    "GlobalGrowth/ContinuousTimeLimits.lean",
+    "GlobalGrowth/AKModel.lean",
+    "GlobalGrowth/RomerGrowth.lean",
+    "GlobalGrowth/BorrowingConstrainedOLG.lean",
+    "GlobalGrowth/Immigration.lean",
+    "GlobalGrowth/BrockMirman.lean",
+    "GlobalGrowth/TwoCountryRBC.lean",
+    "GlobalGrowth/LogLinearRBC.lean",
+    "GlobalGrowth/PortfolioGrowth.lean"
+  ],
+  "theorem_counts": {
+    "GlobalGrowth/Model.lean": 2,
+    "GlobalGrowth/SolowModel.lean": 66,
+    "GlobalGrowth/SolowExtensions.lean": 42,
+    "GlobalGrowth/RamseyCassKoopmans.lean": 177,
+    "GlobalGrowth/OLGGrowth.lean": 102,
+    "GlobalGrowth/ContinuousTimeLimits.lean": 43,
+    "GlobalGrowth/AKModel.lean": 54,
+    "GlobalGrowth/RomerGrowth.lean": 124,
+    "GlobalGrowth/BorrowingConstrainedOLG.lean": 68,
+    "GlobalGrowth/Immigration.lean": 54,
+    "GlobalGrowth/BrockMirman.lean": 80,
+    "GlobalGrowth/TwoCountryRBC.lean": 46,
+    "GlobalGrowth/LogLinearRBC.lean": 25,
+    "GlobalGrowth/PortfolioGrowth.lean": 44
+  },
+  "scope": "Obstfeld and Rogoff (1996), Chapter 7: global linkages and economic growth. Solow and its extensions with global convergence, Ramsey-Cass-Koopmans (existence, uniqueness, Euler plus transversality, monotone convergence), Weil OLG growth with the global saddle path, continuous-time limits, AK and learning by doing, Romer growth with transition dynamics, borrowing-constrained OLG, immigration, Brock-Mirman, the two-country RBC model, the log-linear RBC model and portfolio diversification and growth, with Appendices 7A-7B and the exercises.",
+  "source": "Maurice Obstfeld and Kenneth Rogoff (1996), Foundations of International Macroeconomics, MIT Press, Chapter 7, pp. 429-512."
+}
